@@ -1,6 +1,6 @@
 # Project instructions
 
-Read docs/maintenance.md for scope, versioning, release requirements, and the proposed roadmap.
+Read docs/maintenance.md for scope, versioning, release requirements, and milestone-based work tracking.
 
 ## Development
 - Maintain NZBHydra v1. Preserve compatibility with the legacy runtime until an explicitly versioned migration is tested.

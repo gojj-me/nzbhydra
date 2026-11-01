@@ -11,7 +11,9 @@ git clone https://github.com/gojj-me/nzbhydra.git
 cd nzbhydra
 ```
 
-Read [AGENTS.md](AGENTS.md) for contribution instructions and the [maintenance policy](docs/maintenance.md) for versioning, release requirements, cleanup scope, and the proposed roadmap.
+Read [AGENTS.md](AGENTS.md) for contribution instructions and the [maintenance policy](docs/maintenance.md) for versioning, release requirements, cleanup scope, and milestone-based planning.
+
+The next release is [0.3.0](https://github.com/gojj-me/nzbhydra/milestone/1), followed by the 0.3.x series until 0.4.0 is explicitly selected.
 
 The application version is recorded in [version.txt](version.txt); changes for released application versions are recorded in [changelog.md](changelog.md). The legacy application requires Python 2.7.9 or later within the Python 2 series and explicitly rejects Python 3. Future runtime and container changes require separate compatibility work.
 

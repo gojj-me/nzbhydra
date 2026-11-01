@@ -13,10 +13,10 @@ Keep the legacy-image application update path available. An independently built 
 ## Versioning and changelog
 
 - version.txt is the authoritative application version. The imported baseline is 0.2.233.
-- Continue the existing three-component numeric sequence. The next compatible application release is intended to be 0.2.234; it is not released or reserved by a tag yet.
+- The next application release is 0.3.0. Continue with 0.3.1, 0.3.2, and subsequent 0.3.x releases until the maintainer explicitly chooses to start 0.4.0. Do not create a 0.2.234 release.
 - Preserve changelog.md, its separator, its descending `### <version>` headings, and its existing Added/Changed/Fixed wording. The application's changelog reader depends on this structure.
 - At release preparation, add the new version section at the top of the existing version entries and update version.txt in the same change. Do not add an Unreleased heading that changes the first version heading consumed by the legacy reader.
-- Documentation-only changes do not advance the application version. Track unfinished work in issues or the roadmap, not as completed changelog entries.
+- Documentation-only changes do not advance the application version. Track unfinished work in issues and release milestones, not as completed changelog entries.
 - Use a Git tag matching version.txt exactly, consistent with the original numeric tags. Publish release notes matching that changelog section and create archives from that immutable tag.
 - Reject a release if its version, first changelog version, tag, or packaged version.txt disagree. scripts/check_release_metadata.py checks these constraints, with an optional --tag value.
 - package.json contains historical frontend build metadata; its version is not the application release authority.
@@ -42,21 +42,13 @@ Retain runtime code, bundled libraries and notices, tests, fixtures, compiled fr
 
 ## Work tracking
 
-GitHub's default labels describe issue type; there is no required universal roadmap label. Prefer bug, enhancement, documentation, and question, adding narrowly useful area labels only as work requires them.
+Use [GitHub issues](https://github.com/gojj-me/nzbhydra/issues) for concrete tasks with acceptance criteria and [milestones](https://github.com/gojj-me/nzbhydra/milestones) for intended releases. These are the source of truth for scope and progress; do not duplicate the backlog in this document.
 
-Use issues for concrete work with acceptance criteria, pull requests for implementation, milestones for intended releases, and a Project status field for Backlog, Ready, In progress, and Done. A roadmap label is optional for a small number of umbrella issues; a planned label is unnecessary when status already records scheduling. An issue can be both a roadmap item and an enhancement if those labels add useful information.
+The next release is tracked by the [0.3.0 milestone](https://github.com/gojj-me/nzbhydra/milestone/1). Issues use bug for confirmed defects, enhancement for improvements, documentation for documentation work, and question for undecided proposals. Labels describe the work; the milestone schedules it. Do not invent bug reports before a defect has been identified and reproduced.
 
-## Proposed roadmap
+Future work remains in issues without a milestone until selected for a release. Separate roadmap/planned labels or a Project board are not required. Add a board only if the backlog needs more detailed workflow tracking.
 
-1. Establish regression coverage and release packaging for the legacy runtime, then ship focused fixes in the existing numeric version series.
-2. Implement verified application-release updates and recovery for the legacy-image distribution path.
-3. Inventory and pin bundled/backend/frontend dependencies; remove unsupported platform code and unused distribution files only after checking references and behavior.
-4. Define and test the Debian host/Docker/architecture compatibility matrix. Mark untested targets explicitly.
-5. Prototype a reproducible independently built image, drawing on licensed LinuxServer image/baseimage sources and preserving required behavior. Pin base image inputs and separate image revisions from application versions.
-6. Evaluate porting the application and dependencies to a supported Python 3 runtime. Specify API, configuration, database, and frontend compatibility before implementation.
-7. Evaluate Rust in a separate design proposal or prototype with compatibility tests and measurements. A rewrite is not the default implementation plan and should not block maintenance releases.
-
-These are proposed work items, not claims of completed functionality. Create issues and milestones when the corresponding scope is accepted; a full GitHub Project is optional for a small backlog.
+The [runtime modernization comparison](https://github.com/gojj-me/nzbhydra/issues/6) and [independent container build](https://github.com/gojj-me/nzbhydra/issues/7) are unscheduled. Neither a Python 3 port nor a Rust rewrite has been selected. Preserve observable behavior and assess dependency work, implementation effort, maintenance burden, and measured performance before choosing.
 
 ## Source history
 
