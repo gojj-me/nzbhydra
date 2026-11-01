@@ -13,7 +13,9 @@ Keep the legacy-image application update path available. An independently built 
 ## Versioning and changelog
 
 - version.txt is the authoritative application version. The imported baseline is 0.2.233.
-- The next application release is 0.3.0. Continue with 0.3.1, 0.3.2, and subsequent 0.3.x releases until the maintainer explicitly chooses to start 0.4.0. Do not create a 0.2.234 release.
+- The next legacy application release is 0.2.300, maintaining the existing Python 2 implementation. Continue compatible legacy fixes as 0.2.301, 0.2.302, and subsequent 0.2.x releases.
+- Reserve 0.3.0 for a modernized implementation in Rust or a supported Python runtime, selected through issue #6. Do not assume a future Python major version exists or is required. After modernization, continue as 0.3.x until the maintainer explicitly chooses 0.4.0.
+- Keep version.txt and the released changelog at the current baseline until release preparation; a milestone is not a published release.
 - Preserve changelog.md, its separator, its descending `### <version>` headings, and its existing Added/Changed/Fixed wording. The application's changelog reader depends on this structure.
 - At release preparation, add the new version section at the top of the existing version entries and update version.txt in the same change. Do not add an Unreleased heading that changes the first version heading consumed by the legacy reader.
 - Documentation-only changes do not advance the application version. Track unfinished work in issues and release milestones, not as completed changelog entries.
@@ -44,7 +46,7 @@ Retain runtime code, bundled libraries and notices, tests, fixtures, compiled fr
 
 Use [GitHub issues](https://github.com/gojj-me/nzbhydra/issues) for concrete tasks with acceptance criteria and [milestones](https://github.com/gojj-me/nzbhydra/milestones) for intended releases. Together they are the project roadmap and authoritative record of all tasks, scope, status, and progress. Do not duplicate the live backlog in documentation or local notes.
 
-The next release is tracked by the [0.3.0 milestone](https://github.com/gojj-me/nzbhydra/milestone/1). Issues use bug for confirmed defects, enhancement for improvements, documentation for documentation work, and question for undecided proposals. Labels describe the work; the milestone schedules it. Do not invent bug reports before a defect has been identified and reproduced.
+Legacy stabilization and the next release are tracked by the [0.2.300 milestone](https://github.com/gojj-me/nzbhydra/milestone/1). Modernization is tracked separately by the [0.3.0 milestone](https://github.com/gojj-me/nzbhydra/milestone/2). Issues use bug for confirmed defects, enhancement for improvements, documentation for documentation work, and question for undecided proposals. Labels describe the work; the milestone schedules it. Do not invent bug reports before a defect has been identified and reproduced.
 
 ### Issue lifecycle and relationships
 
@@ -61,7 +63,7 @@ Issue text, comments, attachments, and relationship descriptions are public proj
 
 Future work remains in issues without a milestone until selected for a release. Separate roadmap/planned labels or a Project board are not required. Add a board only if the backlog needs more detailed workflow tracking.
 
-The [runtime modernization comparison](https://github.com/gojj-me/nzbhydra/issues/6) and [independent container build](https://github.com/gojj-me/nzbhydra/issues/7) are unscheduled. Neither a Python 3 port nor a Rust rewrite has been selected. Preserve observable behavior and assess dependency work, implementation effort, maintenance burden, and measured performance before choosing.
+The [runtime modernization comparison](https://github.com/gojj-me/nzbhydra/issues/6) belongs to 0.3.0; the [independent container build](https://github.com/gojj-me/nzbhydra/issues/7) remains unscheduled. Neither a Python port nor a Rust rewrite has been selected. Preserve observable behavior and assess dependency work, implementation effort, maintenance burden, and measured performance before choosing.
 
 ## Source history
 

@@ -3,6 +3,7 @@
 Read docs/maintenance.md for scope, versioning, release requirements, and milestone-based work tracking.
 
 ## Development
+- Start legacy Python 2 maintenance releases at 0.2.300 and continue in 0.2.x. Reserve 0.3.0 for the separately selected modernized implementation; then continue 0.3.x until 0.4.0 is explicitly chosen.
 - Maintain NZBHydra v1. Preserve compatibility with the legacy runtime until an explicitly versioned migration is tested.
 - Target Linux containers. Assess future runtime and image changes separately from legacy application fixes.
 - Keep fixes focused, preserve source attribution and third-party licenses, and validate behavior before release.
