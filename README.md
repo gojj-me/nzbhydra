@@ -1,27 +1,24 @@
-**Archiving note**
-This project is archived. It hasn't been updated in years and contains known security issues.
+# NZBHydra
 
-NZBHydra is a meta search for NZB indexers. It provides easy access to a number of raw and newznab based indexers. You can search all your indexers from one place and use it as indexer source for tools like Sonarr or CouchPotato.
+NZBHydra v1 maintenance by [gojj-me](https://github.com/gojj-me).
 
-### Note
-* I don't have anything to do with www.nzbhydra.com
-* While this version still runs fine I recommend using its successor [NZBHydra2](https://github.com/theotherp/nzbhydra2) which runs a lot faster and has more features. Therefore I have removed all instructions regarding usage or development.
+NZBHydra searches multiple NZB indexers from one place and provides a combined indexer endpoint for other applications. This repository maintains the original Python application, targeting Linux containers.
 
+## Development and releases
 
-### Contact ###
-Send me an email at TheOtherP@gmx.de or a PM at https://www.reddit.com/user/TheOtherP
+```sh
+git clone https://github.com/gojj-me/nzbhydra.git
+cd nzbhydra
+```
 
-### Donate ###
-If you like to help me with any running or upcoming costs you're welcome to send money to my bitcoin: 1PnnwWfdyniojCL2kD5ZDBWBuKcFJvrq4t
+Read [AGENTS.md](AGENTS.md) for contribution instructions and the [maintenance policy](docs/maintenance.md) for versioning, release requirements, cleanup scope, and the proposed roadmap.
 
-### Thanks ###
-<img src="https://github.com/theotherp/nzbhydra/raw/gh-pages/images/logo.png" width="60px"/> To Jetbrains for kindly providing me a license for PyCharm - I can't imagine developing without it
+The application version is recorded in [version.txt](version.txt); changes for released application versions are recorded in [changelog.md](changelog.md). The legacy application requires Python 2.7.9 or later within the Python 2 series and explicitly rejects Python 3. Future runtime and container changes require separate compatibility work.
 
-To all testers, bug reporters, donators, all around awesome people
+## Source history
 
-### License ###
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Based on [theotherp/nzbhydra](https://github.com/theotherp/nzbhydra), version **0.2.233**, at commit [`526a7c71eeea56ae2e3bc5677c3f9c5da224539f`](https://github.com/theotherp/nzbhydra/commit/526a7c71eeea56ae2e3bc5677c3f9c5da224539f). Original Git history is preserved; see [source provenance](docs/source-provenance.md).
 
-       http://www.apache.org/licenses/LICENSE-2.0
+## License and attribution
+
+Original NZBHydra by The other P and its contributors. Distributed under the Apache License, Version 2.0; see [LICENSE](LICENSE). Original copyright and third-party notices remain in their respective files.

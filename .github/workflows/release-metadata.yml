@@ -1,0 +1,21 @@
+name: Release metadata
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Check version and changelog
+        run: python scripts/check_release_metadata.py
+      - name: Check release tag
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: python scripts/check_release_metadata.py --tag "$RELEASE_TAG"

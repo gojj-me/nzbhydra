@@ -30,3 +30,14 @@ nzbhydra.pid
 /pushToMasterAndRelease.py
 *.crt
 *.key
+# Private investigation and machine-specific state
+/.local/
+/.env
+/.env.*
+/.private/
+/.envrc
+/credentials.json
+/token.json
+/secrets.json
+/secrets.yaml
+/secrets.yml
