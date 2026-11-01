@@ -13,7 +13,7 @@ cd nzbhydra
 
 Read [AGENTS.md](AGENTS.md) for contribution instructions and the [maintenance policy](docs/maintenance.md) for versioning, release requirements, cleanup scope, and milestone-based planning.
 
-The next release is [0.2.300](https://github.com/gojj-me/nzbhydra/milestone/1), followed by further 0.2.x fixes for the legacy Python 2 application. [0.3.0](https://github.com/gojj-me/nzbhydra/milestone/2) is reserved for a modernized implementation in Rust or a supported Python runtime. That series will continue as 0.3.x until 0.4.0 is explicitly selected.
+The next release is [0.2.300](https://github.com/gojj-me/nzbhydra/milestone/1), followed by further 0.2.x fixes for Python 2.7 within the current Docker image. [0.3.0](https://github.com/gojj-me/nzbhydra/milestone/2) will deliver both a modernized application—Rust or the latest stable Python release available when selected—and a new Docker image. That series will continue as 0.3.x until 0.4.0 is explicitly selected.
 
 The application version is recorded in [version.txt](version.txt); changes for released application versions are recorded in [changelog.md](changelog.md). The legacy application requires Python 2.7.9 or later within the Python 2 series and explicitly rejects Python 3. Future runtime and container changes require separate compatibility work.
 

@@ -8,13 +8,13 @@ Maintain the original NZBHydra v1 application, with Linux containers as the supp
 
 Debian 10, 11, 12, and 13 are requested Docker host compatibility targets, not a claim that the application or Docker vendor currently supports every version. A host runs the Docker engine and kernel; the image supplies the application runtime and userspace. Compatibility must be tested against the specific architecture, kernel, Docker version, storage, permissions, networking, and image. Do not publish a support claim before verifying that combination. Older hosts require a separately documented legacy compatibility policy.
 
-Keep the legacy-image application update path available. An independently built image is a later distribution option, not a prerequisite for fixing the existing application. No replacement image or runtime migration is implemented by this documentation.
+All releases before 0.3.0 fix the existing Python 2.7 application within the current Docker image. Keep that application update path available without replacing the runtime or image. Release 0.3.0 must deliver both the modernized application and a new independently maintained Docker image. No runtime or image change is implemented by this documentation.
 
 ## Versioning and changelog
 
 - version.txt is the authoritative application version. The imported baseline is 0.2.233.
-- The next legacy application release is 0.2.300, maintaining the existing Python 2 implementation. Continue compatible legacy fixes as 0.2.301, 0.2.302, and subsequent 0.2.x releases.
-- Reserve 0.3.0 for a modernized implementation in Rust or a supported Python runtime, selected through issue #6. Do not assume a future Python major version exists or is required. After modernization, continue as 0.3.x until the maintainer explicitly chooses 0.4.0.
+- The next legacy application release is 0.2.300, fixing the existing Python 2.7 implementation within the current Docker image. Continue compatible legacy fixes as 0.2.301, 0.2.302, and subsequent 0.2.x releases.
+- Release 0.3.0 combines a modernized application and a new Docker image; both are required. Choose Rust or the latest stable Python release available when the runtime is selected through issue #6, including a newer Python major version if one exists. Exclude prereleases; no Python version or language is fixed yet. Issue #7 delivers the new image using the selected runtime. Afterward, continue as 0.3.x until the maintainer explicitly chooses 0.4.0.
 - Keep version.txt and the released changelog at the current baseline until release preparation; a milestone is not a published release.
 - Preserve changelog.md, its separator, its descending `### <version>` headings, and its existing Added/Changed/Fixed wording. The application's changelog reader depends on this structure.
 - At release preparation, add the new version section at the top of the existing version entries and update version.txt in the same change. Do not add an Unreleased heading that changes the first version heading consumed by the legacy reader.
@@ -63,7 +63,7 @@ Issue text, comments, attachments, and relationship descriptions are public proj
 
 Future work remains in issues without a milestone until selected for a release. Separate roadmap/planned labels or a Project board are not required. Add a board only if the backlog needs more detailed workflow tracking.
 
-The [runtime modernization comparison](https://github.com/gojj-me/nzbhydra/issues/6) belongs to 0.3.0; the [independent container build](https://github.com/gojj-me/nzbhydra/issues/7) remains unscheduled. Neither a Python port nor a Rust rewrite has been selected. Preserve observable behavior and assess dependency work, implementation effort, maintenance burden, and measured performance before choosing.
+The [runtime modernization decision](https://github.com/gojj-me/nzbhydra/issues/6) and [new Docker image](https://github.com/gojj-me/nzbhydra/issues/7) both belong to 0.3.0. The image build depends on the runtime decision, and both deliverables must be validated before that release. Neither a Python port nor a Rust rewrite has been selected. Preserve observable behavior and assess dependency work, implementation effort, maintenance burden, and measured performance before choosing.
 
 ## Source history
 

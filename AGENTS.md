@@ -3,7 +3,8 @@
 Read docs/maintenance.md for scope, versioning, release requirements, and milestone-based work tracking.
 
 ## Development
-- Start legacy Python 2 maintenance releases at 0.2.300 and continue in 0.2.x. Reserve 0.3.0 for the separately selected modernized implementation; then continue 0.3.x until 0.4.0 is explicitly chosen.
+- Start legacy Python 2.7 maintenance releases at 0.2.300 and continue in 0.2.x, fixing the application within the current Docker image. Do not replace the runtime or image in this series.
+- Release 0.3.0 must deliver both the modernized application (Rust or the latest stable Python release available when selected) and a new Docker image. Then continue 0.3.x until 0.4.0 is explicitly chosen.
 - Maintain NZBHydra v1. Preserve compatibility with the legacy runtime until an explicitly versioned migration is tested.
 - Target Linux containers. Assess future runtime and image changes separately from legacy application fixes.
 - Keep fixes focused, preserve source attribution and third-party licenses, and validate behavior before release.
@@ -13,6 +14,7 @@ Read docs/maintenance.md for scope, versioning, release requirements, and milest
 - GitHub issues and milestones are the authoritative roadmap, task backlog, and source of task status. Do not maintain a competing task list in documentation or local notes.
 - Before starting work, find the relevant issue or create a focused issue with acceptance criteria. Keep its scope, progress, blockers, and milestone current; leave unscheduled work without a milestone.
 - Link related issues, dependencies, parent/sub-issues, pull requests, and release references where useful. Record blocking relationships explicitly and avoid duplicate issues.
+- When an agreed decision changes, audit all affected repository files, issue scopes, milestone assignments, and descriptions. Verify the published GitHub content after pushing before reporting completion.
 - Reference the issue from implementation commits and pull requests. Use closing references only when that change fully resolves the issue.
 - Close completed issues after verifying their acceptance criteria, recording the implementation reference and validation. If cancelled, superseded, or duplicated, close with the reason and link to the replacement or canonical issue. Reopen an issue if its completion proves incorrect.
 - Closing an implementation issue does not imply it has shipped; record the release separately. Close a release milestone after its release is published and remaining work has been resolved or explicitly rescheduled.
