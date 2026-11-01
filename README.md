@@ -17,6 +17,12 @@ The next release is [0.3.0](https://github.com/gojj-me/nzbhydra/milestone/1), fo
 
 The application version is recorded in [version.txt](version.txt); changes for released application versions are recorded in [changelog.md](changelog.md). The legacy application requires Python 2.7.9 or later within the Python 2 series and explicitly rejects Python 3. Future runtime and container changes require separate compatibility work.
 
+## Roadmap and tasks
+
+[GitHub issues](https://github.com/gojj-me/nzbhydra/issues) and [release milestones](https://github.com/gojj-me/nzbhydra/milestones) are the project's roadmap and authoritative record of all tasks and their status. Keep progress and blockers on the relevant issue, link related issues and implementation work, and close issues when completion has been verified. Record why cancelled, superseded, or duplicate work is closed and link its replacement where applicable. Release status is recorded separately from implementation completion.
+
+See the [work-tracking policy](docs/maintenance.md#work-tracking) for the full workflow. Documentation explains policy; it does not duplicate the live backlog.
+
 ## Source history
 
 Based on [theotherp/nzbhydra](https://github.com/theotherp/nzbhydra), version **0.2.233**, at commit [`526a7c71eeea56ae2e3bc5677c3f9c5da224539f`](https://github.com/theotherp/nzbhydra/commit/526a7c71eeea56ae2e3bc5677c3f9c5da224539f). Original Git history is preserved; see [source provenance](docs/source-provenance.md).

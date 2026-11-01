@@ -42,9 +42,22 @@ Retain runtime code, bundled libraries and notices, tests, fixtures, compiled fr
 
 ## Work tracking
 
-Use [GitHub issues](https://github.com/gojj-me/nzbhydra/issues) for concrete tasks with acceptance criteria and [milestones](https://github.com/gojj-me/nzbhydra/milestones) for intended releases. These are the source of truth for scope and progress; do not duplicate the backlog in this document.
+Use [GitHub issues](https://github.com/gojj-me/nzbhydra/issues) for concrete tasks with acceptance criteria and [milestones](https://github.com/gojj-me/nzbhydra/milestones) for intended releases. Together they are the project roadmap and authoritative record of all tasks, scope, status, and progress. Do not duplicate the live backlog in documentation or local notes.
 
 The next release is tracked by the [0.3.0 milestone](https://github.com/gojj-me/nzbhydra/milestone/1). Issues use bug for confirmed defects, enhancement for improvements, documentation for documentation work, and question for undecided proposals. Labels describe the work; the milestone schedules it. Do not invent bug reports before a defect has been identified and reproduced.
+
+### Issue lifecycle and relationships
+
+1. Before implementation, search for an existing issue. Create a focused issue if needed, describing the desired outcome and acceptance criteria. Use synthetic examples and public-safe evidence.
+2. Keep progress, decisions, blockers, and validation on that issue. Assign a release milestone only when the work is selected for that release. Without a board, record active or blocked status in issue updates; an open issue alone does not imply work has started.
+3. Link related issues and pull requests with issue references. Use parent/sub-issue and blocking relationships when appropriate; otherwise explicitly state dependencies with links. Reference the relevant issue in commits and pull requests. Use closing references only for changes that fully resolve it.
+4. Close an issue when its acceptance criteria have been verified and its outcome, implementation reference, and validation are recorded. A commit, pull request, or end of an assistant session alone is not proof of completion.
+5. Close cancelled, superseded, or duplicate issues with an explanation and a link to the replacement or canonical issue where applicable. Reopen work if the claimed resolution proves incorrect.
+6. Distinguish implementation completion from publication: record which release ships the change. Close a release milestone after publishing the release and resolving or explicitly moving any unfinished work.
+
+Issue text, comments, attachments, and relationship descriptions are public project content. Personal operational records and credentials must not be copied there; keep private context separate from the public task status.
+
+### Scheduling
 
 Future work remains in issues without a milestone until selected for a release. Separate roadmap/planned labels or a Project board are not required. Add a board only if the backlog needs more detailed workflow tracking.
 
