@@ -8,7 +8,7 @@ Build the persistent deployment path alongside the authentication-disable fix in
 
 Update a complete, verified application revision and perform a controlled restart. Do not overwrite individual source files while Python is running: loaded modules and new files could otherwise represent different revisions. This is application deployment, not a replacement container image or runtime migration. The modernized application and new image belong to 0.3.0.
 
-## Proposed persistent layout
+## Persistent layout
 
 ```text
 /config/
@@ -24,7 +24,7 @@ Update a complete, verified application revision and perform a controlled restar
     └── state/
 ```
 
-These are proposed application interface paths, not a description of a personal deployment. The implementation may refine them with corresponding documentation changes. Existing user configuration, databases, and logs stay separate from application release directories and must never be included in release archives.
+These are application interface paths, not a description of a personal deployment. Keep documentation synchronized when they change. Existing user configuration, databases, and logs stay separate from application release directories and must never be included in release archives.
 
 The legacy image's custom initialization facility runs the persistent startup hook. On each container start it must idempotently configure application startup to use the selected release. Startup changes made only inside the disposable container filesystem must be reapplied after recreation. Do not assume that every unrelated LinuxServer image has an identical startup interface; validate against the supported legacy image.
 
@@ -52,7 +52,7 @@ Persistence is not a backup. Keep verified recovery copies separately and store 
 
 ## Deployment operation
 
-The intended user interface is one deployment operation selecting a published release or an explicitly chosen test revision. No command is documented as available until implemented and tested.
+The apply command performs one deployment operation for an explicitly selected immutable build. A trusted maintainer must prepare its pinned descriptor first. Stable release artifact automation remains tracked in issues #2 and #3; check reports available stable releases without activating them.
 
 - Verify a recoverable baseline before changing code or data. Stop writers or use a validated consistent database backup procedure; protect SQLite journal files where relevant.
 - Acquire an update lock. Stage a complete artifact in a new directory and validate download success, provenance, checksums, archive safety, file manifest, runtime compatibility, and packaged metadata.
