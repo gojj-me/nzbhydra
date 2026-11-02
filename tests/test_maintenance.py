@@ -119,6 +119,83 @@ class MaintenanceTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             m.boot(self.root)
 
+    def test_boot_offline_uses_verified_previous_build(self):
+        old = self.fixture(); oldpath = m.stage(self.root, old)
+        new = self.fixture('b' * 40)
+        m.select(self.root, 'previous', oldpath)
+        m.write_json(os.path.join(self.root, 'state', 'selected.json'), new)
+        os.unlink(os.path.join(self.root, 'cache', new['source_commit'] + '.tar.gz'))
+        def unavailable(*args):
+            raise RuntimeError('Synthetic network failure')
+        with patched(download=unavailable, configure_service=lambda root: None):
+            self.assertEqual(old, m.boot(self.root))
+        self.assertEqual(oldpath, os.path.realpath(os.path.join(self.root, 'current')))
+
+    def test_boot_without_any_verified_build_fails(self):
+        new = self.fixture('b' * 40)
+        m.write_json(os.path.join(self.root, 'state', 'selected.json'), new)
+        os.unlink(os.path.join(self.root, 'cache', new['source_commit'] + '.tar.gz'))
+        def unavailable(*args):
+            raise RuntimeError('Synthetic network failure')
+        with patched(download=unavailable):
+            with self.assertRaises((IOError, RuntimeError)):
+                m.boot(self.root)
+        self.assertFalse(os.path.lexists(os.path.join(self.root, 'current')))
+
+    def test_lock_rejects_a_second_process(self):
+        import subprocess
+        descriptor = os.path.join(self.root, 'candidate.json')
+        m.write_json(descriptor, self.fixture())
+        with m.locked(self.root):
+            process = subprocess.Popen([__import__('sys').executable, '-B', MODULE,
+                                        '--root', self.root, 'stage', '--descriptor', descriptor],
+                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            _, error = process.communicate()
+        self.assertNotEqual(0, process.returncode)
+        self.assertIn(b'Another maintenance operation is active', error)
+
+    def test_download_failure_removes_partial_file(self):
+        destination = os.path.join(self.root, 'cache', 'download')
+        original = m.subprocess.call
+        def fail(command):
+            with open(destination + '.partial', 'w') as stream:
+                stream.write('incomplete')
+            return 22
+        m.subprocess.call = fail
+        try:
+            with self.assertRaises(RuntimeError):
+                m.download('https://codeload.github.com/example', destination)
+        finally:
+            m.subprocess.call = original
+        self.assertFalse(os.path.exists(destination + '.partial'))
+        self.assertFalse(os.path.exists(destination))
+
+    def test_explicit_recovery_restores_interrupted_transaction(self):
+        old = self.fixture(); oldpath = m.stage(self.root, old)
+        new = self.fixture('b' * 40); newpath = m.stage(self.root, new)
+        backup = os.path.join(self.root, 'backups', 'synthetic')
+        os.makedirs(os.path.join(backup, 'data'))
+        with open(os.path.join(backup, 'data', 'settings.cfg'), 'w') as stream:
+            stream.write('original-data')
+        m.write_json(os.path.join(backup, 'selection.json'), {'path': oldpath, 'descriptor': old})
+        m.write_json(os.path.join(self.root, 'state', 'transaction.json'),
+                     {'backup': backup, 'previous': oldpath, 'previous_descriptor': old})
+        m.write_json(os.path.join(self.root, 'state', 'pending.json'), new)
+        m.select(self.root, 'current', newpath)
+        data = os.path.join(self.root, 'current-data'); os.mkdir(data)
+        with open(os.path.join(data, 'settings.cfg'), 'w') as stream:
+            stream.write('changed-data')
+        with patched(DATA=data, service=lambda up: None, configure_service=lambda root: None,
+                     restore_data_ownership=lambda path: None, health=lambda descriptor: None):
+            result = m.recover(self.root)
+        self.assertEqual(old, result['recovered'])
+        with open(os.path.join(data, 'settings.cfg')) as stream:
+            self.assertEqual('original-data', stream.read())
+        self.assertEqual(oldpath, os.path.realpath(os.path.join(self.root, 'current')))
+        self.assertFalse(os.path.exists(os.path.join(self.root, 'state', 'pending.json')))
+        self.assertFalse(os.path.exists(os.path.join(self.root, 'state', 'transaction.json')))
+
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -313,6 +313,7 @@ def apply(root, descriptor):
         shutil.copytree(DATA, os.path.join(backup, 'data'))
         write_json(os.path.join(backup, 'selection.json'), {'path': previous, 'descriptor': old_descriptor})
         backup_ready = True
+        write_json(os.path.join(root, 'state', 'transaction.json'), {'backup': backup, 'previous': previous, 'previous_descriptor': old_descriptor})
         select(root, 'previous', previous)
         select(root, 'current', target)
         configure_service(root)
@@ -322,6 +323,7 @@ def apply(root, descriptor):
         write_json(os.path.join(root, 'state', 'selected.json'), descriptor)
         os.unlink(os.path.join(root, 'state', 'pending.json'))
         write_json(os.path.join(root, 'state', 'last-transaction.json'), {'backup': backup, 'previous': previous, 'previous_descriptor': old_descriptor, 'installed': descriptor})
+        os.unlink(os.path.join(root, 'state', 'transaction.json'))
     except Exception:
         if not backup_ready:
             service(True)
@@ -352,8 +354,74 @@ def apply(root, descriptor):
         service(True)
         if old_descriptor is not None:
             health(old_descriptor)
+        transaction = os.path.join(root, 'state', 'transaction.json')
+        if os.path.exists(transaction):
+            os.unlink(transaction)
         raise
     return descriptor
+
+
+def recover(root):
+    """Restore an interrupted transaction's matching application/data baseline."""
+    transaction_path = os.path.join(root, 'state', 'transaction.json')
+    if not os.path.isfile(transaction_path):
+        raise RuntimeError('No recoverable transaction record; use the verified external baseline backup')
+    transaction = read_json(transaction_path)
+    backup = os.path.realpath(transaction['backup'])
+    if not backup.startswith(os.path.realpath(os.path.join(root, 'backups')) + os.sep):
+        raise ValueError('Recovery backup is outside maintenance storage')
+    selection = read_json(os.path.join(backup, 'selection.json'))
+    previous = os.path.realpath(transaction['previous'])
+    descriptor = transaction.get('previous_descriptor')
+    if selection != {'path': transaction['previous'], 'descriptor': descriptor}:
+        raise ValueError('Transaction and backup selection disagree')
+    if descriptor is not None:
+        validate_descriptor(descriptor)
+        if previous != os.path.realpath(release_path(root, descriptor)) or verify_release(previous) != descriptor:
+            raise ValueError('Previous application build failed verification')
+    elif previous != '/app/hydra' or not os.path.isfile(os.path.join(root, 'state', 'original-run')):
+        raise ValueError('Original image startup baseline is unavailable')
+    source = os.path.join(backup, 'data')
+    if not os.path.isdir(source) or not os.path.isfile(os.path.join(source, 'settings.cfg')):
+        raise ValueError('Recovery data snapshot is incomplete')
+    # Copy before displacing current data; a copy failure must leave it intact.
+    staged = tempfile.mkdtemp(prefix='.hydra-recovery-', dir=os.path.dirname(DATA))
+    shutil.rmtree(staged)
+    try:
+        shutil.copytree(source, staged)
+        restore_data_ownership(staged)
+        service(False)
+        if os.path.exists(DATA):
+            displaced = os.path.join(backup, 'displaced-' + str(int(time.time() * 1000000)))
+            os.rename(DATA, displaced)
+        os.rename(staged, DATA)
+        select(root, 'current', previous)
+        if descriptor is None:
+            with open(os.path.join(root, 'state', 'original-run'), 'rb') as stream:
+                script = stream.read()
+            for path in ('/etc/services.d/hydra/run', SERVICE + '/run'):
+                atomic_write(path, script, 0o755)
+            # Return recreation startup to the stock image for this baseline.
+            hook = '/config/custom-cont-init.d/50-nzbhydra-maintenance.sh'
+            if os.path.isfile(hook):
+                os.rename(hook, os.path.join(root, 'state', 'recovered-startup-hook'))
+            selected = os.path.join(root, 'state', 'selected.json')
+            if os.path.exists(selected):
+                os.unlink(selected)
+        else:
+            configure_service(root)
+            write_json(os.path.join(root, 'state', 'selected.json'), descriptor)
+        service(True)
+        if descriptor is not None:
+            health(descriptor)
+        for name in ('pending.json', 'transaction.json'):
+            path = os.path.join(root, 'state', name)
+            if os.path.exists(path):
+                os.unlink(path)
+        return {'recovered': descriptor, 'baseline': previous}
+    finally:
+        if os.path.isdir(staged):
+            shutil.rmtree(staged)
 
 
 def boot(root):
@@ -381,7 +449,7 @@ def boot(root):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', default=ROOT)
-    parser.add_argument('command', choices=('stage', 'apply', 'boot', 'status', 'check'))
+    parser.add_argument('command', choices=('stage', 'apply', 'boot', 'status', 'check', 'recover'))
     parser.add_argument('--descriptor')
     args = parser.parse_args()
     if args.command == 'status':
@@ -399,7 +467,9 @@ def main():
     else:
         setup(args.root)
         with locked(args.root):
-            if args.command == 'boot':
+            if args.command == 'recover':
+                result = recover(args.root)
+            elif args.command == 'boot':
                 result = boot(args.root)
             else:
                 if not args.descriptor:

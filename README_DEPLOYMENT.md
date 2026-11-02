@@ -86,9 +86,14 @@ Run inside the supported legacy container as root:
 ```sh
 python /config/nzbhydra-maintenance/updater/maintenance.py status
 python /config/nzbhydra-maintenance/updater/maintenance.py check
+python /config/nzbhydra-maintenance/updater/maintenance.py recover
 python /config/nzbhydra-maintenance/updater/maintenance.py apply --descriptor /config/nzbhydra-maintenance/state/candidate.json
 ```
 
 A candidate descriptor pins source_commit, archive_sha256, application_version, target_release, channel, and included_fixes. It is supplied by the maintainer after testing. Apply downloads the pinned GitHub source archive, validates and stages it, snapshots application data with the service stopped, activates, checks the build header, and restores code/data automatically on failed health checks. Boot restores a missing selected release from the verified archive cache or the pinned GitHub archive; stable-release checking is explicit and check-only. Updater/bootstrap updates require a separately reviewed installation; they do not self-update from a branch.
 
-Status reports exact revision and included fixes. Startup logs and the X-NZBHydra-Build HTTP header identify the running revision. The authenticated version endpoint also includes build metadata. Unreleased test builds retain the current released version.txt; target_release is not a claim of publication. Interrupted deployments fail closed and need operator recovery. Baseline image/data backups remain necessary; automatic failure rollback is not a substitute for disaster recovery.
+Status reports exact revision and included fixes. Startup logs and the X-NZBHydra-Build HTTP header identify the running revision. The authenticated version endpoint also includes build metadata. Unreleased test builds retain the current released version.txt; target_release is not a claim of publication. Interrupted deployments fail closed. The explicit recover command uses the durable transaction record and its matching application/data snapshot; it preserves displaced data for investigation and refuses missing or inconsistent recovery records. It restores the original image startup hook when recovering the original baseline. Do not run recover as a routine update: it intentionally restores older data, so later application changes may be displaced. Without a transaction record or valid snapshot, use the separately verified external recovery backup. Baseline image/data backups remain necessary; automatic failure rollback is not a substitute for disaster recovery.
+
+## Maintenance-tool upgrades
+
+A tool-only upgrade does not change the selected application build. Review the pinned source revision, run maintenance tests in the exact legacy image, compare the candidate script checksum, acquire the maintenance lock, retain the installed script in private persistent recovery storage, and atomically replace it. Verify the installed checksum and current application health afterward. Keep the existing trusted bootstrap interface compatible; bootstrap changes and stable release tooling remain subject to the outstanding acceptance criteria in issue #3. Never download and execute a moving-branch script as root.
