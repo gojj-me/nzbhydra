@@ -69,6 +69,8 @@ At release preparation, version.txt, the first changelog version, Git tag, relea
 
 ## Validation boundary
 
+Before creating or restructuring multi-part work, ask the maintainer to choose a checklist in one issue or linked sub-issues, with a concise proposed grouping. Do not select the granularity or split, merge, or convert issues without that decision. Keep the agreed tracking current without repeatedly requesting the same choice. Mark only verified criteria complete, leave partial work open, and report completed/total counts plus remaining work. Percentages describe item counts, not effort; a partially complete issue stays open.
+
 Issue #3 owns the deployment acceptance criteria; [issue #1](https://github.com/gojj-me/nzbhydra/issues/1) covers regression infrastructure, [issue #2](https://github.com/gojj-me/nzbhydra/issues/2) release packaging, and [issue #5](https://github.com/gojj-me/nzbhydra/issues/5) public release documentation. Record progress and validation on those issues rather than maintaining a second checklist here.
 
 Validate with isolated synthetic data before use: restart, recreation with the same mount, missing-release restoration, offline startup, rejected downloads, concurrent updates, failed health checks, and recovery. Do not exercise production indexers or download clients as part of test setup.

@@ -25,6 +25,8 @@ See [README_DEPLOYMENT.md](README_DEPLOYMENT.md) for the persistent application 
 
 [GitHub issues](https://github.com/gojj-me/nzbhydra/issues) and [release milestones](https://github.com/gojj-me/nzbhydra/milestones) are the project's roadmap and authoritative record of all tasks and their status. Keep progress and blockers on the relevant issue, link related issues and implementation work, and close issues when completion has been verified. Record why cancelled, superseded, or duplicate work is closed and link its replacement where applicable. Release status is recorded separately from implementation completion.
 
+Before creating or restructuring multi-part work, ask the maintainer to choose a checklist in one issue or linked sub-issues, with a concise proposed grouping. Do not select the granularity or split, merge, or convert issues without that decision. Keep the agreed tracking current without repeatedly requesting the same choice. Mark only verified criteria complete, leave partial work open, and report completed/total counts plus remaining work. Percentages describe item counts, not effort; a partially complete issue stays open.
+
 See the [work-tracking policy](docs/maintenance.md#work-tracking) for the full workflow. Documentation explains policy; it does not duplicate the live backlog.
 
 ## Source history

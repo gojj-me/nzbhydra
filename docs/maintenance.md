@@ -42,11 +42,15 @@ Use [GitHub issues](https://github.com/gojj-me/nzbhydra/issues) for concrete tas
 
 Legacy stabilization and the next release are tracked by the [0.2.300 milestone](https://github.com/gojj-me/nzbhydra/milestone/1). Modernization is tracked separately by the [0.3.0 milestone](https://github.com/gojj-me/nzbhydra/milestone/2). Issues use bug for confirmed defects, enhancement for improvements, documentation for documentation work, and question for undecided proposals. Labels describe the work; the milestone schedules it. Do not invent bug reports before a defect has been identified and reproduced.
 
+### Tracking structure and partial completion
+
+Before creating or restructuring multi-part work, ask the maintainer to choose a checklist in one issue or linked sub-issues, with a concise proposed grouping. Do not select the granularity or split, merge, or convert issues without that decision. Keep the agreed tracking current without repeatedly requesting the same choice. Mark only verified criteria complete, leave partial work open, and report completed/total counts plus remaining work. Percentages describe item counts, not effort; a partially complete issue stays open.
+
 ### Issue lifecycle and relationships
 
 1. Before implementation, search for an existing issue. Create a focused issue if needed, describing the desired outcome and acceptance criteria. Use synthetic examples and public-safe evidence.
 2. Keep progress, decisions, blockers, and validation on that issue. Assign a release milestone only when the work is selected for that release. Without a board, record active or blocked status in issue updates; an open issue alone does not imply work has started.
-3. Link related issues and pull requests with issue references. Use parent/sub-issue and blocking relationships when appropriate; otherwise explicitly state dependencies with links. Reference the relevant issue in commits and pull requests. Use closing references only for changes that fully resolve it.
+3. Link related issues and pull requests with issue references. Use parent/sub-issue relationships only in the agreed tracking structure, and record blocking relationships when appropriate; otherwise explicitly state dependencies with links. Reference the relevant issue in commits and pull requests. Use closing references only for changes that fully resolve it.
 4. Close an issue when its acceptance criteria have been verified and its outcome, implementation reference, and validation are recorded. A commit, pull request, or end of an assistant session alone is not proof of completion.
 5. Close cancelled, superseded, or duplicate issues with an explanation and a link to the replacement or canonical issue where applicable. Reopen work if the claimed resolution proves incorrect.
 6. Distinguish implementation completion from publication: record which release ships the change. Close a release milestone after publishing the release and resolving or explicitly moving any unfinished work.
