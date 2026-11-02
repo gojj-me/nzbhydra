@@ -24,17 +24,11 @@ All releases before 0.3.0 fix the existing Python 2.7 application within the cur
 - package.json contains historical frontend build metadata; its version is not the application release authority.
 - Define a new series and explicit compatibility/migration policy before publishing breaking runtime or data changes. Do not present historical 0.x numbering as a promise of strict Semantic Versioning.
 
-## Release requirements
+## Release and deployment requirements
 
-1. Review the source changes and all public artifacts for private information and credentials.
-2. Run release metadata checks and relevant behavioral tests in the applicable runtime. The metadata CI job is not an application compatibility test.
-3. Build a minimal application archive from an explicit file manifest, retaining required libraries, compiled frontend assets, templates, version/changelog files, and license notices. Runtime requirements must be established before excluding files.
-4. Publish checksums and an immutable release record. A checksum provides integrity checking; it is not independent proof of authenticity. Define trusted release provenance separately.
-5. The planned updater selects published stable releases, stages and validates downloads, rejects unsafe archive entries, and records the installed release only after a successful health check.
-6. Define recovery for both application selection and database migrations. Generic recovery procedures may be public; actual backup locations, contents, and status remain private.
-7. Test upgrades, failed downloads, failed starts, rollback, and restart persistence using isolated test data before claiming compatibility.
+[README_DEPLOYMENT.md](../README_DEPLOYMENT.md) defines the persistent application deployment design, startup/recreation behavior, update channels, activation, recovery, and validation boundaries. Keep that design in one place rather than duplicating it here. [Issue #3](https://github.com/gojj-me/nzbhydra/issues/3) tracks implementation, alongside the first fix in #9; subsequent fixes use the tested deployment path.
 
-The current updater reads a branch version file and overwrites application files from an archive. It does not yet meet these release requirements. No automated deployment is enabled by this policy.
+A release requires reviewed public-safe artifacts, matching version/changelog/tag/package metadata, behavioral validation in the applicable runtime, and verified update/recovery behavior. The metadata CI job alone does not establish application compatibility. The current legacy updater does not yet satisfy the target design; no deployment functionality is installed by documentation changes.
 
 ## Repository cleanup
 
@@ -44,7 +38,7 @@ Retain runtime code, bundled libraries and notices, tests, fixtures, compiled fr
 
 ## Work tracking
 
-Use [GitHub issues](https://github.com/gojj-me/nzbhydra/issues) for concrete tasks with acceptance criteria and [milestones](https://github.com/gojj-me/nzbhydra/milestones) for intended releases. Together they are the project roadmap and authoritative record of all tasks, scope, status, and progress. Do not duplicate the live backlog in documentation or local notes.
+Use [GitHub issues](https://github.com/gojj-me/nzbhydra/issues) for concrete tasks with acceptance criteria and [milestones](https://github.com/gojj-me/nzbhydra/milestones) for intended releases. Together they are the project roadmap and authoritative record of all tasks, scope, status, and progress. All substantive work—bugs, enhancements, investigations, deployment, and documentation—must be covered by a labeled issue. Reuse existing issues instead of duplicating them; individual commands and routine checks belong to the relevant task, not separate issues. Do not duplicate the live backlog in documentation or local notes.
 
 Legacy stabilization and the next release are tracked by the [0.2.300 milestone](https://github.com/gojj-me/nzbhydra/milestone/1). Modernization is tracked separately by the [0.3.0 milestone](https://github.com/gojj-me/nzbhydra/milestone/2). Issues use bug for confirmed defects, enhancement for improvements, documentation for documentation work, and question for undecided proposals. Labels describe the work; the milestone schedules it. Do not invent bug reports before a defect has been identified and reproduced.
 

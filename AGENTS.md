@@ -7,11 +7,13 @@ Read docs/maintenance.md for scope, versioning, release requirements, and milest
 - Release 0.3.0 must deliver both the modernized application (Rust or the latest stable Python release available when selected) and a new Docker image. Then continue 0.3.x until 0.4.0 is explicitly chosen.
 - Maintain NZBHydra v1. Preserve compatibility with the legacy runtime until an explicitly versioned migration is tested.
 - Target Linux containers. Assess future runtime and image changes separately from legacy application fixes.
+- Build the persistent deployment path in issue #3 alongside the fix in #9. Use the tested deployment path for subsequent fixes; read README_DEPLOYMENT.md before deployment work.
 - Keep fixes focused, preserve source attribution and third-party licenses, and validate behavior before release.
 - Do not delete bundled dependencies, frontend build sources, fixtures, or runtime branches merely because they are old. Establish references and verify behavior first.
 
 ## Task tracking
 - GitHub issues and milestones are the authoritative roadmap, task backlog, and source of task status. Do not maintain a competing task list in documentation or local notes.
+- Track all substantive project work, including bugs, enhancements, investigations, deployment work, and documentation, under labeled GitHub issues. Reuse an existing issue when it covers the work; do not create duplicates or one issue per shell command.
 - Before starting work, find the relevant issue or create a focused issue with acceptance criteria. Keep its scope, progress, blockers, and milestone current; leave unscheduled work without a milestone.
 - Link related issues, dependencies, parent/sub-issues, pull requests, and release references where useful. Record blocking relationships explicitly and avoid duplicate issues.
 - When an agreed decision changes, audit all affected repository files, issue scopes, milestone assignments, and descriptions. Verify the published GitHub content after pushing before reporting completion.
