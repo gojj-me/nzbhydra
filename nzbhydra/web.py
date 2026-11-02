@@ -106,6 +106,8 @@ def identify_maintenance_build(response):
 
 app.wsgi_app = ReverseProxied(app.wsgi_app)
 app.config["SESSION_TYPE"] = "filesystem"
+if os.environ.get("NZBHYDRA_SESSION_DIR"):
+    app.config["SESSION_FILE_DIR"] = os.environ["NZBHYDRA_SESSION_DIR"]
 app.config["PRESERVE_CONTEXT_ON_EXCEPTION"] = True
 app.config["PROPAGATE_EXCEPTIONS"] = True
 app.url_map.strict_slashes = False

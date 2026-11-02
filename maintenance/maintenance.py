@@ -216,6 +216,7 @@ def configure_service(root):
     # Runtime service dir is a copy of /etc/services.d in this s6-overlay image.
     text = '''#!/usr/bin/with-contenv bash
 set -eu
+export NZBHYDRA_SESSION_DIR=/config/hydra/flask_session
 exec s6-setuidgid abc python %s/current/nzbhydra.py --nobrowser --config /config/hydra/settings.cfg --database /config/hydra/nzbhydra.db --logfile /config/hydra/nzbhydra.log
 ''' % root
     for path in ('/etc/services.d/hydra/run', SERVICE + '/run'):
