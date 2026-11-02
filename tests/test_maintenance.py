@@ -207,6 +207,17 @@ class MaintenanceTests(unittest.TestCase):
         os.symlink(self.root, os.path.join(path, 'unexpected'))
         with self.assertRaises(ValueError): m.verify_release(path)
 
+    def test_boot_does_not_downgrade_code_without_matching_data(self):
+        old = self.fixture(); oldpath = m.stage(self.root, old)
+        new = self.fixture('b' * 40); new['application_version'] = '0.2.300'
+        m.select(self.root, 'previous', oldpath)
+        m.write_json(os.path.join(self.root, 'state', 'selected.json'), new)
+        os.unlink(os.path.join(self.root, 'cache', new['source_commit'] + '.tar.gz'))
+        def offline(*args): raise RuntimeError('Synthetic network failure')
+        with patched(download=offline):
+            with self.assertRaises(RuntimeError): m.boot(self.root)
+        self.assertEqual(new, m.read_json(os.path.join(self.root, 'state', 'selected.json')))
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -108,7 +108,7 @@ The release-assets workflow runs only after a stable legacy GitHub release is ex
 
 Trust starts with the reviewed local installer and the fixed startup interface, the configured repository owner/control, GitHub's authenticated release/tag responses, and HTTPS certificate verification. Asset checksums bind the downloaded bytes to the release descriptor; they are not independent signatures. The mechanism does not claim protection against a compromised trusted repository administrator or GitHub account. No signing private keys or authentication credentials are stored in Git or release artifacts.
 
-The installed release manifest is verified strictly: missing, altered, or unexpected files and symlinked entries are rejected. The checksum-pinned archive and tag/revision binding preserve the selected build through restoration. Test descriptors are explicit maintainer-supplied pins; branch contents never activate on their own.
+The installed release manifest is verified strictly: missing, altered, or unexpected files and symlinked entries are rejected. The checksum-pinned archive and tag/revision binding preserve the selected build through restoration. Boot will not automatically fall back to a different application version against newer data; use application recover with its matching snapshot instead. Test descriptors are explicit maintainer-supplied pins; branch contents never activate on their own.
 
 ## Versioned maintenance-tool upgrades and recovery
 

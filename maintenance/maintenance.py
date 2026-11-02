@@ -457,6 +457,8 @@ def boot(root):
         previous = os.path.realpath(os.path.join(root, 'previous'))
         old = verify_release(previous)
         validate_descriptor(old)
+        if old['application_version'] != descriptor['application_version']:
+            raise RuntimeError('Fallback version differs; use recover with the matching data snapshot')
         target = previous
         descriptor = old
         write_json(selected_path, descriptor)
