@@ -7,7 +7,7 @@ Read docs/maintenance.md for scope, versioning, release requirements, and milest
 - Release 0.3.0 must deliver both the modernized application (Rust or the latest stable Python release available when selected) and a new Docker image. Then continue 0.3.x until 0.4.0 is explicitly chosen.
 - Maintain NZBHydra v1. Preserve compatibility with the legacy runtime until an explicitly versioned migration is tested.
 - Target Linux containers. Assess future runtime and image changes separately from legacy application fixes.
-- Build the persistent deployment path in issue #3 alongside the fix in #9. Use the tested deployment path for subsequent fixes; read README_DEPLOYMENT.md before deployment work.
+- Use the persistent deployment path implemented in issue #3 for subsequent fixes; its first integrated fix is #9; read README_DEPLOYMENT.md before deployment work.
 - Keep release-fixes.json synchronized with included verified issue fixes; release tooling must bind version, changelog, tag, source revision, artifacts, and descriptor.
 - Keep fixes focused, preserve source attribution and third-party licenses, and validate behavior before release.
 - Do not delete bundled dependencies, frontend build sources, fixtures, or runtime branches merely because they are old. Establish references and verify behavior first.

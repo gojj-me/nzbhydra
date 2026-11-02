@@ -1,6 +1,6 @@
 # Persistent application deployment
 
-Target design for Python 2.7 application updates within the existing Docker image, starting with 0.2.300. Implementation, validation, and current task status are tracked in [issue #3](https://github.com/gojj-me/nzbhydra/issues/3). The maintenance tools are implemented under maintenance/. Deployment validation and remaining release work are recorded in issue #3.
+Persistent maintenance for Python 2.7 application updates within the existing Docker image, starting with 0.2.300. Implementation, validation, and current task status are tracked in [issue #3](https://github.com/gojj-me/nzbhydra/issues/3). The maintenance tools are implemented under maintenance/. Implementation and validation evidence are recorded in issue #3; preparation of the complete application release is tracked by its release milestone.
 
 ## Purpose
 
