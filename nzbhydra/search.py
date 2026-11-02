@@ -185,6 +185,10 @@ def pick_indexers(search_request):
             continue
         try:
             status = p.indexer.status.get()
+            if status.disabled_permanently:
+                logger.info("Did not pick %s because authentication disablement requires explicit re-enablement" % p)
+                add_not_picked_indexer(notPickedReasons, "Permanently disabled", p.name)
+                continue
             if status.disabled_until and status.disabled_until > arrow.utcnow() and not config.settings.searching.ignoreTemporarilyDisabled:
                 logger.info("Did not pick %s because it is disabled temporarily due to an error: %s" % (p, status.reason))
                 add_not_picked_indexer(notPickedReasons, "Temporarily disabled", p.name)
@@ -534,7 +538,8 @@ def search_and_handle_db(dbsearch, indexers_and_search_requests):
                     try:
                         result.indexerApiAccessEntry.indexer = Indexer.get(Indexer.name == indexer)
                         result.indexerApiAccessEntry.save()
-                        result.indexerStatus.save()
+                        # Status transitions are persisted atomically by the search module.
+                        # Saving this older response snapshot could undo a concurrent auth failure.
                     except Indexer.DoesNotExist:
                         logger.error("Tried to save indexer API access but no indexer with name %s was found in the database. Adding it now. This shouldn't've happened. If possible send a bug report with a full log." % indexer)
                         Indexer().create(name=indexer)

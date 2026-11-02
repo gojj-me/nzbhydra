@@ -142,6 +142,10 @@ def getUpdateManager():
 
 
 def update():
+    from nzbhydra.build_info import get_build_info
+    if get_build_info():
+        logger.error("Managed maintenance build: use the persistent maintenance updater instead of overwriting running source files")
+        return False
     return getUpdateManager().update()
     
 

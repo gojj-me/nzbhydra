@@ -93,6 +93,17 @@ class ReverseProxied(object):
 logger = logging.getLogger('root')
 
 app = Flask(__name__)
+
+
+@app.after_request
+def identify_maintenance_build(response):
+    from nzbhydra.build_info import get_build_info
+    revision = get_build_info().get("source_commit")
+    if revision:
+        response.headers["X-NZBHydra-Build"] = revision
+    return response
+
+
 app.wsgi_app = ReverseProxied(app.wsgi_app)
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["PRESERVE_CONTEXT_ON_EXCEPTION"] = True
@@ -1378,6 +1389,9 @@ def internalapi_getversions():
     rep_version, rep_version_readable = get_rep_version()
 
     versionsInfo = {"currentVersion": str(current_version_readable), "repVersion": str(rep_version_readable), "updateAvailable": rep_version > current_version}
+
+    from nzbhydra.build_info import get_build_info
+    versionsInfo["build"] = get_build_info()
 
     if rep_version > current_version:
         changelog = getChangelog(current_version_readable, rep_version_readable)

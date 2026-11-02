@@ -1,6 +1,6 @@
 # Persistent application deployment
 
-Target design for Python 2.7 application updates within the existing Docker image, starting with 0.2.300. Implementation, validation, and current task status are tracked in [issue #3](https://github.com/gojj-me/nzbhydra/issues/3). This document is a design specification, not an executable installation procedure or a claim that deployment tools already exist.
+Target design for Python 2.7 application updates within the existing Docker image, starting with 0.2.300. Implementation, validation, and current task status are tracked in [issue #3](https://github.com/gojj-me/nzbhydra/issues/3). The maintenance tools are implemented under maintenance/. Deployment validation and remaining release work are recorded in issue #3.
 
 ## Purpose
 
@@ -76,3 +76,17 @@ Validate with isolated synthetic data before use: restart, recreation with the s
 ## Privacy
 
 Publish only generic behavior and synthetic examples. Keep machine identities, credentials, real configuration, raw logs, search histories, operational measurements, and backup records out of public documentation and issues. No private key or API token belongs in release artifacts or Git history, including private repositories.
+
+## Maintenance commands
+
+Run inside the supported legacy container as root:
+
+```sh
+python /config/nzbhydra-maintenance/updater/maintenance.py status
+python /config/nzbhydra-maintenance/updater/maintenance.py check
+python /config/nzbhydra-maintenance/updater/maintenance.py apply --descriptor /config/nzbhydra-maintenance/state/candidate.json
+```
+
+A candidate descriptor pins source_commit, archive_sha256, application_version, target_release, channel, and included_fixes. It is supplied by the maintainer after testing. Apply downloads the pinned GitHub source archive, validates and stages it, snapshots application data with the service stopped, activates, checks the build header, and restores code/data automatically on failed health checks. Boot restores a missing selected release from the verified archive cache or the pinned GitHub archive; stable-release checking is explicit and check-only. Updater/bootstrap updates require a separately reviewed installation; they do not self-update from a branch.
+
+Status reports exact revision and included fixes. Startup logs and the X-NZBHydra-Build HTTP header identify the running revision. The authenticated version endpoint also includes build metadata. Unreleased test builds retain the current released version.txt; target_release is not a claim of publication. Interrupted deployments fail closed and need operator recovery. Baseline image/data backups remain necessary; automatic failure rollback is not a substitute for disaster recovery.

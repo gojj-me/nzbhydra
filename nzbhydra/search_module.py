@@ -290,20 +290,22 @@ class SearchModule(object):
     disable_periods = [0, 15, 30, 60, 3 * 60, 6 * 60, 12 * 60, 24 * 60]
 
     def handle_indexer_success(self, doSaveIndexerStatus=True):
-        # Deescalate level by 1 (or stay at 0) and reset reason and disable-time
-        try:
-            indexer_status = self.indexer.status.get()
-        except IndexerStatus.DoesNotExist:
-            indexer_status = IndexerStatus(indexer=self.indexer)
-        if indexer_status.level > 0:
-            indexer_status.level -= 1
-        indexer_status.reason = None
-        indexer_status.disabled_permanently = False
-        indexer_status.disabled_until = arrow.get(0)  # Because I'm too dumb to set it to None/null
-
-        if doSaveIndexerStatus:
-            self.saveIndexerStatus(indexer_status)
-        return indexer_status
+        # Serialize read/modify/write and keep authentication disablement sticky.
+        # Only the explicit enable-indexer operation may clear it.
+        with databaseLock:
+            try:
+                indexer_status = self.indexer.status.get()
+            except IndexerStatus.DoesNotExist:
+                indexer_status = IndexerStatus(indexer=self.indexer)
+            if indexer_status.disabled_permanently:
+                return indexer_status
+            if indexer_status.level > 0:
+                indexer_status.level -= 1
+            indexer_status.reason = None
+            indexer_status.disabled_until = arrow.get(0)
+            if doSaveIndexerStatus:
+                indexer_status.save()
+            return indexer_status
 
     @retry((InterfaceError, OperationalError), delay=1, tries=5, logger=logger)
     def saveIndexerStatus(self, indexer_status):
@@ -311,29 +313,31 @@ class SearchModule(object):
             indexer_status.save()
 
     def handle_indexer_failure(self, reason=None, disable_permanently=False, saveIndexerStatus=True):
-        # Escalate level by 1. Set disabled-time according to level so that with increased level the time is further in the future
-        try:
-            indexer_status = self.indexer.status.get()
-        except IndexerStatus.DoesNotExist:
-            indexer_status = IndexerStatus(indexer=self.indexer)
+        with databaseLock:
+            # Escalate level by 1. Set disabled-time according to level so that with increased level the time is further in the future
+            try:
+                indexer_status = self.indexer.status.get()
+            except IndexerStatus.DoesNotExist:
+                indexer_status = IndexerStatus(indexer=self.indexer)
 
-        if indexer_status.level == 0:
-            indexer_status.first_failure = arrow.utcnow()
+            if indexer_status.level == 0:
+                indexer_status.first_failure = arrow.utcnow()
 
-        indexer_status.latest_failure = arrow.utcnow()
-        indexer_status.reason = reason  # Overwrite the last reason if one is set, should've been logged anyway
-        if disable_permanently:
-            indexer_status.disabled_permanently = True
-            self.info("Disabling indexer permanently until reenabled by user because the authentication failed")
-        else:
-            indexer_status.level = min(len(self.disable_periods) - 1, indexer_status.level + 1)
-            indexer_status.disabled_until = arrow.utcnow().replace(minutes=+self.disable_periods[indexer_status.level])
-            self.info("Disabling indexer temporarily due to access problems. Will be reenabled %s" % indexer_status.disabled_until.humanize())
+            indexer_status.latest_failure = arrow.utcnow()
+            indexer_status.reason = reason  # Overwrite the last reason if one is set, should've been logged anyway
+            if disable_permanently:
+                indexer_status.disabled_permanently = True
+                self.info("Disabling indexer permanently until reenabled by user because the authentication failed")
+            else:
+                indexer_status.level = min(len(self.disable_periods) - 1, indexer_status.level + 1)
+                indexer_status.disabled_until = arrow.utcnow().replace(minutes=+self.disable_periods[indexer_status.level])
+                self.info("Disabling indexer temporarily due to access problems. Will be reenabled %s" % indexer_status.disabled_until.humanize())
 
-        if saveIndexerStatus:
-            self.saveIndexerStatus(indexer_status)
+            if saveIndexerStatus:
+                indexer_status.save()
 
-        return indexer_status
+            return indexer_status
+
 
     def get(self, url, timeout=None, cookies=None):
         # overwrite for special handling, e.g. cookies
@@ -371,12 +375,14 @@ class SearchModule(object):
             papiaccess.response_time = (time_after - time_before).seconds * 1000 + ((time_after - time_before).microseconds / 1000)
             papiaccess.response_successful = True
             self.debug("HTTP request to indexer completed in %dms" % papiaccess.response_time)
-            indexerStatus = self.handle_indexer_success(doSaveIndexerStatus=saveToDb)
+            # HTTP 200 is not authenticated search success: validate the body first.
+            if type != "search":
+                indexerStatus = self.handle_indexer_success(doSaveIndexerStatus=saveToDb)
         except RequestException as e:
             self.error("Error while connecting to URL %s: %s" % (url, str(e)))
             papiaccess.error = "Connection failed: %s" % removeSensitiveData(str(e))
             response = None
-            indexerStatus = self.handle_indexer_failure("Connection failed: %s" % removeSensitiveData(str(e)), saveIndexerStatus=saveToDb)
+            indexerStatus = self.handle_indexer_failure("Connection failed: %s" % removeSensitiveData(str(e)), saveIndexerStatus=True)
         finally:
             if saveToDb:
                 self.saveIndexerStatus(papiaccess)
@@ -445,7 +451,7 @@ class SearchModule(object):
                         rejected = parsed_results.rejected
 
                         papiaccess.response_successful = True
-                        indexerStatus = self.handle_indexer_success(False)
+                        indexerStatus = self.handle_indexer_success()
                     except Exception:
                         self.exception("Error while processing search results from indexer %s" % self)
                         raise IndexerResultParsingException("Error while parsing the results from indexer", self)

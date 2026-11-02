@@ -100,6 +100,12 @@ def run(arguments):
 
     try:
         logger.info("Started")
+        from nzbhydra.build_info import get_build_info
+        build = get_build_info()
+        if build:
+            logger.info("Maintenance build %s; channel %s; target %s; included fixes %s",
+                        build.get("source_commit"), build.get("channel"),
+                        build.get("target_release"), build.get("included_fixes"))
 
         if arguments.daemon:
             logger.info("Daemonizing...")
