@@ -43,7 +43,7 @@ class MaintenanceTests(unittest.TestCase):
         path = os.path.join(self.root, 'cache', commit + '.tar.gz')
         with tarfile.open(path, 'w:gz') as tar:
             for name in m.SOURCE_FILES:
-                value = b'0.2.233' if name == 'version.txt' else b'synthetic test data\n'
+                value = b'0.2.233' if name == 'version.txt' else (b'# Changelog\n----------\n### 0.2.233\nFixed: synthetic\n' if name == 'changelog.md' else b'synthetic test data\n')
                 info = tarfile.TarInfo('nzbhydra-' + commit + '/' + name)
                 info.size = len(value)
                 tar.addfile(info, io.BytesIO(value))
@@ -195,6 +195,17 @@ class MaintenanceTests(unittest.TestCase):
         self.assertFalse(os.path.exists(os.path.join(self.root, 'state', 'pending.json')))
         self.assertFalse(os.path.exists(os.path.join(self.root, 'state', 'transaction.json')))
 
+
+    def test_unexpected_installed_file_is_rejected(self):
+        path = m.stage(self.root, self.fixture())
+        with open(os.path.join(path, 'unexpected.py'), 'w') as stream:
+            stream.write('synthetic')
+        with self.assertRaises(ValueError): m.verify_release(path)
+
+    def test_symlinked_installed_directory_is_rejected(self):
+        path = m.stage(self.root, self.fixture())
+        os.symlink(self.root, os.path.join(path, 'unexpected'))
+        with self.assertRaises(ValueError): m.verify_release(path)
 
 
 if __name__ == '__main__':

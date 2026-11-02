@@ -27,6 +27,9 @@ ROOT = '/config/nzbhydra-maintenance'
 SERVICE = '/var/run/s6/services/hydra'
 DATA = '/config/hydra'
 SOURCE_ROOTS = ('libs', 'nzbhydra', 'static', 'templates', 'onlinehelp')
+REPOSITORY = 'gojj-me/nzbhydra'
+API = 'https://api.github.com/repos/' + REPOSITORY
+
 SOURCE_FILES = ('nzbhydra.py', 'version.txt', 'changelog.md', 'LICENSE')
 MAX_ARCHIVE = 64 * 1024 * 1024
 MAX_EXPANDED = 256 * 1024 * 1024
@@ -83,11 +86,11 @@ def validate_descriptor(value):
 
 def download(url, destination):
     parsed = urlparse(url)
-    if parsed.scheme != 'https' or parsed.hostname not in ('codeload.github.com', 'api.github.com'):
+    if parsed.scheme != 'https' or parsed.username or parsed.password or not (parsed.hostname in ('codeload.github.com', 'api.github.com') or (parsed.hostname == 'github.com' and parsed.path.startswith('/' + REPOSITORY + '/releases/download/'))):
         raise ValueError('Untrusted download origin')
     partial = destination + '.partial'
     try:
-        result = subprocess.call(['curl', '--silent', '--show-error', '--fail',
+        result = subprocess.call(['curl', '--location', '--max-redirs', '5', '--silent', '--show-error', '--fail',
                                   '--proto', '=https', '--proto-redir', '=https',
                                   '--connect-timeout', '10', '--max-time', '120',
                                   '--retry', '2', '--max-filesize', str(MAX_ARCHIVE),
@@ -155,6 +158,15 @@ def verify_release(path):
     manifest = read_json(os.path.join(path, 'FILES.json'))
     if not manifest or 'BUILD.json' not in manifest:
         raise ValueError('Missing release manifest')
+    actual = set()
+    for directory, dirs, filenames in os.walk(path):
+        for name in dirs + filenames:
+            if os.path.islink(os.path.join(directory, name)):
+                raise ValueError('Installed release contains a symlink')
+        for name in filenames:
+            actual.add(os.path.relpath(os.path.join(directory, name), path))
+    if actual != set(manifest) | set(['FILES.json']):
+        raise ValueError('Installed release contains missing or unexpected files')
     for relative, expected in manifest.items():
         if relative.startswith('/') or '..' in relative.split('/'):
             raise ValueError('Unsafe manifest path')
@@ -174,7 +186,7 @@ def stage(root, descriptor):
         return final
     archive = os.path.join(root, 'cache', descriptor['source_commit'] + '.tar.gz')
     if not os.path.isfile(archive) or digest(archive) != descriptor['archive_sha256']:
-        url = 'https://codeload.github.com/gojj-me/nzbhydra/tar.gz/' + descriptor['source_commit']
+        url = archive_url(descriptor)
         download(url, archive)
     if digest(archive) != descriptor['archive_sha256']:
         raise ValueError('Downloaded archive checksum mismatch')
@@ -184,6 +196,11 @@ def stage(root, descriptor):
         with open(os.path.join(temporary, 'version.txt')) as stream:
             if stream.read().strip() != descriptor['application_version']:
                 raise ValueError('Application version does not match descriptor')
+        with open(os.path.join(temporary, 'changelog.md')) as stream:
+            log = stream.read()
+        first = re.search(r'^###\s+([^\r\n]+)', log.split('----------', 1)[-1], re.MULTILINE)
+        if not first or first.group(1).strip() != descriptor['application_version']:
+            raise ValueError('Packaged changelog and version disagree')
         write_json(os.path.join(temporary, 'BUILD.json'), descriptor)
         os.chmod(os.path.join(temporary, 'BUILD.json'), 0o644)
         hashes = {}
@@ -296,6 +313,8 @@ def locked(root):
 
 
 def apply(root, descriptor):
+    if descriptor['channel'] == 'stable' and resolve_release(descriptor['application_version']) != descriptor:
+        raise ValueError('Stable descriptor differs from the published release')
     target = stage(root, descriptor)  # No service disruption before validation.
     current = os.path.join(root, 'current')
     previous = os.path.realpath(current) if os.path.exists(current) else '/app/hydra'
@@ -446,28 +465,132 @@ def boot(root):
     return descriptor
 
 
+def archive_url(descriptor):
+    if descriptor['channel'] == 'stable':
+        version = descriptor['application_version']
+        expected = 'nzbhydra-' + version + '.tar.gz'
+        if descriptor.get('archive_asset') != expected:
+            raise ValueError('Stable release requires its versioned application asset')
+        return 'https://github.com/' + REPOSITORY + '/releases/download/' + version + '/' + expected
+    return 'https://codeload.github.com/' + REPOSITORY + '/tar.gz/' + descriptor['source_commit']
+
+
+def remote_json(url):
+    fd, path = tempfile.mkstemp(prefix='maintenance-metadata-'); os.close(fd)
+    try:
+        download(url, path)
+        if os.path.getsize(path) > 4 * 1024 * 1024:
+            raise ValueError('Release metadata too large')
+        return read_json(path)
+    finally:
+        os.unlink(path)
+
+
+def version_tuple(value):
+    if not re.match(r'^0\.2\.[0-9]+$', value):
+        raise ValueError('Only stable legacy 0.2.x releases are eligible')
+    return tuple(int(x) for x in value.split('.'))
+
+
+def latest_release():
+    eligible = []
+    for page in range(1, 11):
+        values = remote_json(API + '/releases?per_page=100&page=' + str(page))
+        for item in values:
+            if not item.get('draft') and not item.get('prerelease') and re.match(r'^0\.2\.[0-9]+$', item.get('tag_name', '')):
+                eligible.append(item)
+        if len(values) < 100:
+            return max(eligible, key=lambda x: version_tuple(x['tag_name'])) if eligible else None
+    raise RuntimeError('Release pagination limit exceeded; refusing incomplete selection')
+
+
+def resolve_release(version):
+    version_tuple(version)
+    release = remote_json(API + '/releases/tags/' + version)
+    if release.get('draft') or release.get('prerelease') or release.get('tag_name') != version:
+        raise ValueError('Not the selected published stable release')
+    assets = dict((a['name'], a) for a in release.get('assets', []))
+    required = ['maintenance.json', 'nzbhydra-' + version + '.tar.gz']
+    for name in required:
+        expected = 'https://github.com/' + REPOSITORY + '/releases/download/' + version + '/' + name
+        if name not in assets or assets[name].get('browser_download_url') != expected or assets[name].get('state') != 'uploaded':
+            raise ValueError('Release artifact is missing or has an unexpected origin')
+    descriptor = validate_descriptor(remote_json(assets['maintenance.json']['browser_download_url']))
+    if descriptor['channel'] != 'stable' or descriptor['application_version'] != version:
+        raise ValueError('Release descriptor and tag disagree')
+    obj = remote_json(API + '/git/ref/tags/' + version)['object']
+    for _ in range(5):
+        if obj['type'] == 'commit':
+            break
+        if obj['type'] != 'tag' or not re.match(r'^[0-9a-f]{40}$', obj['sha']):
+            raise ValueError('Invalid release tag target')
+        obj = remote_json(API + '/git/tags/' + obj['sha'])['object']
+    if obj['type'] != 'commit' or obj['sha'] != descriptor['source_commit']:
+        raise ValueError('Release tag does not identify descriptor source revision')
+    archive_url(descriptor)
+    return descriptor
+
+
+def policy(root, mode=None):
+    path = os.path.join(root, 'state', 'policy.json')
+    if mode is not None:
+        if mode not in ('check', 'auto-stable'):
+            raise ValueError('Unknown update policy')
+        write_json(path, {'mode': mode})
+    result = read_json(path) if os.path.isfile(path) else {'mode': 'check'}
+    if result.get('mode') not in ('check', 'auto-stable'):
+        raise ValueError('Invalid update policy')
+    return result
+
+
+def update_stable(root, version=None, automatic=False):
+    current = read_json(os.path.join(root, 'state', 'selected.json'))
+    if automatic and (policy(root)['mode'] != 'auto-stable' or current['channel'] != 'stable'):
+        return {'updated': False, 'reason': 'Automatic activation disabled or a test build is pinned'}
+    item = latest_release() if version is None else {'tag_name': version}
+    if item is None:
+        return {'updated': False, 'reason': 'No stable legacy release published'}
+    descriptor = resolve_release(item['tag_name'])
+    if version_tuple(descriptor['application_version']) < version_tuple(current['application_version']):
+        raise ValueError('Automatic or stable-release downgrade is not permitted')
+    if current['channel'] == 'stable' and descriptor['application_version'] == current['application_version'] and descriptor['source_commit'] != current['source_commit']:
+        raise ValueError('Published release identity changed; refusing replacement')
+    apply(root, descriptor)
+    return {'updated': True, 'build': descriptor}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', default=ROOT)
-    parser.add_argument('command', choices=('stage', 'apply', 'boot', 'status', 'check', 'recover'))
+    parser.add_argument('command', choices=('stage', 'apply', 'boot', 'status', 'check', 'recover', 'release', 'policy', 'update', 'tools-install'))
     parser.add_argument('--descriptor')
+    parser.add_argument('--version')
+    parser.add_argument('--mode', choices=('check', 'auto-stable'))
+    parser.add_argument('--automatic', action='store_true')
     args = parser.parse_args()
     if args.command == 'status':
         result = read_json(os.path.join(args.root, 'state', 'selected.json'))
-        result = dict(result, verified=verify_release(os.path.join(args.root, 'current')) == result)
+        result = dict(result, verified=verify_release(os.path.join(args.root, 'current')) == result, maintenance_revision=os.environ.get('NZBHYDRA_TOOL_REVISION', 'unversioned-flat-tool'))
     elif args.command == 'check':
-        # Check only: never activate a moving branch or a new runtime automatically.
-        fd, path = tempfile.mkstemp(prefix='nzbhydra-stable-'); os.close(fd)
-        try:
-            download('https://api.github.com/repos/gojj-me/nzbhydra/releases?per_page=30', path)
-            releases = [x for x in read_json(path) if not x.get('draft') and not x.get('prerelease') and re.match(r'^0\.2\.[0-9]+$', x.get('tag_name', ''))]
-            result = {'stable_legacy_release': max(releases, key=lambda x: tuple(int(y) for y in x['tag_name'].split('.')))['tag_name'] if releases else None, 'activation': 'explicit only'}
-        finally:
-            os.unlink(path)
+        item = latest_release()
+        result = {'stable_legacy_release': item['tag_name'] if item else None, 'policy': policy(args.root)}
+
     else:
         setup(args.root)
         with locked(args.root):
-            if args.command == 'recover':
+            if args.command == 'policy':
+                result = policy(args.root, args.mode)
+            elif args.command in ('release', 'update'):
+                if args.command == 'release' and not args.version:
+                    parser.error('release requires --version')
+                result = update_stable(args.root, args.version, args.automatic)
+            elif args.command == 'tools-install':
+                from tool_launcher import install_tools
+                descriptor = validate_descriptor(read_json(args.descriptor))
+                stage(args.root, descriptor)
+                archive = os.path.join(args.root, 'cache', descriptor['source_commit'] + '.tar.gz')
+                result = install_tools(args.root, archive, descriptor)
+            elif args.command == 'recover':
                 result = recover(args.root)
             elif args.command == 'boot':
                 result = boot(args.root)

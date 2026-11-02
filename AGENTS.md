@@ -8,6 +8,7 @@ Read docs/maintenance.md for scope, versioning, release requirements, and milest
 - Maintain NZBHydra v1. Preserve compatibility with the legacy runtime until an explicitly versioned migration is tested.
 - Target Linux containers. Assess future runtime and image changes separately from legacy application fixes.
 - Build the persistent deployment path in issue #3 alongside the fix in #9. Use the tested deployment path for subsequent fixes; read README_DEPLOYMENT.md before deployment work.
+- Keep release-fixes.json synchronized with included verified issue fixes; release tooling must bind version, changelog, tag, source revision, artifacts, and descriptor.
 - Keep fixes focused, preserve source attribution and third-party licenses, and validate behavior before release.
 - Do not delete bundled dependencies, frontend build sources, fixtures, or runtime branches merely because they are old. Establish references and verify behavior first.
 

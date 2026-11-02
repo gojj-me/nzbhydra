@@ -52,7 +52,7 @@ Persistence is not a backup. Keep verified recovery copies separately and store 
 
 ## Deployment operation
 
-The apply command performs one deployment operation for an explicitly selected immutable build. A trusted maintainer must prepare its pinned descriptor first. Stable release artifact automation remains tracked in issues #2 and #3; check reports available stable releases without activating them.
+The apply command performs one deployment operation for an explicitly selected immutable build. A trusted maintainer must prepare its pinned descriptor first. Stable release assets are built from an immutable numeric tag by scripts/package_release.py and the release-assets workflow. Check reports eligible releases without activation; release --version selects one explicitly.
 
 - Verify a recoverable baseline before changing code or data. Stop writers or use a validated consistent database backup procedure; protect SQLite journal files where relevant.
 - Acquire an update lock. Stage a complete artifact in a new directory and validate download success, provenance, checksums, archive safety, file manifest, runtime compatibility, and packaged metadata.
@@ -87,13 +87,35 @@ Run inside the supported legacy container as root:
 python /config/nzbhydra-maintenance/updater/maintenance.py status
 python /config/nzbhydra-maintenance/updater/maintenance.py check
 python /config/nzbhydra-maintenance/updater/maintenance.py recover
+python /config/nzbhydra-maintenance/updater/maintenance.py --verify-tools
+python /config/nzbhydra-maintenance/updater/maintenance.py tools-recover
 python /config/nzbhydra-maintenance/updater/maintenance.py apply --descriptor /config/nzbhydra-maintenance/state/candidate.json
 ```
 
 A candidate descriptor pins source_commit, archive_sha256, application_version, target_release, channel, and included_fixes. It is supplied by the maintainer after testing. Apply downloads the pinned GitHub source archive, validates and stages it, snapshots application data with the service stopped, activates, checks the build header, and restores code/data automatically on failed health checks. Boot restores a missing selected release from the verified archive cache or the pinned GitHub archive; stable-release checking is explicit and check-only. Updater/bootstrap updates require a separately reviewed installation; they do not self-update from a branch.
 
-Status reports exact revision and included fixes. Startup logs and the X-NZBHydra-Build HTTP header identify the running revision. The authenticated version endpoint also includes build metadata. Unreleased test builds retain the current released version.txt; target_release is not a claim of publication. Interrupted deployments fail closed. The explicit recover command uses the durable transaction record and its matching application/data snapshot; it preserves displaced data for investigation and refuses missing or inconsistent recovery records. It restores the original image startup hook when recovering the original baseline. Do not run recover as a routine update: it intentionally restores older data, so later application changes may be displaced. Without a transaction record or valid snapshot, use the separately verified external recovery backup. Baseline image/data backups remain necessary; automatic failure rollback is not a substitute for disaster recovery.
+Status reports exact revision and included fixes. Startup logs and the X-NZBHydra-Build HTTP header identify the running revision. The authenticated version endpoint also includes build metadata. Unreleased test builds retain the current released version.txt; target_release is not a claim of publication. Interrupted application deployments fail closed. The explicit recover command uses the durable transaction record and its matching application/data snapshot; it preserves displaced data for investigation and refuses missing or inconsistent recovery records. It restores the original image startup hook when recovering the original baseline. Do not run recover as a routine update: it intentionally restores older data, so later application changes may be displaced. Without a transaction record or valid snapshot, use the separately verified external recovery backup. Baseline image/data backups remain necessary; automatic failure rollback is not a substitute for disaster recovery.
 
-## Maintenance-tool upgrades
+## Stable releases and activation policy
 
-A tool-only upgrade does not change the selected application build. Review the pinned source revision, run maintenance tests in the exact legacy image, compare the candidate script checksum, acquire the maintenance lock, retain the installed script in private persistent recovery storage, and atomically replace it. Verify the installed checksum and current application health afterward. Keep the existing trusted bootstrap interface compatible; bootstrap changes and stable release tooling remain subject to the outstanding acceptance criteria in issue #3. Never download and execute a moving-branch script as root.
+The default policy is check-only. Run check to discover eligible stable 0.2.x releases. Run release --version <numeric-version> to explicitly install a published stable release. The installer verifies the release is published and not a draft/prerelease, checks both required assets belong to this repository/tag, resolves annotated or lightweight tags to the descriptor commit, verifies the archive checksum, and checks packaged version/changelog consistency. New-runtime releases, downgrades, and retagged same-version replacements are rejected.
+
+Policy is evaluated when maintenance is invoked; setting policy does not install a scheduler. To permit unattended activation, explicitly run policy --mode auto-stable, then invoke update --automatic through an operator-configured schedule. Check-only is restored with policy --mode check. Even with auto-stable enabled, update --automatic does not replace a pinned test build. An explicit release --version selection is required to leave the test channel.
+
+The release-assets workflow runs only after a stable legacy GitHub release is explicitly published. It packages the tagged source with license notices and a source file manifest, emits maintenance.json and SHA256SUMS, and uploads the assets. It does not publish a release or deploy code itself. release-fixes.json records the included verified issue fixes. Missing/incomplete assets fail safely; publication is not proof that artifact creation has completed successfully.
+
+## Trust model
+
+Trust starts with the reviewed local installer and the fixed startup interface, the configured repository owner/control, GitHub's authenticated release/tag responses, and HTTPS certificate verification. Asset checksums bind the downloaded bytes to the release descriptor; they are not independent signatures. The mechanism does not claim protection against a compromised trusted repository administrator or GitHub account. No signing private keys or authentication credentials are stored in Git or release artifacts.
+
+The installed release manifest is verified strictly: missing, altered, or unexpected files and symlinked entries are rejected. The checksum-pinned archive and tag/revision binding preserve the selected build through restoration. Test descriptors are explicit maintainer-supplied pins; branch contents never activate on their own.
+
+## Versioned maintenance-tool upgrades and recovery
+
+The fixed interface-1 startup hook and bootstrap invoke a stable launcher at updater/maintenance.py. It verifies a complete versioned tool bundle under tools/current before executing it, including updater code, bootstrap, hook, and launcher hashes. A verified tools/previous bundle is retained. If a candidate bundle is damaged or a tool-upgrade journal remains, the launcher uses the previous verified bundle. A damaged trusted startup interface fails closed and requires restoration from the local recovery baseline.
+
+Use tools-install --descriptor <pinned-descriptor> to stage and validate a source archive, check Python and shell compatibility, and atomically promote the complete tool version under the maintenance lock. Initial conversion preserves the old flat updater as a content-identified baseline. Later upgrades must preserve the trusted launcher/bootstrap/hook bytes; changing that interface requires a separately reviewed migration and is deliberately rejected by interface 1. The application build is not changed by tools-install.
+
+Use --verify-tools to inspect the active tool revision and its verified manifest. Status reports maintenance_revision separately from source_commit of the application. Use tools-recover to select the verified previous tool bundle and clear an interrupted tool journal. The fixed launcher handles tools-recover even when the selected updater is damaged. These tool operations do not restore or replace application data; application recover is a separate operation.
+
+First installation and startup-interface recovery require a reviewed local installation of the fixed launcher and trusted bootstrap/hook files. Keep their verified baseline outside disposable container storage. Never replace the trusted launcher from a moving branch or disable verification to force an incompatible upgrade.

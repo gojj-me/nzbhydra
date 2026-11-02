@@ -21,6 +21,7 @@ All releases before 0.3.0 fix the existing Python 2.7 application within the cur
 - Documentation-only changes do not advance the application version. Track unfinished work in issues and release milestones, not as completed changelog entries.
 - Use a Git tag matching version.txt exactly, consistent with the original numeric tags. Publish release notes matching that changelog section and create archives from that immutable tag.
 - Reject a release if its version, first changelog version, tag, or packaged version.txt disagree. scripts/check_release_metadata.py checks these constraints, with an optional --tag value.
+- release-fixes.json records verified issue fixes included by release packaging. Keep it synchronized before preparing a tag.
 - package.json contains historical frontend build metadata; its version is not the application release authority.
 - Define a new series and explicit compatibility/migration policy before publishing breaking runtime or data changes. Do not present historical 0.x numbering as a promise of strict Semantic Versioning.
 

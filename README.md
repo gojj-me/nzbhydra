@@ -19,7 +19,7 @@ The application version is recorded in [version.txt](version.txt); changes for r
 
 ## Application deployment
 
-See [README_DEPLOYMENT.md](README_DEPLOYMENT.md) for the persistent application update design, container recreation behavior, test deployments, and recovery. [Issue #3](https://github.com/gojj-me/nzbhydra/issues/3) tracks implementation for 0.2.300; the document does not imply the updater is already installed.
+See [README_DEPLOYMENT.md](README_DEPLOYMENT.md) for the persistent application update design, container recreation behavior, test deployments, and recovery. [Issue #3](https://github.com/gojj-me/nzbhydra/issues/3) tracks implementation for 0.2.300; installation is explicit, and maintenance-tool versions are tracked separately from application builds.
 
 ## Roadmap and tasks
 
