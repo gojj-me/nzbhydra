@@ -12,7 +12,6 @@ import re
 from itertools import groupby
 from sets import Set
 from sqlite3 import OperationalError
-from playhouse.sqliteq import ResultTimeout
 
 import arrow
 import concurrent
@@ -25,6 +24,7 @@ from retry import retry
 from nzbhydra import config, indexers, infos, categories, databaseLock
 from nzbhydra.database import IndexerStatus, Search, db, IndexerApiAccess, SearchResult, Indexer, InterfaceError, IntegrityError, IndexerNzbDownload
 from nzbhydra.search_module import SearchModule
+from nzbhydra.retention import retention_cleaner
 
 logger = logging.getLogger('root')
 
@@ -273,15 +273,8 @@ def search(search_request):
         if pseudo_cache[k]["last_access"].replace(minutes=+5) < arrow.utcnow():
             pseudo_cache.pop(k)
 
-    # Clean up old search results. We do this here because we don't have any background jobs and this is the function most regularly called
-    keepFor = config.settings.main.keepSearchResultsForDays
-    oldSearchResultsCount = countOldSearchResults(keepFor)
-    if oldSearchResultsCount > 0:
-        logger.info("Deleting %d search results from database that are older than %d days" % (oldSearchResultsCount, keepFor))
-        SearchResult.delete().where(SearchResult.firstFound < (datetime.date.today() - datetime.timedelta(days=keepFor))).execute()
-    else:
-        if logger.getEffectiveLevel() == logging.DEBUG:
-            logger.debug("%d search results stored in database" % SearchResult.select().count())
+    # Best-effort retention must not delay an otherwise viable search.
+    retention_cleaner.schedule(db, config.settings.main.keepSearchResultsForDays)
 
     limit = search_request.limit
     external_offset = int(search_request.offset)
@@ -504,12 +497,7 @@ def search(search_request):
     return {"results": nzb_search_results, "indexer_infos": cache_entry["indexer_infos"], "dbsearchid": cache_entry["dbsearch"].id, "total": cache_entry["total"], "offset": external_offset, "rejected": cache_entry["rejected"].items()}
 
 
-@retry((InterfaceError, OperationalError, ResultTimeout), delay=1, tries=5, logger=logger)
-def countOldSearchResults(keepFor):
-    return SearchResult.select().where(SearchResult.firstFound < (datetime.date.today() - datetime.timedelta(days=keepFor))).count()
-
-
-@retry((InterfaceError, OperationalError, ResultTimeout), delay=1, tries=5, logger=logger)
+@retry((InterfaceError, OperationalError), delay=1, tries=5, logger=logger)
 def tryGetOrCreateSearchResultDbEntry(searchResultId, indexerId, result):
     try:
         return SearchResult().get(SearchResult.id == searchResultId)
@@ -517,7 +505,7 @@ def tryGetOrCreateSearchResultDbEntry(searchResultId, indexerId, result):
         return SearchResult().create(id=searchResultId, indexer_id=indexerId, guid=result.indexerguid, title=result.title, link=result.link, details=result.details_link, firstFound=datetime.datetime.utcnow())
 
 
-@retry((InterfaceError, OperationalError, ResultTimeout), delay=1, tries=5, logger=logger)
+@retry((InterfaceError, OperationalError), delay=1, tries=5, logger=logger)
 def saveSearch(dbsearch):
     with databaseLock:
         dbsearch.save()

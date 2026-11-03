@@ -19,7 +19,7 @@ logger = logging.getLogger('root')
 
 db = SqliteQueueDatabase(None, autostart=False, results_timeout=20.0, autocommit=False)
 
-DATABASE_VERSION = 21
+DATABASE_VERSION = 22
 
 
 class JSONField(TextField):
@@ -94,7 +94,7 @@ class IndexerSearch(Model):
 class SearchResult(Model):
     id = CharField(primary_key=True)
     indexer = ForeignKeyField(Indexer, related_name="results")
-    firstFound = DateTimeField()
+    firstFound = DateTimeField(index=True)
     title = CharField()
     guid = CharField()
     link = CharField()
@@ -641,3 +641,20 @@ def update_db(dbfile):
             vi.version = 18
             vi.save()
             logger.info("Database migration completed successfully")
+
+
+    # Existing version 18-21 schemas share the SearchResult retention columns.
+    # Wait for completion before recording the version; IF NOT EXISTS makes an
+    # interrupted migration safe to repeat. Index creation may outlast the usual
+    # query-result timeout on a large existing database.
+    if 18 <= vi.version < 22:
+        logger.info("Adding search result retention index")
+        ensure_retention_index()
+        vi.version = 22
+        vi.save()
+        logger.info("Database retention index migration completed")
+
+
+def ensure_retention_index():
+    db.execute_sql('CREATE INDEX IF NOT EXISTS "searchresult_firstFound" '
+                   'ON "searchresult" ("firstFound")', timeout=180).rowcount

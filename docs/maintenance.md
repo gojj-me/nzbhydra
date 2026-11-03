@@ -31,6 +31,16 @@ All releases before 0.3.0 fix the existing Python 2.7 application within the cur
 
 A release requires reviewed public-safe artifacts, matching version/changelog/tag/package metadata, behavioral validation in the applicable runtime, and verified update/recovery behavior. The metadata CI job alone does not establish application compatibility. Managed builds disable the original in-application source-overwrite updater. Use the persistent maintenance commands instead; installation is explicit and is not performed merely by reading documentation.
 
+## Database retention
+
+Search-result retention uses the configured day cutoff with a strict older-than comparison. Schema version 22 adds a `SearchResult.firstFound` index for new and existing databases. Migration is repeatable and completes before the schema version advances.
+
+Search requests only offer to schedule best-effort cleanup; they do not count expired rows or wait for cleanup. One background job at a time uses a separate SQLite connection, deletes at most four batches of 250 rows, and checks a one-second execution budget using SQLite's progress handler. SQLite lock waits are limited to 250 ms. These limits do not guarantee interruption of an operating-system storage stall. Cleanup is eligible again after 60 seconds, or after 300 seconds following a failure; further searches trigger remaining work. Expiration is therefore gradual, not immediate deletion of the entire backlog. No independent scheduler is installed.
+
+A failed unfinished batch is rolled back; earlier committed batches remain committed. Cleanup failures do not by themselves abort a search. Search persistence helpers do not retry queued-result timeouts, since those timeouts do not cancel underlying work. A database result timeout reaching the web handler returns a controlled HTTP 503 with a retry interval rather than a successful empty result. Queue depth, worker liveness, and cleanup duration diagnostics help investigation without logging SQL parameters or database contents. These safeguards alone do not establish the cause or resolution of a wider CPU hang.
+
+Before activating schema changes, follow the deployment snapshot and recovery requirements. Returning to older code alone does not restore the earlier database state.
+
 ## Repository cleanup
 
 Removed unsupported Windows distribution build files, retired Travis configuration, and the old Ubuntu Xenial Dockerfile/Compose example. That Dockerfile was not a LinuxServer image recipe and referenced missing certificate/key inputs. A reproducible image recipe must be introduced and tested separately.

@@ -42,6 +42,8 @@ except:
 import threading
 import urllib
 from builtins import *
+from playhouse.sqliteq import ResultTimeout
+from nzbhydra.retention import queue_diagnostics
 from peewee import fn
 from jwt import DecodeError, ExpiredSignature
 from nzbhydra.exceptions import DownloaderException, DownloaderNotFoundException, NzbDownloadException
@@ -168,6 +170,13 @@ def disable_caching(response):
     response.headers["Expires"] = datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
     response.cache_control.max_age = 0
     return response
+
+
+@app.errorhandler(ResultTimeout)
+def database_timeout_handler(exception):
+    # No SQL, parameters, paths, or exception text in this diagnostic/response.
+    logger.error("Database result timed out; %s", queue_diagnostics(database.db))
+    return "Database temporarily unavailable; please retry later.", 503, {"Retry-After": "60"}
 
 
 @app.errorhandler(Exception)
