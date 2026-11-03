@@ -41,6 +41,14 @@ A failed unfinished batch is rolled back; earlier committed batches remain commi
 
 Before activating schema changes, follow the deployment snapshot and recovery requirements. Returning to older code alone does not restore the earlier database state.
 
+## Provider rate limits
+
+HTTP 429 and recognized Newznab request/download-limit error envelopes establish a persisted per-indexer cooldown. `Retry-After` accepts nonnegative delay-seconds or an HTTP date, following [HTTP semantics](https://www.rfc-editor.org/rfc/rfc9110.html#section-10.2.3). Zero delay gets a minimum one-second cooldown; missing, malformed, or past values use a fixed 15-minute fallback. This fallback does not claim to know a provider's quota or reset schedule. A later existing disable time is never shortened.
+
+Search selection and request admission both enforce an active rate-limit cooldown, including when the general temporary-disable override is enabled. Network requests are serialized per indexer through response classification and status persistence; other indexers retain independent admission. Pending paging stops after a limit response, and a skipped queued search is not recorded as another attempted search. Cooldowns survive application restart using the existing status fields, so no schema migration is required. An overlapping successful result cannot clear an active cooldown; after expiry a successful request can clear it. Permanent authentication disablement still requires explicit re-enablement.
+
+Rate-limit status records only a controlled explanation and the next permitted attempt, not the response body, raw retry header, or credential-bearing URL. Generic connection failures and authentication errors keep their existing behavior. Separate logging-redaction work remains tracked in GitHub; this change does not claim to sanitize all historical error paths. Provider configuration/capability probes and direct downloader requests that bypass the shared indexer search/access path are outside this cooldown mechanism.
+
 ## Repository cleanup
 
 Removed unsupported Windows distribution build files, retired Travis configuration, and the old Ubuntu Xenial Dockerfile/Compose example. That Dockerfile was not a LinuxServer image recipe and referenced missing certificate/key inputs. A reproducible image recipe must be introduced and tested separately.

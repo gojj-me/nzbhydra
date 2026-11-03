@@ -27,9 +27,25 @@ from nzbhydra.search_module import SearchModule, IndexerProcessingResult
 logger = logging.getLogger('root')
 
 
-def check_auth(body, indexer):
-    if "Request limit reached" in body or "Daily Hits limit reached" in body:
+def check_api_limit(body, indexer):
+    # Parse only an error envelope, not each full RSS result document.
+    if re.match(r'^\s*(?:<\?xml[^>]*\?>\s*)?<(?:[\w]+:)?error\b', body):
+        try:
+            error = ET.fromstring(body)
+        except ET.ParseError:
+            return
+        code = error.attrib.get('code')
+        description = error.attrib.get('description', '')
+        if code in ('100', '101', '102'):
+            return  # Authentication errors retain precedence over descriptions.
+        if code in ('500', '501') or 'Request limit reached' in description or 'Daily Hits limit reached' in description:
+            raise IndexerApiLimitReachedException("API limit reached", indexer)
+    elif 'Request limit reached' in body or 'Daily Hits limit reached' in body:
         raise IndexerApiLimitReachedException("API limit reached", indexer)
+
+
+def check_auth(body, indexer):
+    check_api_limit(body, indexer)
     if '<error code="100"' in body:
         raise IndexerAuthException("The API key seems to be incorrect.", indexer)
     if '<error code="101"' in body:
@@ -625,6 +641,9 @@ class NewzNab(SearchModule):
         self.getDates(entry, usenetdate)
         entry.category = getByNewznabCats(categories)
         return entry
+
+    def check_rate_limit(self, body):
+        return check_api_limit(body, self)
 
     def check_auth(self, body):
         return check_auth(body, self)

@@ -29,6 +29,7 @@ Run commands from the repository root. Use an isolated Linux container with the 
 - `NZBHYDRA_SESSION_DIR` selects a writable session directory when source is immutable. Runtime data, configuration, logs, and sessions must not be written into a verified release tree.
 - Release metadata: `python3 scripts/check_release_metadata.py`; during release preparation add `--tag <exact-numeric-tag>`.
 - Maintenance/tooling checks: `python3 tests/test_maintenance.py`, `python3 tests/test_release_tools.py`, and `python3 tests/test_release_packaging.py`. The first two must also pass under Python 2.7 when changing deployed maintenance code; packaging tests require Python 3.
+- Application rate-limit regression: `python2.7 -B tests/test_rate_limit.py`, with synthetic HTTP responses and disposable SQLite state.
 - Application retention regression: `python2.7 -B tests/test_retention.py`, with synthetic data and no provider access.
 - Application authentication regression: `python2.7 -B tests/test_indexer_disable.py`, using the bundled dependencies and disposable SQLite data. Run relevant additional application tests for the behavior being changed.
 - Packaging: `python3 scripts/package_release.py --tag <existing-numeric-0.2.x-tag> --output <temporary-output-directory>` builds artifacts from that immutable tag; it does not publish or deploy them. Do not create a release tag merely to test packaging.

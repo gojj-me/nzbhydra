@@ -17,10 +17,10 @@ from requests.auth import HTTPBasicAuth
 from retry import retry
 
 from nzbhydra import config, databaseLock
-from nzbhydra import webaccess
+from nzbhydra import webaccess, rate_limit
 from nzbhydra.database import IndexerSearch, IndexerApiAccess, IndexerStatus, Indexer
 from nzbhydra.database import InterfaceError
-from nzbhydra.exceptions import IndexerResultParsingException, IndexerAuthException, IndexerAccessException
+from nzbhydra.exceptions import IndexerResultParsingException, IndexerAuthException, IndexerAccessException, IndexerApiLimitReachedException
 from nzbhydra.log import removeSensitiveData
 from nzbhydra.nzb_search_result import NzbSearchResult
 
@@ -297,7 +297,7 @@ class SearchModule(object):
                 indexer_status = self.indexer.status.get()
             except IndexerStatus.DoesNotExist:
                 indexer_status = IndexerStatus(indexer=self.indexer)
-            if indexer_status.disabled_permanently:
+            if indexer_status.disabled_permanently or rate_limit.active(indexer_status):
                 return indexer_status
             if indexer_status.level > 0:
                 indexer_status.level -= 1
@@ -320,6 +320,9 @@ class SearchModule(object):
             except IndexerStatus.DoesNotExist:
                 indexer_status = IndexerStatus(indexer=self.indexer)
 
+            if not disable_permanently and rate_limit.active(indexer_status):
+                return indexer_status
+
             if indexer_status.level == 0:
                 indexer_status.first_failure = arrow.utcnow()
 
@@ -338,6 +341,31 @@ class SearchModule(object):
 
             return indexer_status
 
+
+    def handle_rate_limit(self, retry_after=None):
+        deadline = rate_limit.retry_at(retry_after)
+        with databaseLock:
+            try:
+                status = self.indexer.status.get()
+            except IndexerStatus.DoesNotExist:
+                status = IndexerStatus(indexer=self.indexer)
+            if status.disabled_permanently:
+                return status
+            # Concurrent/stale outcomes must not shorten an existing cooldown.
+            if status.disabled_until and status.disabled_until > deadline:
+                deadline = status.disabled_until
+            if status.first_failure is None:
+                status.first_failure = arrow.utcnow()
+            status.latest_failure = arrow.utcnow()
+            status.disabled_until = deadline
+            status.reason = rate_limit.REASON_PREFIX + deadline.format('YYYY-MM-DDTHH:mm:ssZZ')
+            status.save()
+        self.warn(status.reason)
+        return status
+
+    def check_rate_limit(self, body):
+        # Provider adapters may raise IndexerApiLimitReachedException here.
+        pass
 
     def get(self, url, timeout=None, cookies=None):
         # overwrite for special handling, e.g. cookies
@@ -359,6 +387,12 @@ class SearchModule(object):
         return webaccess.get(url, timeout=timeout, cookies=cookies, headers=headers, auth=auth)
 
     def get_url_with_papi_access(self, url, type, cookies=None, timeout=None, saveToDb=True):
+        # Serialize per provider through classification/persistence, so a waiting
+        # search observes a newly established cooldown before it sends anything.
+        with rate_limit.request_lock(self.indexer.id):
+            return self._get_url_with_papi_access(url, type, cookies, timeout, saveToDb)
+
+    def _get_url_with_papi_access(self, url, type, cookies=None, timeout=None, saveToDb=True):
         papiaccess = IndexerApiAccess(indexer=self.indexer, type=type, url=url, time=arrow.utcnow().datetime)
         try:
             papiaccess.username = request.authorization.username if request.authorization is not None else None
@@ -367,9 +401,22 @@ class SearchModule(object):
             pass
         indexerStatus = None
         try:
+            status = self.indexer.status.get()
+        except IndexerStatus.DoesNotExist:
+            status = None
+        if rate_limit.active(status):
+            papiaccess.response_successful = False
+            papiaccess.error = status.reason
+            papiaccess._rate_limit_skipped = True
+            return None, papiaccess, status  # A skip is not another network access.
+        response = None
+        try:
             time_before = arrow.utcnow()
             response = self.get(url, cookies=cookies, timeout=timeout)
+            if getattr(response, 'status_code', None) == 429:
+                raise IndexerApiLimitReachedException('Provider rate limit', self)
             response.raise_for_status()
+            self.check_rate_limit(response.text)
 
             time_after = arrow.utcnow()
             papiaccess.response_time = (time_after - time_before).seconds * 1000 + ((time_after - time_before).microseconds / 1000)
@@ -378,6 +425,12 @@ class SearchModule(object):
             # HTTP 200 is not authenticated search success: validate the body first.
             if type != "search":
                 indexerStatus = self.handle_indexer_success(doSaveIndexerStatus=saveToDb)
+        except IndexerApiLimitReachedException:
+            headers = getattr(response, 'headers', {}) or {}
+            indexerStatus = self.handle_rate_limit(headers.get('Retry-After'))
+            papiaccess.response_successful = False
+            papiaccess.error = indexerStatus.reason
+            response = None
         except RequestException as e:
             self.error("Error while connecting to URL %s: %s" % (url, str(e)))
             papiaccess.error = "Connection failed: %s" % removeSensitiveData(str(e))
@@ -416,6 +469,7 @@ class SearchModule(object):
             return QueriesExecutionResult(didsearch=False, results=[], indexerSearchEntry=None, indexerApiAccessEntry=None, indexerStatus=None, total=0, loaded_results=0, total_known=True, has_more=False, rejected=self.getRejectedCountDict())
         results = []
         executed_queries = set()
+        didsearch = False
         psearch = IndexerSearch(indexer=self.indexer)
         papiaccess = IndexerApiAccess()
         indexerStatus = None
@@ -431,6 +485,11 @@ class SearchModule(object):
 
             try:
                 request, papiaccess, indexerStatus = self.get_url_with_papi_access(query, "search", saveToDb=False)
+                if getattr(papiaccess, '_rate_limit_skipped', False):
+                    queries = []
+                    has_more = False
+                    break
+                didsearch = True
                 papiaccess.indexer_search = psearch
 
                 executed_queries.add(query)
@@ -455,6 +514,12 @@ class SearchModule(object):
                     except Exception:
                         self.exception("Error while processing search results from indexer %s" % self)
                         raise IndexerResultParsingException("Error while parsing the results from indexer", self)
+            except IndexerApiLimitReachedException:
+                indexerStatus = self.handle_rate_limit()
+                papiaccess.error = indexerStatus.reason
+                papiaccess.response_successful = False
+                queries = []
+                has_more = False
             except IndexerAuthException as e:
                 papiaccess.error = "Authorization error :%s" % e.message
                 self.error(papiaccess.error)
@@ -481,7 +546,10 @@ class SearchModule(object):
                 else:
                     self.error("Unable to save API response to database")
                 psearch.resultsCount = total_results
-        return QueriesExecutionResult(didsearch=True, results=results, indexerSearchEntry=psearch, indexerApiAccessEntry=papiaccess, indexerStatus=indexerStatus, total=total_results, loaded_results=len(results), total_known=total_known, has_more=has_more, rejected=rejected)
+                if rate_limit.active(indexerStatus):
+                    queries = []
+                    has_more = False
+        return QueriesExecutionResult(didsearch=didsearch, results=results, indexerSearchEntry=psearch, indexerApiAccessEntry=papiaccess, indexerStatus=indexerStatus, total=total_results, loaded_results=len(results), total_known=total_known, has_more=has_more, rejected=rejected)
 
     def debug(self, msg, *args, **kwargs):
         self.logger.debug("%s: %s" % (self.name, msg), *args, **kwargs)

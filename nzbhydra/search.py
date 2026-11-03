@@ -25,6 +25,7 @@ from nzbhydra import config, indexers, infos, categories, databaseLock
 from nzbhydra.database import IndexerStatus, Search, db, IndexerApiAccess, SearchResult, Indexer, InterfaceError, IntegrityError, IndexerNzbDownload
 from nzbhydra.search_module import SearchModule
 from nzbhydra.retention import retention_cleaner
+from nzbhydra import rate_limit
 
 logger = logging.getLogger('root')
 
@@ -188,6 +189,10 @@ def pick_indexers(search_request):
             if status.disabled_permanently:
                 logger.info("Did not pick %s because authentication disablement requires explicit re-enablement" % p)
                 add_not_picked_indexer(notPickedReasons, "Permanently disabled", p.name)
+                continue
+            if rate_limit.active(status):
+                logger.info("Did not pick %s because %s" % (p, status.reason))
+                add_not_picked_indexer(notPickedReasons, "Rate limited", p.name)
                 continue
             if status.disabled_until and status.disabled_until > arrow.utcnow() and not config.settings.searching.ignoreTemporarilyDisabled:
                 logger.info("Did not pick %s because it is disabled temporarily due to an error: %s" % (p, status.reason))
