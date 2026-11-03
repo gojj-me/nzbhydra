@@ -6,10 +6,8 @@ from __future__ import absolute_import
 
 import cgi
 import codecs
-import hashlib
 import os
 import tempfile
-import types
 
 from future import standard_library
 #standard_library.install_aliases()
@@ -23,10 +21,7 @@ from os import listdir
 from os.path import isfile, join, exists, getmtime
 from nzbhydra import config
 
-regexApikey = re.compile(r"(apikey|api)(=|:)[\w]+", re.I)
-regexApikeyRepr = re.compile(r"u'(apikey|api)': u'[\w]+'", re.I)
-regexUser = re.compile(r"(user|username)=[\w]+", re.I)
-regexPassword = re.compile(r"(password)=[\w]+", re.I)
+from nzbhydra.redaction import redact_text, redact_structure
 
 # module variables
 LOGGER_DEFAULT_FORMAT = u'%(asctime)s - %(levelname)s - %(module)s - %(threadName)s - %(message)s'
@@ -47,10 +42,44 @@ logger = logging.getLogger('root')
 
 logfilename = None
 
+def removeSensitiveData(msg):
+    return redact_text(msg)
+
+
+class SensitiveDataFilter(logging.Filter):
+    def filter(self, record):
+        try:
+            if isinstance(record.msg, (dict, list, tuple)):
+                record.msg = redact_structure(record.msg)
+            record.args = redact_structure(record.args)
+            record.msg = removeSensitiveData(record.getMessage())
+        except Exception:
+            record.msg = '<REDACTED: log formatting failed>'
+        record.args = ()
+        if record.exc_text:
+            record.exc_text = removeSensitiveData(record.exc_text)
+        return True
+
+
+class SensitiveDataFormatter(logging.Formatter):
+    def format(self, record):
+        try:
+            return removeSensitiveData(logging.Formatter.format(self, record))
+        except Exception:
+            return '<REDACTED: log formatting failed>'
+
+
 console_logger = logging.StreamHandler(sys.stdout)
-console_logger.setFormatter(logging.Formatter(LOGGER_DEFAULT_FORMAT))
+console_logger.setFormatter(SensitiveDataFormatter(LOGGER_DEFAULT_FORMAT))
+console_logger.addFilter(SensitiveDataFilter())
 console_logger.setLevel(LOGGER_DEFAULT_LEVEL)
 logger.addHandler(console_logger)
+# Python 2 treats getLogger('root') as a named logger, distinct from the actual
+# root used by third-party/child loggers. Share our protected handlers once.
+base_logger = logging.getLogger()
+if base_logger is not logger:
+    logger.propagate = False
+    base_logger.addHandler(console_logger)
 
 logger.setLevel(LOGGER_DEFAULT_LEVEL)
 
@@ -58,23 +87,6 @@ logger.setLevel(LOGGER_DEFAULT_LEVEL)
 def quiet_output():
     console_logger.setLevel(logging.CRITICAL + 1)
     # logger.removeHandler(console_logger)
-
-
-def removeSensitiveData(msg):
-    msg = regexApikey.sub("apikey=<APIKEY>", msg)
-    msg = regexApikeyRepr.sub("'apikey':<APIKEY>'", msg)
-    msg = regexUser.sub("\g<1>=<USER>", msg)
-    msg = regexPassword.sub("password=<PASSWORD>", msg)
-    return msg
-
-
-class SensitiveDataFilter(logging.Filter):
-    def filter(self, record):
-        msg = record.msg
-        if type(msg) is types.StringType or isinstance(msg, str):
-            msg = removeSensitiveData(msg)
-        record.msg = msg
-        return True
 
 
 def setup_custom_logger(logfile=None, quiet=False):
@@ -99,9 +111,12 @@ def setup_custom_logger(logfile=None, quiet=False):
         file_logger = RotatingFileHandler(filename=logfilename, maxBytes=maxBytes, backupCount=backupCount)
     else:
         file_logger = TimedRotatingFileHandler(filename=logfilename, when="d", interval=rotateAfterDays, backupCount=backupCount)
-    file_logger.setFormatter(logging.Formatter(LOGGER_DEFAULT_FORMAT))
+    file_logger.setFormatter(SensitiveDataFormatter(LOGGER_DEFAULT_FORMAT))
+    file_logger.addFilter(SensitiveDataFilter())
     file_logger.setLevel(file_log_level)
     logger.addHandler(file_logger)
+    if base_logger is not logger:
+        base_logger.addHandler(file_logger)
     # we need to set the global log level to the lowest defined
     if getattr(logging, file_log_level) < getattr(logging, console_log_level):
         logger.setLevel(file_log_level)
@@ -129,7 +144,7 @@ def getLogFile():
     if exists(logfilename):
         logger.debug("Reading log file %s" % logfilename)
         with codecs.open(logfilename, "r", 'utf-8') as logFile:
-            log = cgi.escape(logFile.read())
+            log = cgi.escape(removeSensitiveData(logFile.read()))
     return log
 
 
@@ -152,12 +167,11 @@ def getAnonymizedLogFile(hideThese, filename):
         with codecs.open(filename, "w", "utf-8") as tempFile:
             with codecs.open(logfilename, "r", 'utf-8') as logFile:
                 for line in logFile:
-                    line = cgi.escape(line)
+                    line = removeSensitiveData(line)
                     for hideThis in hideThese:
                         if hideThis[1]:
-                            obfuscated = hashlib.md5(hideThis[1]).hexdigest()
-                            line = line.replace(hideThis[1], "<%s:%s>" % (hideThis[0], obfuscated))
-                    tempFile.write(line + "\n")
+                            line = line.replace(hideThis[1], "<HIDDEN>")
+                    tempFile.write(cgi.escape(line))
 
 
 def getLogs():

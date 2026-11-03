@@ -14,6 +14,7 @@ from builtins import object
 from dateutil.tz import tzutc
 from playhouse.migrate import *
 from playhouse.sqliteq import SqliteQueueDatabase
+from nzbhydra.redaction import redact_text
 
 logger = logging.getLogger('root')
 
@@ -127,6 +128,7 @@ class IndexerApiAccess(Model):
         database = db
 
     def save(self, *args, **kwargs):
+        self.error = redact_text(self.error)
         if self.time is None:  # Otherwise the time of the first run of this code is taken
             self.time = datetime.datetime.utcnow()
         super(IndexerApiAccess, self).save(*args, **kwargs)
@@ -173,6 +175,10 @@ class IndexerStatus(Model):
     level = IntegerField(default=0)
     reason = CharField(null=True)
     disabled_permanently = BooleanField(default=False)  # Set to true if an error occurred that probably won't fix itself (e.g. when the apikey is wrong)
+
+    def save(self, *args, **kwargs):
+        self.reason = redact_text(self.reason)
+        return super(IndexerStatus, self).save(*args, **kwargs)
 
     def __repr__(self):
         return "%s in status %d. First failure: %s. Latest Failure: %s. Reason: %s. Disabled until: %s" % (self.indexer, self.level, self.first_failure, self.latest_failure, self.reason, self.disabled_until)

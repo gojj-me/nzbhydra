@@ -49,6 +49,14 @@ Search selection and request admission both enforce an active rate-limit cooldow
 
 Rate-limit status records only a controlled explanation and the next permitted attempt, not the response body, raw retry header, or credential-bearing URL. Generic connection failures and authentication errors keep their existing behavior. Separate logging-redaction work remains tracked in GitHub; this change does not claim to sanitize all historical error paths. Provider configuration/capability probes and direct downloader requests that bypass the shared indexer search/access path are outside this cooldown mechanism.
 
+## Credential redaction in diagnostics
+
+Application-managed console and file handlers redact complete recognized credential values after message formatting, including exception tracebacks and messages from child loggers. Structured dictionaries/lists, lazy formatting arguments, common credential query/header names, URL user information, signed-URL credential fields, and percent-encoded query keys/values are covered. Redaction failures produce a fixed diagnostic placeholder instead of the original message. The sanitizer operates on diagnostic copies; it must never modify live request URLs, authentication data, or saved application configuration.
+
+New API-access error text and indexer-status reasons are sanitized before model saves. Existing log text is sanitized when viewed through the application or included in a debug-log export. Debug settings mask recognized credential fields, including the signing secret, with fixed placeholders rather than credential-derived hashes. Original historical log/database files and previously generated exports are not rewritten or erased by an update. Recovery backups remain private operational artifacts.
+
+Redaction is not a general privacy guarantee: logs and debug bundles can still contain searches, personal information, private infrastructure details, unknown credential formats, or unlabelled values. Review and minimize any material before sharing it. Never publish a real configuration/database or assume that replacing an API key makes an incident log public-safe.
+
 ## Repository cleanup
 
 Removed unsupported Windows distribution build files, retired Travis configuration, and the old Ubuntu Xenial Dockerfile/Compose example. That Dockerfile was not a LinuxServer image recipe and referenced missing certificate/key inputs. A reproducible image recipe must be introduced and tested separately.

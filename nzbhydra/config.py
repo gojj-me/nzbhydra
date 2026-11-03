@@ -815,6 +815,9 @@ def getAnonymizedConfigSetting(key, value):
         return None
     if value == "":
         return ""
+    from nzbhydra.redaction import is_sensitive_key, marker, redact_text
+    if is_sensitive_key(key):
+        return marker(key)
     try:
         if key == "host":
             return getAnonymizedIpOrDomain(value)
@@ -822,14 +825,12 @@ def getAnonymizedConfigSetting(key, value):
             f = furl(value)
             if f.host:
                 f.host = getAnonymizedIpOrDomain(f.host)
-                return f.tostr()
+                return redact_text(f.tostr())
             return "<NOTAURL>"
-        if key in ("username", "password", "apikey"):
-            return "<%s:%s>" % (key.upper(), hashlib.md5(value).hexdigest())
         return value
     except Exception as e:
-        logger.error('Error while anonymizing setting "%s". Obfuscating to be sure: %s' % (key, e))
-        return "<%s:%s>" % (key.upper(), hashlib.md5(value).hexdigest())
+        logger.error("Unable to anonymize a setting; using a placeholder")
+        return "<HIDDEN>"
 
 
 def getAnonymizedIpOrDomain(value):
