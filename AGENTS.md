@@ -1,3 +1,30 @@
+# AGENTS.md
+
+A concise guide for AI coding agents working on this repository. It complements `README.md` with machine-actionable build, test, run, and convention notes.
+
+## This repository is public
+
+Everything committed here is world-readable and permanent — source, comments, tests, docs, commit messages, PR titles and descriptions, issue text. A later fix does not retract what has already been cloned, cached or indexed. This file is public too, and is bound by its own rules.
+
+Using an internal source to get the behaviour right is fine; publishing it is not. Only the externally observable result belongs in the repo.
+
+- **Never name private repositories or services.** `desksdkgo`, `twapi-go-sdk` and the MCP SDK are public and may be cited freely. The backends behind the Projects and Desk APIs are not — do not name their repositories, packages, files, handlers, models, or query-argument identifiers. Describe the HTTP endpoint instead: route, parameters, JSON keys, status codes.
+- **Never name internal infrastructure.** Deployments, hostnames, dashboards, monitoring, CI tooling, chat channels, wikis, runbooks, or environment detail beyond the documented `TW_MCP_ENV` values.
+- **Never reference internal tracking.** Ticket keys, incident IDs, or links and commit hashes in private repositories. Public protocol references (`SEP-2575`) are fine — those are published.
+- **Never describe a backend defect as a defect.** State what the endpoint does today ("list endpoints clamp `pageSize` over 100 to 100"), not that it is a bug, what causes it, or when it is due to be fixed — the service is still running the old code.
+- **Never publish unreleased information.** Roadmap items, planned deprecations, dated fixes, feature flags, or capacity and traffic figures.
+- **Never commit real data.** Tokens, API keys, cookies, real installation subdomains, or real customer and employee names, emails and IDs — in code, tests, fixtures, log samples and error strings alike. Fixtures use `example.com`, `test.teamwork.com`, `john@example.com`, and IDs like `777`/`12345`.
+
+| Instead of                                          | Write                                                        |
+|-----------------------------------------------------|--------------------------------------------------------------|
+| "bound by `Model.UnmarshalParam` in `<private repo>`" | "the endpoint parses `YYYY-MM-DD` only, and 400s otherwise"   |
+| "clamped in the backend's request-defaults helper"   | "list endpoints clamp `pageSize` over 100 to 100"            |
+| "broken until the next backend release"              | "returns 422 in this case"                                   |
+| "see PROJ-1234"                                      | omit, or describe the behaviour the change addresses         |
+| a real site URL in a test                            | `https://test.domain.tld`                                  |
+
+Commit messages and PR descriptions follow the same rules: what the change does and why, in terms of the public API and this server's own behaviour. No internal links, no ticket keys, no "as discussed in <channel>", no private reviewer names. Before committing, re-read the diff as an outsider would and drop any line that only makes sense to someone with access to private systems — the code ships, the reference does not.
+
 # Project instructions
 
 Read docs/maintenance.md for scope, versioning, release requirements, and milestone-based work tracking.
