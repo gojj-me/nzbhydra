@@ -1,33 +1,58 @@
 # AGENTS.md
 
-A concise guide for AI coding agents working on this repository. It complements `README.md` and any '`README_*.md`' with machine-actionable build, test, run, and convention notes.
+Instructions for AI coding agents maintaining NZBHydra v1. Read `README.md` for the project overview, `docs/maintenance.md` for scope and release policy, and `README_DEPLOYMENT.md` before deployment work. Keep detailed deployment instructions in that document and live task status in GitHub issues.
 
 ## This repository is public
 
-Everything committed here is world-readable and permanent — source, comments, tests, docs, commit messages, PR titles and descriptions, issue text. A later fix does not retract what has already been cloned, cached or indexed. This file is public too, and is bound by its own rules.
+Treat committed files and published issues, comments, pull requests, commit messages, and release notes as permanently public. Deleting them later does not retract clones, caches, or indexed copies. This file follows the same rules.
 
-Using an internal source to get the behaviour right is fine; publishing it is not. Only the externally observable result belongs in the repo.
+- Private sources may inform a fix, but their contents and identifiers must not be published. Describe reproducible NZBHydra behavior using public source references and synthetic examples.
+- Do not publish private repository or service names, hostnames, addresses, account names, infrastructure inventories, private tracking references, deployment records, or backup locations and status.
+- Do not copy real configuration, databases, search histories, NZB contents, raw incident logs, or assistant conversations into public files or issues. Replacing an API key alone does not sanitize the remaining personal information.
+- Use reserved example domains such as `example.com` and `example.invalid`, invented indexer names, and synthetic identifiers and responses in fixtures and documentation. Public provider names and endpoints may be cited when needed to explain an adapter's behavior; never include account-specific URLs or credentials.
+- Public project bugs, implementation details, GitHub issue references, and planned releases belong in the public issue/milestone workflow below. Distinguish confirmed behavior, hypotheses, planned work, verified fixes, and published releases. Do not publish private provider internals or operational plans as part of that explanation.
+- Review the full diff and all outgoing text as an outside reader before publishing. Automated secret scanning cannot establish that content is safe or non-personal.
 
-- **Never name private repositories or services.** `desksdkgo`, `twapi-go-sdk` and the MCP SDK are public and may be cited freely. The backends behind the Projects and Desk APIs are not — do not name their repositories, packages, files, handlers, models, or query-argument identifiers. Describe the HTTP endpoint instead: route, parameters, JSON keys, status codes.
-- **Never name internal infrastructure.** Deployments, hostnames, dashboards, monitoring, CI tooling, chat channels, wikis, runbooks, or environment detail beyond the documented `TW_MCP_ENV` values.
-- **Never reference internal tracking.** Ticket keys, incident IDs, or links and commit hashes in private repositories. Public protocol references (`SEP-2575`) are fine — those are published.
-- **Never describe a backend defect as a defect.** State what the endpoint does today ("list endpoints clamp `pageSize` over 100 to 100"), not that it is a bug, what causes it, or when it is due to be fixed — the service is still running the old code.
-- **Never publish unreleased information.** Roadmap items, planned deprecations, dated fixes, feature flags, or capacity and traffic figures.
-- **Never commit real data.** Tokens, API keys, cookies, real installation subdomains, or real customer and employee names, emails and IDs — in code, tests, fixtures, log samples and error strings alike. Fixtures use `example.com`, `test.teamwork.com`, `john@example.com`, and IDs like `777`/`12345`.
+## Project map and runtime
 
-| Instead of                                          | Write                                                        |
-|-----------------------------------------------------|--------------------------------------------------------------|
-| "bound by `Model.UnmarshalParam` in `<private repo>`" | "the endpoint parses `YYYY-MM-DD` only, and 400s otherwise"   |
-| "clamped in the backend's request-defaults helper"   | "list endpoints clamp `pageSize` over 100 to 100"            |
-| "broken until the next backend release"              | "returns 422 in this case"                                   |
-| "see PROJ-1234"                                      | omit, or describe the behaviour the change addresses         |
-| a real site URL in a test                            | `https://test.domain.tld`                                  |
+- Maintain the original Python 2.7 application; do not substitute NZBHydra2. Modernization is a separate release decision under the policy below.
+- `nzbhydra.py` is the application entry point and puts bundled `libs/` on the import path. Do not replace bundled packages with globally installed versions to make a test pass.
+- `nzbhydra/web.py` owns web/API behavior; `nzbhydra/search.py` coordinates searches; `nzbhydra/search_module.py` and `nzbhydra/searchmodules/` implement shared indexer behavior and provider adapters; `nzbhydra/database.py` owns models and schema migrations.
+- `static/`, `templates/`, and frontend build inputs are part of the application. Preserve shipped assets and establish their build path before changing generated output.
+- `maintenance/` implements persistent deployment and recovery; `scripts/` contains Python 3 release tooling; `tests/` contains focused regression tests. Python 3 tooling does not make the legacy application Python 3 compatible.
 
-Commit messages and PR descriptions follow the same rules: what the change does and why, in terms of the public API and this server's own behaviour. No internal links, no ticket keys, no "as discussed in <channel>", no private reviewer names. Before committing, re-read the diff as an outsider would and drop any line that only makes sense to someone with access to private systems — the code ships, the reference does not.
+## Build, run, and validation
 
-# Project instructions
+Run commands from the repository root. Use an isolated Linux container with the applicable legacy runtime for application tests; use synthetic configuration and a disposable database. Never mount production data into a test container.
 
-Read docs/maintenance.md for scope, versioning, release requirements, and milestone-based work tracking.
+- A development application run uses Python 2.7: `python2.7 nzbhydra.py --nobrowser --config <synthetic-settings-file> --database <disposable-database> --logfile <disposable-log>`. Use `--host 127.0.0.1` for local testing. This starts the app and may contact configured indexers; use synthetic settings and isolate networking. Managed deployments use `README_DEPLOYMENT.md` instead.
+- `NZBHYDRA_SESSION_DIR` selects a writable session directory when source is immutable. Runtime data, configuration, logs, and sessions must not be written into a verified release tree.
+- Release metadata: `python3 scripts/check_release_metadata.py`; during release preparation add `--tag <exact-numeric-tag>`.
+- Maintenance/tooling checks: `python3 tests/test_maintenance.py`, `python3 tests/test_release_tools.py`, and `python3 tests/test_release_packaging.py`. The first two must also pass under Python 2.7 when changing deployed maintenance code; packaging tests require Python 3.
+- Application authentication regression: `python2.7 -B tests/test_indexer_disable.py`, using the bundled dependencies and disposable SQLite data. Run relevant additional application tests for the behavior being changed.
+- Packaging: `python3 scripts/package_release.py --tag <existing-numeric-0.2.x-tag> --output <temporary-output-directory>` builds artifacts from that immutable tag; it does not publish or deploy them. Do not create a release tag merely to test packaging.
+- `.github/workflows/release-metadata.yml` checks metadata and Python 3 tooling. Its success alone does not verify Python 2.7 application compatibility. `.github/workflows/release-assets.yml` packages assets for an explicitly published stable legacy release; it does not deploy to a running container.
+- Documentation-only edits need link, command, consistency, and privacy review, not a production restart or an invented behavior test. Report exactly which checks ran and any limits or inconclusive results.
+
+## Behavior, tests, and dependencies
+
+- Keep changes focused and follow the surrounding code style. Runtime and deployed maintenance changes must remain Python 2.7 compatible. Do not perform broad reformatting or dependency upgrades as a side effect of a fix.
+- Add meaningful regression coverage for changed behavior using synthetic inputs, isolated data, bounded waits, and deterministic assertions. Use descriptive `test_*.py` names consistent with this repository; do not import another project's test naming rules.
+- For adapter/API changes, assert outgoing HTTP methods, paths, query parameters, and bodies as applicable, as well as parsed results and error handling. A canned successful response does not prove that a filter or identifier reached the provider.
+- Preserve existing API/configuration semantics unless a change is explicitly scoped. Test relevant omitted, empty, zero, false, malformed, and boundary values; do not assume they are interchangeable. Document provider-specific limits, date boundaries, paging behavior, and partial results only when established.
+- Distinguish a valid empty result from failed, timed-out, or malformed responses. Do not report a failed query as proof that nothing matches. Keep authentication, rate-limit, connection, and parsing failures distinguishable without exposing secrets.
+- Bound retries, pagination, response sizes, and background work where relevant. A caller timeout does not establish that underlying work was cancelled. Diagnose concurrency and CPU/hang symptoms with evidence before claiming a common cause or resolution.
+- Before modifying bundled libraries, inspect the actual vendored version, its callers, license, and runtime constraints. Test the public behavior affected by a change, not just imports or mocks. Preserve required attribution and avoid unsupported upgrade claims.
+- Database changes need an idempotent migration for existing databases as well as correct new-database behavior. Validate on disposable data, including interrupted/repeated execution where relevant, and follow the documented snapshot/recovery path before production changes.
+
+## Security and deployment discipline
+
+- Never print or publish credentials, API keys, cookies, authorization headers, or signed download URLs. Check query strings, redirects, exception messages, lazy logging arguments, and request/response bodies; a signed URL can itself grant access.
+- Never disable TLS certificate or hostname verification as a repair for a provider failure. Investigate endpoint validity, certificate chains, and runtime trust support separately.
+- Keep authentication and access controls intact. Test both permitted and denied paths when changing protected endpoints or indexer scheduling.
+- Use the documented persistent maintenance path for managed deployments. Do not edit an active immutable release, use the original source-overwrite updater, or replace the current image/runtime during legacy maintenance.
+- Before production activation or data changes, follow the documented backup, verification, health-check, and rollback requirements. Distinguish application version, exact source revision, maintenance-tool revision, channel, and included verified fixes; a target milestone is not the running version.
+- Do not introduce automatic activation, a new scheduler, or a channel/policy change merely as part of testing. Preserve pinned test builds and the documented update trust boundary.
 
 ## Development
 - Start legacy Python 2.7 maintenance releases at 0.2.300 and continue in 0.2.x, fixing the application within the current Docker image. Do not replace the runtime or image in this series.
@@ -58,3 +83,7 @@ Read docs/maintenance.md for scope, versioning, release requirements, and milest
 - Private repository visibility does not authorize storing arbitrary customer or personal information.
 - Store credentials in a credential manager or secret store. Keep non-secret private operational notes outside tracked files; .local/ is ignored but is not a security boundary or a synchronization mechanism.
 - Review staged changes and all externally published text for private information. Secret scanners do not detect every privacy issue.
+
+## Keeping these instructions current
+
+Update this file alongside changes to commands, entry points, compatibility constraints, and conventions. Keep `README.md` user-focused and link to the detailed policy and deployment documents. Do not copy a live backlog or private operational notes into this file.
