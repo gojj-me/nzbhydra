@@ -1,6 +1,6 @@
 # AGENTS.md
 
-A concise guide for AI coding agents working on this repository. It complements `README.md` with machine-actionable build, test, run, and convention notes.
+A concise guide for AI coding agents working on this repository. It complements `README.md` and any '`README_*.md`' with machine-actionable build, test, run, and convention notes.
 
 ## This repository is public
 
