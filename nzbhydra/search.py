@@ -368,46 +368,45 @@ def search(search_request):
         if databaseLock.locked():
             logger.debug("Database accesses locked by other search. Will wait for our turn.")
             waslocked = True
-        databaseLock.acquire()
-        if waslocked:
-            after = arrow.now()
-            took = (after - before).seconds * 1000 + (after - before).microseconds / 1000
-            logger.debug("Waited %dms for database lock" % took)
-        for indexer, queries_execution_result in result["results"].items():
-            with db.atomic():
-                logger.info("%s returned %d results" % (indexer, len(queries_execution_result.results)))
-                for result in queries_execution_result.results:
-                    if result.title is None or result.link is None or result.indexerguid is None:
-                        logger.info("Skipping result with missing data: %s" % result)
-                        continue
-                    try:
-                        searchResultId = hashlib.sha1(str(indexer.indexer.id) + result.indexerguid.encode('ascii', 'ignore').decode("utf-8")).hexdigest()
-                        tryGetOrCreateSearchResultDbEntry(searchResultId, indexer.indexer.id, result)
-                        result.searchResultId = searchResultId
-                        search_results.append(result)
-                    except (IntegrityError, OperationalError) as e:
-                        logger.error("Error while trying to save search result to database. Skipping it. Error: %s" % e)
+        with databaseLock:
+            if waslocked:
+                after = arrow.now()
+                took = (after - before).seconds * 1000 + (after - before).microseconds / 1000
+                logger.debug("Waited %dms for database lock" % took)
+            for indexer, queries_execution_result in result["results"].items():
+                with db.atomic():
+                    logger.info("%s returned %d results" % (indexer, len(queries_execution_result.results)))
+                    for result in queries_execution_result.results:
+                        if result.title is None or result.link is None or result.indexerguid is None:
+                            logger.info("Skipping result with missing data: %s" % result)
+                            continue
+                        try:
+                            searchResultId = hashlib.sha1(str(indexer.indexer.id) + result.indexerguid.encode('ascii', 'ignore').decode("utf-8")).hexdigest()
+                            tryGetOrCreateSearchResultDbEntry(searchResultId, indexer.indexer.id, result)
+                            result.searchResultId = searchResultId
+                            search_results.append(result)
+                        except (IntegrityError, OperationalError) as e:
+                            logger.error("Error while trying to save search result to database. Skipping it. Error: %s" % e)
 
-            cache_entry["indexer_infos"][indexer].update(
-                {"did_search": queries_execution_result.didsearch, "indexer": indexer.name, "search_request": search_request, "has_more": queries_execution_result.has_more, "total": queries_execution_result.total, "total_known": queries_execution_result.total_known,
-                 "indexer_search": queries_execution_result.indexerSearchEntry, "rejected": queries_execution_result.rejected, "processed_results": queries_execution_result.loaded_results})
-            if queries_execution_result.has_more:
-                indexers_to_call.append(indexer)
-                logger.debug("%s still has more results so we could use it the next round" % indexer)
+                cache_entry["indexer_infos"][indexer].update(
+                    {"did_search": queries_execution_result.didsearch, "indexer": indexer.name, "search_request": search_request, "has_more": queries_execution_result.has_more, "total": queries_execution_result.total, "total_known": queries_execution_result.total_known,
+                     "indexer_search": queries_execution_result.indexerSearchEntry, "rejected": queries_execution_result.rejected, "processed_results": queries_execution_result.loaded_results})
+                if queries_execution_result.has_more:
+                    indexers_to_call.append(indexer)
+                    logger.debug("%s still has more results so we could use it the next round" % indexer)
 
-            if queries_execution_result.total_known:
-                if not cache_entry["indexer_infos"][indexer]["total_included"]:
-                    cache_entry["total"] += queries_execution_result.total
-                    logger.debug("%s reports %d total results. We'll include in the total this time only" % (indexer, queries_execution_result.total))
-                    cache_entry["indexer_infos"][indexer]["total_included"] = True
-            elif queries_execution_result.has_more:
-                logger.debug("%s doesn't report an exact number of results so let's just add another 100 to the total" % indexer)
-                cache_entry["total"] += 100
-            for rejectKey in cache_entry["rejected"].keys():
-                if rejectKey in cache_entry["indexer_infos"][indexer]["rejected"].keys():
-                    cache_entry["rejected"][rejectKey] += cache_entry["indexer_infos"][indexer]["rejected"][rejectKey]
+                if queries_execution_result.total_known:
+                    if not cache_entry["indexer_infos"][indexer]["total_included"]:
+                        cache_entry["total"] += queries_execution_result.total
+                        logger.debug("%s reports %d total results. We'll include in the total this time only" % (indexer, queries_execution_result.total))
+                        cache_entry["indexer_infos"][indexer]["total_included"] = True
+                elif queries_execution_result.has_more:
+                    logger.debug("%s doesn't report an exact number of results so let's just add another 100 to the total" % indexer)
+                    cache_entry["total"] += 100
+                for rejectKey in cache_entry["rejected"].keys():
+                    if rejectKey in cache_entry["indexer_infos"][indexer]["rejected"].keys():
+                        cache_entry["rejected"][rejectKey] += cache_entry["indexer_infos"][indexer]["rejected"][rejectKey]
 
-        databaseLock.release()
 
         logger.debug("Searching for duplicates")
         numberResultsBeforeDuplicateRemoval = len(search_results)

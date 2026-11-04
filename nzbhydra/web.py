@@ -10,6 +10,7 @@ import logging
 import os
 import random
 import tempfile
+import sys
 import urlparse
 import zipfile
 from tempfile import TemporaryFile
@@ -43,7 +44,7 @@ import threading
 import urllib
 from builtins import *
 from playhouse.sqliteq import ResultTimeout
-from nzbhydra.retention import queue_diagnostics
+from nzbhydra.retention import queue_diagnostics, timeout_context
 from peewee import fn
 from jwt import DecodeError, ExpiredSignature
 from nzbhydra.exceptions import DownloaderException, DownloaderNotFoundException, NzbDownloadException
@@ -175,7 +176,8 @@ def disable_caching(response):
 @app.errorhandler(ResultTimeout)
 def database_timeout_handler(exception):
     # No SQL, parameters, paths, or exception text in this diagnostic/response.
-    logger.error("Database result timed out; %s", queue_diagnostics(database.db))
+    logger.error("Database result timed out; operation=%s; %s",
+                 timeout_context(sys.exc_info()[2]), queue_diagnostics(database.db))
     return "Database temporarily unavailable; please retry later.", 503, {"Retry-After": "60"}
 
 

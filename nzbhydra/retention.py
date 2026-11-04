@@ -24,6 +24,32 @@ def queue_diagnostics(database):
         return "queue_state=unavailable"
 
 
+def timeout_context(traceback):
+    """Emit only fixed labels for known application call sites; no source text."""
+    labels = {
+        ('search.py', 'search'): 'search',
+        ('search.py', 'saveSearch'): 'save-search',
+        ('search.py', 'tryGetOrCreateSearchResultDbEntry'): 'persist-result',
+        ('search.py', 'search_and_handle_db'): 'persist-provider-response',
+        ('search_module.py', 'saveIndexerStatus'): 'save-provider-status',
+        ('search_module.py', 'handle_indexer_failure'): 'provider-failure',
+        ('search_module.py', 'handle_rate_limit'): 'provider-rate-limit',
+        ('search_module.py', 'handle_indexer_success'): 'provider-success',
+        ('web.py', 'api_search'): 'api-search',
+        ('web.py', 'internalapi_search'): 'ui-search',
+    }
+    found = []
+    while traceback is not None:
+        code = traceback.tb_frame.f_code
+        for (filename, function), label in labels.items():
+            if code.co_filename.replace('\\\\', '/').endswith('/nzbhydra/' + filename) and code.co_name == function:
+                if label not in found:
+                    found.append(label)
+                break
+        traceback = traceback.tb_next
+    return '>'.join(found) if found else 'unclassified'
+
+
 class RetentionCleaner(object):
     def __init__(self, batch_size=250, max_batches=4, budget=1.0,
                  interval=60.0, failure_interval=300.0):

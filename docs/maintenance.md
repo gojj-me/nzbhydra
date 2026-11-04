@@ -57,6 +57,12 @@ New API-access error text and indexer-status reasons are sanitized before model 
 
 Redaction is not a general privacy guarantee: logs and debug bundles can still contain searches, personal information, private infrastructure details, unknown credential formats, or unlabelled values. Review and minimize any material before sharing it. Never publish a real configuration/database or assume that replacing an API key makes an incident log public-safe.
 
+## Search-result lock recovery and timeout diagnostics
+
+Search-result processing owns the shared database lock through a context manager, which releases it on successful processing and exception exits, including queued-result timeouts. Related application lock owners use context managers as well. The change preserves the controlled database-unavailable response and does not cancel or retry uncertain database work.
+
+Database timeout logs include a fixed operation chain for recognized application call sites, such as search, save-search, persist-result, or provider-status updates. Unrecognized paths are labelled unclassified. Diagnostics never inspect source lines, request contents, SQL/parameters, exception text or frame-local values. Queue depth and worker liveness remain supplemental observations; empty queues and live threads do not prove progress. This exception-safety fix does not establish the original cause of a database timeout or resolve every potential CPU/hang path.
+
 ## Repository cleanup
 
 Removed unsupported Windows distribution build files, retired Travis configuration, and the old Ubuntu Xenial Dockerfile/Compose example. That Dockerfile was not a LinuxServer image recipe and referenced missing certificate/key inputs. A reproducible image recipe must be introduced and tested separately.
