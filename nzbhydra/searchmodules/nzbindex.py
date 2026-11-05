@@ -9,6 +9,9 @@ from future import standard_library
 #standard_library.install_aliases()
 from builtins import *
 import logging
+import json
+import numbers
+from six import string_types
 import re
 
 import arrow
@@ -45,8 +48,8 @@ class NzbIndex(SearchModule):
 
     def build_base_url(self):
         f = furl(self.host)
-        f.path.add("search")
-        f = f.add({"more": "1", "max": self.limit, "hidecross": 0})
+        f.path.add("api/search")
+        f = f.add({"max": self.limit})
         return f
 
     def get_search_urls(self, search_request):
@@ -68,9 +71,9 @@ class NzbIndex(SearchModule):
         if search_request.minage:
             f = f.add({"minage": search_request.minage})
         if search_request.maxage:
-            f = f.add({"age": search_request.maxage})
+            f = f.add({"maxage": search_request.maxage})
         if search_request.offset > 0:
-            f.query.params["p"] = int(search_request.offset / self.limit)
+            f.query.params["page"] = int(search_request.offset / self.limit)
         return [f.tostr()]
 
     def get_showsearch_urls(self, search_request):
@@ -91,12 +94,14 @@ class NzbIndex(SearchModule):
     
     def get_details_link(self, guid):
         f = furl(self.host)
-        f.path.add("release")
+        f.path.add("collection")
         f.path.add(guid)
         return f.url
 
     def get(self, query, timeout=None, cookies=None):
         # overwrite for special handling, e.g. cookies
+        if timeout is None:
+            timeout = self.settings.timeout or config.settings.searching.timeout
         return webaccess.get(query, timeout=timeout, cookies={"agreed": "true", "lang": "2"})
 
 
@@ -121,21 +126,82 @@ class NzbIndex(SearchModule):
     def get_anime_urls(self, search_request):
         return self.get_search_urls(search_request)
 
+    def process_json_result(self, body, searchRequest):
+        try:
+            payload = json.loads(body)
+            if not isinstance(payload, dict) or payload.get("error") is not False:
+                raise ValueError()
+            data = payload["data"]
+            rows, page = data["content"], data["page"]
+            if not isinstance(rows, list) or not isinstance(page, dict):
+                raise ValueError()
+            number, pages, total = page["number"], page["totalPages"], page["totalElements"]
+            for value in (number, pages, total):
+                if isinstance(value, bool) or not isinstance(value, numbers.Integral) or value < 0:
+                    raise ValueError()
+            if (pages and number >= pages) or total < len(rows) or (not rows and total > 0 and number == 0):
+                raise ValueError()
+            entries, rejected = [], self.getRejectedCountDict()
+            for row in rows:
+                entry = self.parse_json_row(row)
+                accepted, reason, rejection = self.accept_result(entry, searchRequest, self.supportedFilters)
+                if accepted:
+                    entries.append(entry)
+                else:
+                    rejected[rejection] += 1
+            return IndexerProcessingResult(entries=entries, queries=[], total=total,
+                total_known=True, has_more=bool(rows) and number + 1 < pages, rejected=rejected)
+        except (ValueError, TypeError, KeyError, AttributeError, OverflowError):
+            raise IndexerResultParsingException("Unsupported or malformed NZBIndex JSON response", self)
+
+    def parse_json_row(self, row):
+        if not isinstance(row, dict):
+            raise ValueError()
+        guid, title, size, posted = row["id"], row["name"], row["size"], row["posted"]
+        if not isinstance(guid, string_types) or not re.match(r"^[A-Za-z0-9_-]+$", guid):
+            raise ValueError()
+        if not isinstance(title, string_types) or not title.strip():
+            raise ValueError()
+        for value in (size, posted):
+            if isinstance(value, bool) or not isinstance(value, numbers.Integral) or value < 0:
+                raise ValueError()
+        groups = row.get("groups", [])
+        if not isinstance(groups, list) or not all(isinstance(x, string_types) for x in groups):
+            raise ValueError()
+        entry = self.create_nzb_search_result()
+        entry.indexerguid, entry.title, entry.size = guid, self.cleanUpTitle(title), size
+        entry.link = self.get_nzb_link(guid, title)
+        entry.details_link = self.get_details_link(guid)
+        entry.poster = row.get("poster")
+        entry.group = ", ".join(groups)
+        entry.has_nfo = NzbSearchResult.HAS_NFO_MAYBE
+        pubdate = arrow.get(posted)
+        entry.epoch, entry.pubdate_utc = pubdate.timestamp, str(pubdate)
+        entry.age_days = (arrow.utcnow() - pubdate).days
+        entry.age, entry.age_precise = str(entry.age_days) + "d", True
+        entry.pubDate = pubdate.format("ddd, DD MMM YYYY HH:mm:ss Z")
+        return entry
+
     def process_query_result(self, html, searchRequest, maxResults=None):
+        if not isinstance(html, string_types) or not html.strip():
+            raise IndexerResultParsingException("Empty or unsupported NZBIndex response", self)
+        if html.lstrip().startswith(("{", "[")):
+            return self.process_json_result(html, searchRequest)
         self.debug("Started processing results")
 
         entries = []
         countRejected = self.getRejectedCountDict()
         logger.debug("Using HTML parser %s" % config.settings.searching.htmlParser)
         soup = BeautifulSoup(html, config.settings.searching.htmlParser)
-        main_table = soup.find(id="results").find('table')
-
-        if "No results found" in soup.text:
-            return IndexerProcessingResult(entries=[], queries=[], total=0, total_known=True, has_more=False, rejected=self.getRejectedCountDict())
-        if not main_table or not main_table.find("tbody"):
-            self.error("Unable to find main table in NZBIndex page: %s..." % html[:500])
-            self.debug(html[:500])
-            raise IndexerResultParsingException("Unable to find main table in NZBIndex page", self)
+        container = soup.find(id="results")
+        main_table = container.find("table") if container is not None else None
+        empty = soup.find_all(text=re.compile(r"^\s*No results found[.!]?\s*$"))
+        if soup.title and "nzbindex" in soup.title.get_text().lower() and any(
+                node.parent.name not in ("script", "style") for node in empty):
+            return IndexerProcessingResult(entries=[], queries=[], total=0, total_known=True,
+                                           has_more=False, rejected=self.getRejectedCountDict())
+        if main_table is None or main_table.find("tbody") is None:
+            raise IndexerResultParsingException("Unsupported NZBIndex HTML response; expected results table", self)
 
         items = main_table.find("tbody").find_all('tr')
         
@@ -144,6 +210,8 @@ class NzbIndex(SearchModule):
                 entry = self.parseRow(row)
             except IndexerResultParsingRowException:
                 continue
+            except (AttributeError, KeyError, IndexError, TypeError, ValueError):
+                raise IndexerResultParsingException("Malformed NZBIndex result row", self)
             accepted, reason, ri = self.accept_result(entry, searchRequest, self.supportedFilters)
             if accepted:
                 entries.append(entry)
@@ -161,7 +229,7 @@ class NzbIndex(SearchModule):
                 has_more = pagecount > currentpage
                 total = self.limit * pagecount #Good enough
         except Exception:
-            self.exception("Error while trying to find page count")
+            self.debug("Legacy NZBIndex pagination unavailable; stopping at this page")
             total = len(entries)
             has_more = False
 
@@ -283,8 +351,7 @@ class NzbIndex(SearchModule):
     def get_nzb_link(self, guid, title):
         f = furl(self.host)
         f.path.add("download")
-        f.path.add(guid)
-        f.path.add(title + ".nzb")
+        f.path.add(guid + ".nzb")
         return f.tostr()
 
     def check_auth(self, body):

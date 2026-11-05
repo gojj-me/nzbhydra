@@ -51,7 +51,7 @@ class NzbIndexTests(UrlTestCase):
         self.args = SearchRequest(query="aquery", forbiddenWords=["ignorethis"])
         urls = w.get_showsearch_urls(self.args)
         self.assertEqual(1, len(urls))
-        self.assertEqual("https://nzbindex.com/search?max=100&hidecross=1&more=1&q=aquery+-ignorethis", urls[0])
+        self.assertEqual("https://nzbindex.com/api/search?max=100&q=aquery+-ignorethis", urls[0])
 
 
         
@@ -86,7 +86,7 @@ class NzbIndexTests(UrlTestCase):
     def testGetNzbLink(self):
         n = NzbIndex(getIndexerSettingByName("nzbindex"))
         link = n.get_nzb_link("guid", "title")
-        self.assertEqual("https://nzbindex.com/download/guid/title.nzb", link)
+        self.assertEqual("https://nzbindex.com/download/guid.nzb", link)
 
     @responses.activate
     def testGetEntryById(self):

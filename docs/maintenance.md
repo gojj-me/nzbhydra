@@ -63,6 +63,12 @@ Search-result processing owns the shared database lock through a context manager
 
 Database timeout logs include a fixed operation chain for recognized application call sites, such as search, save-search, persist-result, or provider-status updates. Unrecognized paths are labelled unclassified. Diagnostics never inspect source lines, request contents, SQL/parameters, exception text or frame-local values. Queue depth and worker liveness remain supplemental observations; empty queues and live threads do not prove progress. This exception-safety fix does not establish the original cause of a database timeout or resolve every potential CPU/hang path.
 
+## NZBIndex search compatibility
+
+NZBIndex search uses the public frontend's JSON search endpoint, with page-based pagination and current size/age query parameters. Search metadata is mapped to Hydra identifiers, byte sizes, UTC posting times, groups and individual NZB/collection links. A valid empty JSON envelope is an empty result; provider errors and malformed/unsupported response shapes produce controlled parsing errors.
+
+Legacy HTML parsing remains available for recognized result tables and branded, visible no-results messages. Missing containers/tables/bodies and malformed rows are checked before dereferencing; unexpected page contents are never dumped into diagnostics. Search-title cleanup and configured result restrictions remain applicable. This search-path validation does not establish compatibility of the separate legacy NFO or API details-refresh scrapers.
+
 ## Repository cleanup
 
 Removed unsupported Windows distribution build files, retired Travis configuration, and the old Ubuntu Xenial Dockerfile/Compose example. That Dockerfile was not a LinuxServer image recipe and referenced missing certificate/key inputs. A reproducible image recipe must be introduced and tested separately.
