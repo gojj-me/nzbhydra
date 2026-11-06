@@ -80,6 +80,9 @@ Run commands from the repository root. Use an isolated Linux container with the 
 - Reference the issue from implementation commits and pull requests. Use closing references only when that change fully resolves the issue.
 - Close completed issues after verifying their acceptance criteria, recording the implementation reference and validation. If cancelled, superseded, or duplicated, close with the reason and link to the replacement or canonical issue. Reopen an issue if its completion proves incorrect.
 - Closing an implementation issue does not imply it has shipped; record the release separately. Close a release milestone after its release is published and remaining work has been resolved or explicitly rescheduled.
+- At each substantive task handoff, refresh the open target milestone and give the maintainer an updated recommended remaining sequence, the single next recommended action and why, plus blockers or decisions. Separate confirmed implementable defects from bounded validation/investigation and work awaiting evidence; never promise a fix for an undiagnosed symptom.
+- Reference an open issue ID for every known remaining gap or unvalidated path. If none exists, disclose the tracking omission and obtain the required checklist/sub-issue choice before restructuring. Do not bury remaining work in a closing caveat.
+- Keep the current recommended sequence on GitHub's milestone/issue records; documentation describes the process and links to GitHub rather than copying the live backlog. Recommendations do not authorize changing approved issue scope, structure, milestone assignments or release acceptance criteria.
 - Apply the privacy rules below to issue bodies, comments, relationships, pull requests, and release notes as well as tracked files.
 
 ## Privacy

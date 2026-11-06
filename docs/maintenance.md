@@ -96,6 +96,12 @@ Before creating or restructuring multi-part work, ask the maintainer to choose a
 
 Issue text, comments, attachments, and relationship descriptions are public project content. Personal operational records and credentials must not be copied there; keep private context separate from the public task status.
 
+### Release handoffs and recommendations
+
+At each substantive handoff, review the target milestone's open issues and provide an updated recommended sequence toward release, the single next action and its reason, and unresolved blockers or maintainer decisions. Distinguish confirmed defects ready for implementation from validation/investigation and issues awaiting evidence. An undiagnosed symptom must not be presented as a promised fix. Reference an issue ID for every known remaining validation gap; obtain the agreed tracking-structure decision if that gap is not already tracked.
+
+Keep the current sequence in GitHub milestone/issue records, with live status on each issue. Do not duplicate that backlog in repository documentation. Review unresolved milestone items before release and explicitly resolve or reschedule them with the maintainer; a recommendation alone does not change accepted scope or release criteria.
+
 ### Scheduling
 
 Future work remains in issues without a milestone until selected for a release. Separate roadmap/planned labels or a Project board are not required. Add a board only if the backlog needs more detailed workflow tracking.
