@@ -90,20 +90,18 @@ class NzbIndexTests(UrlTestCase):
 
     @responses.activate
     def testGetEntryById(self):
+        import json
         Indexer(name="nzbindex").save()
         n = NzbIndex(getIndexerSettingByName("nzbindex"))
-        with open("mock/nzbindex--details.html", encoding="latin-1") as f:
-            xml = f.read()
-        with responses.RequestsMock(assert_all_requests_are_fired=False) as rsps:
-            url_re = re.compile(r'.*')
-            rsps.add(responses.GET, url_re,
-                     body=xml, status=200,
-                     content_type='application/x-html')
-            item = n.get_entry_by_id("aguid", "atitle")
-            self.assertEqual("atitle", item.title)
-            self.assertEqual(3816816, item.size)
-            self.assertEqual("alt.binaries.pwp | alt.binaries.usenetrevolution", item.group)
-            self.assertEqual("janusch@gmail.com (Janusch)", item.poster)
-            self.assertEqual("https://nzbindex.com/download/aguid/atitle.nzb", item.link)
-            self.assertEqual("https://nzbindex.com/release/aguid/atitle.nzb", item.details_link)
-            
+        payload = {"error": False, "data": {"id": "synthetic-guid",
+            "name": "Synthetic.Details", "size": 1234567, "posted": 1700000000,
+            "poster": "synthetic", "groups": ["alt.test"]}}
+        with responses.RequestsMock(assert_all_requests_are_fired=True) as rsps:
+            rsps.add(responses.GET, "https://nzbindex.com/api/collection/synthetic-guid",
+                     body=json.dumps(payload), status=200, content_type="application/json")
+            item = n.get_entry_by_id("synthetic-guid", "old title")
+            self.assertEqual("Synthetic.Details", item.title)
+            self.assertEqual("synthetic-guid", item.indexerguid)
+            self.assertEqual(1234567, item.size)
+            self.assertEqual("https://nzbindex.com/download/synthetic-guid.nzb", item.link)
+            self.assertEqual("https://nzbindex.com/collection/synthetic-guid", item.details_link)

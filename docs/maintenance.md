@@ -67,7 +67,13 @@ Database timeout logs include a fixed operation chain for recognized application
 
 NZBIndex search uses the public frontend's JSON search endpoint, with page-based pagination and current size/age query parameters. Search metadata is mapped to Hydra identifiers, byte sizes, UTC posting times, groups and individual NZB/collection links. A valid empty JSON envelope is an empty result; provider errors and malformed/unsupported response shapes produce controlled parsing errors.
 
-Legacy HTML parsing remains available for recognized result tables and branded, visible no-results messages. Missing containers/tables/bodies and malformed rows are checked before dereferencing; unexpected page contents are never dumped into diagnostics. Search-title cleanup and configured result restrictions remain applicable. This search-path validation does not establish compatibility of the separate legacy NFO or API details-refresh scrapers.
+Legacy HTML parsing remains available for recognized result tables and branded, visible no-results messages. Missing containers/tables/bodies and malformed rows are checked before dereferencing; unexpected page contents are never dumped into diagnostics. Search-title cleanup and configured result restrictions remain applicable. NFO and API details-refresh compatibility is tracked separately in issue #18.
+
+## NZBIndex NFO and details contract under validation
+
+Issue #18 tracks replacing the retired release-page scraper with the public collection JSON endpoint. Refreshed details must preserve provider identifiers and metadata while the Hydra API retains its own result identifier and download URL. Provider errors, missing collections and malformed metadata must not become successful empty results or page dumps.
+
+The verified public collection contract supplies metadata and a file manifest, not NFO contents. The proposed integration outcome is explicit NFO unavailability, with no call to the retired NFO HTML route and no claim that the collection contains no NFO file. This describes the integration's verified contract, not every possible provider service. The code and documentation for this behavior remain under #18 validation until legacy tests and deployment checks pass.
 
 ## Repository cleanup
 

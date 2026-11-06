@@ -746,6 +746,8 @@ def api(args):
         if item is None:
             logger.error("Unable to find or parse details for %s" % searchResult.title)
             return "Unable to get details", 500
+        item.guid = searchResultId
+        item.searchResultId = searchResultId
         item.link = get_nzb_link_and_guid(searchResultId, False)[0]  # We need to make sure the link in the details refers to us
         return render_search_results_for_api([item], None, None, output=args["o"])
     elif args["t"] == "getnfo":
@@ -758,6 +760,8 @@ def api(args):
                 # TODO Return as json if requested
                 return render_template("nfo.html", nfo=result["nfo"])
         else:
+            if result.get("message"):
+                return Response('<error code="300" description="NFO retrieval unavailable"/>', mimetype="text/xml")
             return Response('<error code="300" description="No such item"/>', mimetype="text/xml")
 
     else:
