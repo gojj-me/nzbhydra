@@ -407,7 +407,14 @@ def search(search_request):
                     indexers_to_call.append(indexer)
                     logger.debug("%s still has more results so we could use it the next round" % indexer)
 
-                if queries_execution_result.total_known:
+                if getattr(indexer, "uses_page_numbers", False):
+                    # Page-count providers report rows on this page, not a
+                    # global total. Do not add the generic 100-row estimate.
+                    info = cache_entry["indexer_infos"][indexer]
+                    info["loaded_total"] = info.get("loaded_total", 0) + queries_execution_result.total
+                    info["total"] = info["loaded_total"]
+                    cache_entry["total"] += queries_execution_result.total
+                elif queries_execution_result.total_known:
                     if not cache_entry["indexer_infos"][indexer]["total_included"]:
                         cache_entry["total"] += queries_execution_result.total
                         logger.debug("%s reports %d total results. We'll include in the total this time only" % (indexer, queries_execution_result.total))

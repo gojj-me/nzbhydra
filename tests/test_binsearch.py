@@ -216,7 +216,7 @@ class BinsearchPaginationTests(unittest.TestCase):
                 entry.size=1000000
                 self.module.getDates(entry,self.module.parse_age('4 days'),False)
                 rows.append(entry)
-            result=Bunch(results=rows,didsearch=True,has_more=number<self.last_page,total=0,total_known=False,
+            result=Bunch(results=rows,didsearch=True,has_more=number<self.last_page,total=25,total_known=number==self.last_page,
                          indexerSearchEntry=None,rejected={},loaded_results=25)
             return {'results':{self.module:result}}
         search.search_and_handle_db=execute
@@ -226,15 +226,17 @@ class BinsearchPaginationTests(unittest.TestCase):
     def run_search(self,offset=0,limit=100):
         return search.search(search.SearchRequest(type='general',query='synthetic',offset=offset,limit=limit))
     def test_large_api_limit_does_not_skip_provider_pages(self):
-        self.run_search()
+        result=self.run_search()
         self.assertEqual([0,1,2,3],self.pages)
+        self.assertEqual(100,result['total'])
     def test_cached_cursor_survives_changed_api_limit(self):
         self.run_search(limit=10)
         self.run_search(offset=10,limit=40)
         self.assertEqual([0,1],self.pages)
     def test_new_search_resets_cursor_and_exhaustion_stops(self):
         self.last_page=1
-        self.run_search();self.assertEqual([0,1],self.pages)
+        result=self.run_search();self.assertEqual([0,1],self.pages)
+        self.assertEqual(50,result['total'])
         self.run_search();self.assertEqual([0,1,0,1],self.pages)
 
 

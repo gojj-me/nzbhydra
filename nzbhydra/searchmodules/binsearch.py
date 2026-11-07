@@ -19,7 +19,6 @@ from nzbhydra.search_module import SearchModule, IndexerProcessingResult
 
 class Binsearch(SearchModule):
     # The public frontend uses zero-based pages of 25 collections.
-    limit = 25
     uses_page_numbers = True
     size_pattern = re.compile(r"^([0-9]+(?:\.[0-9]+)?)\s*([KMGT]?)B$", re.I)
     guid_pattern = re.compile(r"^[A-Za-z0-9_-]+={0,2}\Z")
@@ -207,8 +206,8 @@ class Binsearch(SearchModule):
                 else:
                     rejected[rejection] += 1
             has_more = bool(rows) and next_page["aria-disabled"] == "false"
-            # The current UI does not expose an exact total count.
-            return IndexerProcessingResult(entries=entries, queries=[], total=(page * self.limit + len(rows)),
+            # Report this page count; the search cache accumulates provider pages.
+            return IndexerProcessingResult(entries=entries, queries=[], total=len(rows),
                 total_known=not has_more, has_more=has_more, rejected=rejected)
         except (ValueError, TypeError, KeyError, AttributeError, IndexError, OverflowError):
             # Never log provider HTML, result text, poster details or query values.
