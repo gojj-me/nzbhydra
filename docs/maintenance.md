@@ -49,6 +49,14 @@ Search selection and request admission both enforce an active rate-limit cooldow
 
 Rate-limit status records only a controlled explanation and the next permitted attempt, not the response body, raw retry header, or credential-bearing URL. Generic connection failures and authentication errors keep their existing behavior. Separate logging-redaction work remains tracked in GitHub; this change does not claim to sanitize all historical error paths. Provider configuration/capability probes and direct downloader requests that bypass the shared indexer search/access path are outside this cooldown mechanism.
 
+## NZBClub TLS and feed investigation
+
+Issue #13 investigates the existing NZBClub adapter rather than assuming that a CA update restores its feed. On 2026-11-07, the public HTTPS endpoint supplied its hostname certificate and the Let's Encrypt YE1 intermediate but omitted the cross-signed chain linking Root YE through established roots. Normal modern and applicable legacy clients rejected that chain. The [CA's published chain](https://letsencrypt.org/certificates/) documents the additional cross-signed certificates.
+
+A temporary diagnostic bundle containing those official cross-signed certificates allowed certificate and hostname validation to succeed against existing trust roots. Both modern and legacy HTTP clients then received a closed connection without an HTTP response from the homepage and historical `/nzbrss.aspx` endpoint. These observations establish that supplementing the chain alone did not restore the feed; they do not prove permanent shutdown or current domain ownership. No diagnostic trust bundle is installed into the application or image. Provider disposition remains on #13.
+
+Local HTTPS regressions use a disposable synthetic CA, leaf certificate and loopback server. They verify success with the explicit test CA, rejection of an untrusted certificate with normal verification, and rejection of a hostname mismatch even with the test CA trusted. Tests never disable verification; generated test private keys remain outside Git and are deleted with the temporary test directory.
+
 ## Credential redaction in diagnostics
 
 Application-managed console and file handlers redact complete recognized credential values after message formatting, including exception tracebacks and messages from child loggers. Structured dictionaries/lists, lazy formatting arguments, common credential query/header names, URL user information, signed-URL credential fields, and percent-encoded query keys/values are covered. Redaction failures produce a fixed diagnostic placeholder instead of the original message. The sanitizer operates on diagnostic copies; it must never modify live request URLs, authentication data, or saved application configuration.
