@@ -5,7 +5,6 @@ from __future__ import with_statement
 
 import logging
 import os
-import platform
 import shutil
 import subprocess
 import urllib
@@ -128,11 +127,7 @@ def getUpdateManager():
     if updateManager is None:
         main_dir = os.path.dirname(os.path.dirname(__file__))
         # Hacky way of finding out if the installation is a git clone
-        nzbhydraexe = os.path.join(main_dir, "nzbhydra.exe")
-        if os.path.exists(nzbhydraexe):
-            logger.debug("%s exists. Assuming this is a windows release" % nzbhydraexe)
-            updateManager = WindowsUpdateManager()
-        elif os.path.exists(os.path.join(main_dir, ".git")):
+        if os.path.exists(os.path.join(main_dir, ".git")):
             logger.debug("%s exists. Assuming this is a git clone" % os.path.join(main_dir, ".git"))
             updateManager = GitUpdateManager()
         else:
@@ -220,34 +215,7 @@ class GitUpdateManager(UpdateManager):
         else:
             logger.debug("Not using: " + main_git)
 
-        # trying alternatives
-
-        alternative_git = []
-
-        # osx people who start SB from launchd have a broken path, so try a hail-mary attempt for them
-        if platform.system().lower() == 'darwin':
-            alternative_git.append('/usr/local/git/bin/git')
-
-        if platform.system().lower() == 'windows':
-            if main_git != main_git.lower():
-                alternative_git.append(main_git.lower())
-
-        if alternative_git:
-            logger.debug("Trying known alternative git locations")
-
-            for cur_git in alternative_git:
-                logger.debug("Checking if we can use git commands: " + cur_git + ' ' + test_cmd)
-                output, err, exit_status = self._run_git(cur_git, test_cmd)
-
-                if exit_status == 0:
-                    logger.error("Using: " + cur_git)
-                    return cur_git
-                else:
-                    logger.debug("Not using: " + cur_git)
-
-        # Still haven't found a working git
         logger.error("Unable to find working git command")
-
         return None
 
     def _run_git(self, git_path, args):
@@ -392,97 +360,3 @@ class SourceUpdateManager(UpdateManager):
             return False
         logger.info("Update successful")
         return True
-
-
-class WindowsUpdateManager(SourceUpdateManager):
-    def __init__(self):
-        self.repositoryBase = config.settings.main.repositoryBase
-        self.repository = "nzbhydra-windows-releases"
-        self.branch = config.settings.main.branch
-        self.subfolder = None
-
-    def update(self):
-        """
-        Downloads the latest source tarball from github and installs it over the existing version.
-        """
-        base_url = furl(self.repositoryBase)
-        base_url.path.add(self.repository)
-        base_url.path.add("tarball")
-        base_url.path.add(self.branch)
-        tar_download_url = base_url.url
-        main_dir = os.path.dirname(os.path.dirname(__file__))
-
-        try:
-            self.backup()
-            # prepare the update dir
-            update_dir = os.path.join(main_dir, 'update')
-
-            if os.path.isdir(update_dir):
-                logger.info("Clearing out update folder " + update_dir + " before extracting")
-                shutil.rmtree(update_dir)
-
-            logger.info("Creating update folder " + update_dir + " before extracting")
-            os.makedirs(update_dir)
-
-            # retrieve file
-            logger.info("Downloading update from " + repr(tar_download_url))
-            tar_download_path = os.path.join(update_dir, 'sb-update.tar')
-            urllib.urlretrieve(tar_download_url, tar_download_path)
-
-            if not os.path.isfile(tar_download_path):
-                logger.error("Unable to retrieve new version from " + tar_download_url + ", can't update")
-                return False
-
-            if not tarfile.is_tarfile(tar_download_path):
-                logger.error("Retrieved version from " + tar_download_url + " is corrupt, can't update")
-                return False
-
-            # extract to sb-update dir
-            logger.info("Extracting update file " + tar_download_path)
-            tar = tarfile.open(tar_download_path)
-            tar.extractall(update_dir)
-            tar.close()
-
-            # delete .tar.gz
-            logger.info("Deleting update file " + tar_download_path)
-            os.remove(tar_download_path)
-
-            # find update dir name
-            update_dir_contents = [x for x in os.listdir(update_dir) if os.path.isdir(os.path.join(update_dir, x))]
-            if len(update_dir_contents) != 1:
-                logger.error("Invalid update data, update failed: " + str(update_dir_contents))
-                return False
-            content_dir = os.path.join(update_dir, update_dir_contents[0])
-            
-            dontUpdateThese = ["nssm.exe"]#("msvcm90.dll", "msvcr90.dll", "msvcm90.dll")
-            #rename exes, pyd and dll files so they can be overwritten
-            filesToRename = []
-            for filename in os.listdir(main_dir):         
-                if (filename.endswith(".pyd") or filename.endswith(".dll") or filename.endswith(".exe")) and filename not in dontUpdateThese:
-                    filesToRename.append((filename, filename + ".updated"))
-            logger.info("Renaming %d files so they can be overwritten" % len(filesToRename))
-            for toRename in filesToRename:
-                logger.debug("Renaming %s to %s" % (toRename[0], toRename[1]))
-                shutil.move(toRename[0], toRename[1])      
-
-            # walk temp folder and move files to main folder
-            logger.info("Moving files from " + content_dir + " to " + main_dir)
-            for dirname, dirnames, filenames in os.walk(content_dir):
-                dirname = dirname[len(content_dir) + 1:]
-                for curfile in filenames:
-                    if curfile not in dontUpdateThese:
-                        old_path = os.path.join(content_dir, dirname, curfile)
-                        new_path = os.path.join(main_dir, dirname, curfile)
-                        logger.debug("Updating %s" % curfile)
-                        if os.path.isfile(new_path):
-                            os.remove(new_path)
-                        os.renames(old_path, new_path)
-                    else:
-                        logger.debug("Skipping %s" % curfile)
-
-        except Exception as e:
-            logger.error("Error while trying to update: " + str(e))
-            return False
-        logger.info("Update successful")
-        return True
-

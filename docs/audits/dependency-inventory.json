@@ -1,0 +1,5235 @@
+{
+  "base_revision": "a225f2144fa6abdcc1b07fc7b7c3103debb7ef7d",
+  "frontend_build_dependencies": {
+    "bower": "^1.6.3",
+    "grunt": "^0.4.5",
+    "grunt-bower-concat": "^0.5.0",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-cached": "^1.1.1",
+    "gulp-clean": "^0.3.1",
+    "gulp-clean-css": "^2.4.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-copy": "0.0.2",
+    "gulp-flatten": "^0.2.0",
+    "gulp-git": "^1.6.0",
+    "gulp-inject": "^3.0.0",
+    "gulp-less": "^3.0.3",
+    "gulp-less-sourcemap": "^1.4.3",
+    "gulp-livereload": "^3.8.1",
+    "gulp-merge": "^0.1.1",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-print": "^2.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^6.0.1",
+    "gulp-rev-collector": "^1.0.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.4.2",
+    "gulp-watch": "^4.3.5",
+    "main-bower-files": "^2.9.0",
+    "merge-stream": "^1.0.0",
+    "run-sequence": "^1.1.4",
+    "wiredep": "^2.2.2",
+    "wiredep-cli": "^0.1.0"
+  },
+  "frontend_declared_dependencies": {
+    "angular": "~1.4.7",
+    "angular-animate": "~1.4.7",
+    "angular-aria": "^1.5.0",
+    "angular-block-ui": "~0.2.0",
+    "angular-bootstrap": "~2.5.0",
+    "angular-bootstrap-switch": "^0.5.0",
+    "angular-busy": "~4.1.3",
+    "angular-cookie": "~4.0.9",
+    "angular-cookies": "^1.5.5",
+    "angular-filter": "^0.5.11",
+    "angular-formly": "^7.3.9",
+    "angular-formly-templates-bootstrap": "~6.1.5",
+    "angular-growl-v2": "angular-growl-2#~0.7.5",
+    "angular-http-auth": "^1.3.0",
+    "angular-loading-bar": "~0.8.0",
+    "angular-local-storage": "^0.2.7",
+    "angular-messages": "~1.5.0",
+    "angular-nvd3": "~1.0.9",
+    "angular-route": "~1.4.7",
+    "angular-schema-form": "~0.8.12",
+    "angular-schema-form-dynamic-select": "~0.12.4",
+    "angular-strap": "~2.3.3",
+    "angular-ui-router": "~0.4.2",
+    "angular-ui-router-title": "^0.0.4",
+    "angular-ui-select": "^0.18.0",
+    "angular-vs-repeat": "~1.0.0-rc9",
+    "angularUtils-pagination": "angular-utils-pagination#~0.9.0",
+    "animate.css": "animate-css#~3.4.0",
+    "bootstrap": "~3.3.5",
+    "bootstrap-less": "~3.3.4",
+    "bower": "*",
+    "checklist-model": "~0.9.0",
+    "filesize": "^3.3.0",
+    "font-awesome": "~4.7.0",
+    "install": "~1.0.4",
+    "moment": "momentjs#^2.13.0",
+    "moment-timezone": "^0.5.4",
+    "ng-file-upload": "~12.2.12",
+    "objectpath": "~1.2.1",
+    "query": "~0.0.2",
+    "seiyria-bootstrap-slider": "~5.2.1",
+    "superagent": "~1.4.0",
+    "tv4": "~1.2.7",
+    "typicons.font": "typicons#~2.0.7",
+    "ui-select": "angular-ui-select#~0.13.2",
+    "underscore": "~1.8.3",
+    "urijs": "~1.16.1"
+  },
+  "frontend_source_maps": [
+    {
+      "path": "static/css/alllibs.css.map",
+      "sources": [
+        {
+          "license_indicator": true,
+          "path": "angular-block-ui.css",
+          "sha256": "e847dfca31f9888f51e61275475fc074e4baea633a4ca6a10981e5a7226e279b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "loading-bar.css",
+          "sha256": "b0b5a76dcbd6c23eef974c3b1335f3389d27a0a51b6a17515869bb2c4b3f7b39",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "bootstrap.css",
+          "sha256": "0bd96563fa2aaafdea36a3c062ae4acb22ac030f1f129cce0ae39b9fd708c71c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-growl.css",
+          "sha256": "bad49ee0b707c9aeca67428271b0fb835b03ebf4a53ff2132f5c5676c33129c6",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "animate.css",
+          "sha256": "d44da5fc59ec94a8a4e6b556caeeec506d03821b1e29cef8d950a32955c5619b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "bootstrap-slider.css",
+          "sha256": "79d79efc9f5e6f209c5a1a55e57a836b100b4fd66e7d4b14b43841ad5125adc1",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "typicons.css",
+          "sha256": "9208557437ba8bf0b91b7f31610749e73e43cfd14c814b1841f83e393285f32c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "font-awesome.css",
+          "sha256": "67386dfc89f862a18f531a68507a146192ca44ba24fc0cb56bd35c0475831e9b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "typicons.min.css",
+          "sha256": "8660ed12799916f277ccbb1fa1ba74dc2483dffa91089998ddfed5a9feb32200",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "select.css",
+          "sha256": "e0061935d41504359e0d469e1e6348dc9d8a1eaacf14a6e9d66eed92f816be89",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "nv.d3.css",
+          "sha256": "b4cce873466b6489bc97775dd0ebceb89e623a6c622c5cf3da12a6a20e6569ab",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "bootstrap-switch.css",
+          "sha256": "f72f31cdf00b756b41e027aa39f9164006c78efe8d8821da36dfbb9cbdad4b7b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "angular-busy.css",
+          "sha256": "d835d1c4ec054f6f610e6776f42428f256b703f038ffe85b1e98d02659411196",
+          "source_embedded": true
+        }
+      ]
+    },
+    {
+      "path": "static/css/bright.css.map",
+      "sources": [
+        {
+          "license_indicator": false,
+          "path": "bright.css",
+          "sha256": null,
+          "source_embedded": false
+        },
+        {
+          "license_indicator": true,
+          "path": "../../bower_components/bootstrap-less/less/normalize.less",
+          "sha256": "fe74d9ac9cdec66345262b32169128fb1ff7f4d336aeae596243b65f7f438207",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/print.less",
+          "sha256": "e6d86053a9fc241255758f872a0d458b3dba747b0f780d7ef73b665bd34fce48",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "../../bower_components/bootstrap-less/less/glyphicons.less",
+          "sha256": "9eb7afd3a350be6212439cc87c8968e2ec7d633bc1ca420382a241865cf6790a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/scaffolding.less",
+          "sha256": "93a3f9f49c1faf4222535cc7fce282b6ef190dfc0a86b7ab9238ba7aeb46a068",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/vendor-prefixes.less",
+          "sha256": "01ad5a26a0daed71d5e6199508e0486a017d1b504a7bb6bc4fa9efb113bbefac",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "nzbhydra.less",
+          "sha256": "f131f81740bd4e9106443dff3b4722f21fe2e250645db3ce48d885a472712f63",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/tab-focus.less",
+          "sha256": "dee41df40f2fc5fc667099e4bbf45920e7571cd777cf07fe110a7e3c417d8f27",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/carousel.less",
+          "sha256": "cbf1318f043510361804876e82c24c1be215ba9a0740d7aef74a74f595cb7efa",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/thumbnails.less",
+          "sha256": "87e9879c7e6dec7154d80aa42a86c45ed8876b68a868644ccb9cd6b4a6c53e0e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/image.less",
+          "sha256": "5bc36f8b6451ac063d47c2c0b41c6f788407dd2a002aeb58b6271a869838509f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/type.less",
+          "sha256": "e7c5327ecb5ddbbf5639aacdad1bb748230b78d661fbf12aba8a2c9f5381d003",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/text-emphasis.less",
+          "sha256": "a0851f0cb517506264c9b992d04810c0f1f49d2104429af70bb59541ff823f6b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/background-variant.less",
+          "sha256": "3162642add99709b0e31dbf4f9553cd8011136f5ab3cb780a9b51468896061a5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/text-overflow.less",
+          "sha256": "6aade69b4f606ff0099a4408fda4f5e7ac0dbd96c23739b0c201ac7200e8a8fc",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/code.less",
+          "sha256": "c95264fc75f2eb08c79db7b897a9d1276181d9a44c00f0a03e52e01b32f05ee5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/variables.less",
+          "sha256": "4b4a73d3546c0cada2bc85662f56b564a0489800c5019186ee62e706690b0a15",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/grid.less",
+          "sha256": "e600ef88ebc68dda762eeba079b1b935c010fd4070bb6508c9dd7155f8c395a1",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/grid.less",
+          "sha256": "4fb5dc644bc25c99bd6a761f162e09e652aba9782c45aa4b0f3aca6bbad14318",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/grid-framework.less",
+          "sha256": "af38c56d485286efbbe2948b28782b0d5f345297c33e783b30a81f388b110290",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/tables.less",
+          "sha256": "e3f64698fd0aeead734d0963566f8331414f9f257cc9ba89636dad09fdeee764",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/table-row.less",
+          "sha256": "fbc0a73ea2a8e232f66fbc6684f29d9d2f361f9fbfe2191318606209230fc1b8",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/forms.less",
+          "sha256": "0a0447254cb06be606593b5b856061d6e6d8cc79833ea009b5b2424c93711da9",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/forms.less",
+          "sha256": "88ac5cb8c5ba5fc009d9d65ab72decd0d34cf8706eb83327566761ae6aecd192",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/buttons.less",
+          "sha256": "eb1eda217d72709ffd9a40eb8c5f369374f92f67da771eb57a0e0a2fb26a619f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/buttons.less",
+          "sha256": "cb34013e037e8b3acb576a551614ef4887d7ba24af2187ebb41a30fedd32908d",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/opacity.less",
+          "sha256": "7e43cf5bd7958467451c6e1c7420ce457f270fdb1e0ab7f703718f4559a5bf9e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/button-groups.less",
+          "sha256": "4555d7328878db95e7d0e18c739ae53a8c5ad4f3f13f397367dc4987b527c93c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/component-animations.less",
+          "sha256": "e939f4d9361dbda882fe9b55321a7621fd6b9de588256b279da0e31951f5063a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/dropdowns.less",
+          "sha256": "794259db97813f7c4891f997d2455b41e523cb365d2fee4f26cb2e7e18819564",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/nav-divider.less",
+          "sha256": "8043f8d3ab4d8d3cd8635f777d51bd8101b9f0d5017f9920c10da2b7bafd8d4e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/border-radius.less",
+          "sha256": "e69871b5803835bb67df40d9e172a1548e3903488ca31afc6568683e5985c928",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/input-groups.less",
+          "sha256": "f66a363daafa4d9b7a8b99e20248d15dd344979ff9df11dd71e5fe1402687545",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/navs.less",
+          "sha256": "ea99b5e866e74642a3ba1ab55a0a53e0e0711e67a8928e8a2471b84edc3e0456",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/navbar.less",
+          "sha256": "d88586bdad2cd397a1a623ea0aeea7ad019e3a20e8f8fa04bf6e4e3e45f2c2e9",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/nav-vertical-align.less",
+          "sha256": "ab36bdc7fb86b18ba779bb80068d3ae1614e96f6888fe8f06ebfb2038a7ca848",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/utilities.less",
+          "sha256": "f6034c1e380bf94417fdc53f9c93bbc67762c6571689e8e974dbbf3c6c97398a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/breadcrumbs.less",
+          "sha256": "1cc333c9046b9d4e9c77f00f4e55051954fa5f4f7e0e5e313a3f86a1c1105bfc",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/pagination.less",
+          "sha256": "9577f96de5be5a2439ad8ae4547ba95c80b49172b1b66fce186f5a1baa351cb0",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/pagination.less",
+          "sha256": "143135b97fd2c6a9415d3048b3056f5ade2b03da9230bfb51470a843cc4a40ba",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/pager.less",
+          "sha256": "8e7904979425cb356b50cbc9edafae5fb885e5c4310781a81b5bd506f073c09d",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/labels.less",
+          "sha256": "faafe8a60b7492091a64a2abe957ad14b332c750794fca80e4f0ca5ed2db636f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/labels.less",
+          "sha256": "b434d897ac8d38e01d8f48b3b2e1d7b1fe4e5831a76ee874d21d3d89ebe1650c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/badges.less",
+          "sha256": "d6031ff921184f84603675aa8805dc49a0e153e86b7518522d74e63f23c74449",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/jumbotron.less",
+          "sha256": "68c2c14192bc46e8af90fcfde6c5d8a4a98c2deb49d8b2a4ac59ed415ee89f6a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/alerts.less",
+          "sha256": "8752cb6b680b0e8fa285e4ae835add72bf1a32f9ec50981fe540dfa29efcbd59",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/alerts.less",
+          "sha256": "71c8c0b6e22a2d4167a6ef5407c0efdf45de3d461fc577db768cd6ec062adad4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/progress-bars.less",
+          "sha256": "81417d06a65ee59b9fabc441cd4f197fe7c7b68a11d5596860f98341a2f3e165",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/gradients.less",
+          "sha256": "d5b157b8b8aab78a06c7c4135ae460ebfa41c5b18910f5201227072ccbe34bc0",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/progress-bar.less",
+          "sha256": "e3e441c81bfe1f3ce319ee5d40c8c93319ad169913a3155cec86e2e6a400bbe4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/media.less",
+          "sha256": "8d70a75870be691446355a67bf6979760ea343d57f8382a907a43dec875ab732",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/list-group.less",
+          "sha256": "c753e483cb591d3f4b3c0f6623534132a06589f452f6bc25303ca00a2870cdc4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/list-group.less",
+          "sha256": "cfe0bc7b28fc78f625121566965cd8c5c9c915644e92139709a2dfa2b8fa39d5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/panels.less",
+          "sha256": "c553cfc9a3906b4af05f1d89187e9c6f2fe0da098b5cfef8fba6fee0cd55a576",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/panels.less",
+          "sha256": "315dc3f8368bd42ea3d2a60d020aff2c3b7b6df9c5d9b4cde0f5e3de52274b4a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/responsive-embed.less",
+          "sha256": "d98e5144917146bf819ee6c6107ca71812fd39e8c35a2b513a221cee4f0c7cb6",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/wells.less",
+          "sha256": "48e8b334504d224e809c60fef66fc28e1f5412bade4b219952b341d0c4b7d7db",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/close.less",
+          "sha256": "2fd6f373ff01b2a9390c0188dfce1b5daf9a9dade3d2dd3bd54c8e162b552162",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/modals.less",
+          "sha256": "3625bcdddc2beb21b5d492058b8f547f7f59c51f885fb0e76691c781104053e3",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/tooltip.less",
+          "sha256": "244f8dc0192197f086b6bc639296914622215dc2d1af6d13352f07cd53134243",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/popovers.less",
+          "sha256": "b358ade752c10001128fdedc8db4b0295ff487d1d82582ac8175e5f879f80398",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/clearfix.less",
+          "sha256": "755e6753a82607893d65e40036ba1ebc69a55bbdcbd3925a826967acf2ed725b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/center-block.less",
+          "sha256": "42a5bfd1e72a04ce62dc2cb9f2f0f5fc2468893cbcbc7eb9cfc07d8be7205213",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/hide-text.less",
+          "sha256": "bb632ae8e91795fd17cf096ebe87995c8e8b57258c11f707a826ed811d6af42c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/responsive-utilities.less",
+          "sha256": "82faef37dbded5a6f428e716e0b8f987979279173b1bf56957807569907b17d7",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/responsive-visibility.less",
+          "sha256": "e9ebf72582537b98de036b6a06ae243b2b01e7d9c2fe64f27bef14283f2c295d",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-switch/src/less/bootstrap3/bootstrap-switch.less",
+          "sha256": "8726fb495836afdea3e66153feac5ad994d691f00c6045248c7df4ec2fce9492",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "bright.less",
+          "sha256": "c09de4615403476f49ad91c11728fe60f7feda90b4ece4857a950f80bdb8abc9",
+          "source_embedded": true
+        }
+      ]
+    },
+    {
+      "path": "static/css/dark.css.map",
+      "sources": [
+        {
+          "license_indicator": false,
+          "path": "dark.css",
+          "sha256": null,
+          "source_embedded": false
+        },
+        {
+          "license_indicator": true,
+          "path": "../../bower_components/bootstrap-less/less/normalize.less",
+          "sha256": "fe74d9ac9cdec66345262b32169128fb1ff7f4d336aeae596243b65f7f438207",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/print.less",
+          "sha256": "e6d86053a9fc241255758f872a0d458b3dba747b0f780d7ef73b665bd34fce48",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "../../bower_components/bootstrap-less/less/glyphicons.less",
+          "sha256": "9eb7afd3a350be6212439cc87c8968e2ec7d633bc1ca420382a241865cf6790a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/scaffolding.less",
+          "sha256": "93a3f9f49c1faf4222535cc7fce282b6ef190dfc0a86b7ab9238ba7aeb46a068",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/vendor-prefixes.less",
+          "sha256": "01ad5a26a0daed71d5e6199508e0486a017d1b504a7bb6bc4fa9efb113bbefac",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "nzbhydra.less",
+          "sha256": "f131f81740bd4e9106443dff3b4722f21fe2e250645db3ce48d885a472712f63",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/tab-focus.less",
+          "sha256": "dee41df40f2fc5fc667099e4bbf45920e7571cd777cf07fe110a7e3c417d8f27",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/carousel.less",
+          "sha256": "cbf1318f043510361804876e82c24c1be215ba9a0740d7aef74a74f595cb7efa",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/thumbnails.less",
+          "sha256": "87e9879c7e6dec7154d80aa42a86c45ed8876b68a868644ccb9cd6b4a6c53e0e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/image.less",
+          "sha256": "5bc36f8b6451ac063d47c2c0b41c6f788407dd2a002aeb58b6271a869838509f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/type.less",
+          "sha256": "e7c5327ecb5ddbbf5639aacdad1bb748230b78d661fbf12aba8a2c9f5381d003",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/text-emphasis.less",
+          "sha256": "a0851f0cb517506264c9b992d04810c0f1f49d2104429af70bb59541ff823f6b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/background-variant.less",
+          "sha256": "3162642add99709b0e31dbf4f9553cd8011136f5ab3cb780a9b51468896061a5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/text-overflow.less",
+          "sha256": "6aade69b4f606ff0099a4408fda4f5e7ac0dbd96c23739b0c201ac7200e8a8fc",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/code.less",
+          "sha256": "c95264fc75f2eb08c79db7b897a9d1276181d9a44c00f0a03e52e01b32f05ee5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/variables.less",
+          "sha256": "4b4a73d3546c0cada2bc85662f56b564a0489800c5019186ee62e706690b0a15",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/grid.less",
+          "sha256": "e600ef88ebc68dda762eeba079b1b935c010fd4070bb6508c9dd7155f8c395a1",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/grid.less",
+          "sha256": "4fb5dc644bc25c99bd6a761f162e09e652aba9782c45aa4b0f3aca6bbad14318",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/grid-framework.less",
+          "sha256": "af38c56d485286efbbe2948b28782b0d5f345297c33e783b30a81f388b110290",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/tables.less",
+          "sha256": "e3f64698fd0aeead734d0963566f8331414f9f257cc9ba89636dad09fdeee764",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/table-row.less",
+          "sha256": "fbc0a73ea2a8e232f66fbc6684f29d9d2f361f9fbfe2191318606209230fc1b8",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/forms.less",
+          "sha256": "0a0447254cb06be606593b5b856061d6e6d8cc79833ea009b5b2424c93711da9",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/forms.less",
+          "sha256": "88ac5cb8c5ba5fc009d9d65ab72decd0d34cf8706eb83327566761ae6aecd192",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/buttons.less",
+          "sha256": "eb1eda217d72709ffd9a40eb8c5f369374f92f67da771eb57a0e0a2fb26a619f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/buttons.less",
+          "sha256": "cb34013e037e8b3acb576a551614ef4887d7ba24af2187ebb41a30fedd32908d",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/opacity.less",
+          "sha256": "7e43cf5bd7958467451c6e1c7420ce457f270fdb1e0ab7f703718f4559a5bf9e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/button-groups.less",
+          "sha256": "4555d7328878db95e7d0e18c739ae53a8c5ad4f3f13f397367dc4987b527c93c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/component-animations.less",
+          "sha256": "e939f4d9361dbda882fe9b55321a7621fd6b9de588256b279da0e31951f5063a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/dropdowns.less",
+          "sha256": "794259db97813f7c4891f997d2455b41e523cb365d2fee4f26cb2e7e18819564",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/nav-divider.less",
+          "sha256": "8043f8d3ab4d8d3cd8635f777d51bd8101b9f0d5017f9920c10da2b7bafd8d4e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/border-radius.less",
+          "sha256": "e69871b5803835bb67df40d9e172a1548e3903488ca31afc6568683e5985c928",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/input-groups.less",
+          "sha256": "f66a363daafa4d9b7a8b99e20248d15dd344979ff9df11dd71e5fe1402687545",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/navs.less",
+          "sha256": "ea99b5e866e74642a3ba1ab55a0a53e0e0711e67a8928e8a2471b84edc3e0456",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/navbar.less",
+          "sha256": "d88586bdad2cd397a1a623ea0aeea7ad019e3a20e8f8fa04bf6e4e3e45f2c2e9",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/nav-vertical-align.less",
+          "sha256": "ab36bdc7fb86b18ba779bb80068d3ae1614e96f6888fe8f06ebfb2038a7ca848",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/utilities.less",
+          "sha256": "f6034c1e380bf94417fdc53f9c93bbc67762c6571689e8e974dbbf3c6c97398a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/breadcrumbs.less",
+          "sha256": "1cc333c9046b9d4e9c77f00f4e55051954fa5f4f7e0e5e313a3f86a1c1105bfc",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/pagination.less",
+          "sha256": "9577f96de5be5a2439ad8ae4547ba95c80b49172b1b66fce186f5a1baa351cb0",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/pagination.less",
+          "sha256": "143135b97fd2c6a9415d3048b3056f5ade2b03da9230bfb51470a843cc4a40ba",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/pager.less",
+          "sha256": "8e7904979425cb356b50cbc9edafae5fb885e5c4310781a81b5bd506f073c09d",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/labels.less",
+          "sha256": "faafe8a60b7492091a64a2abe957ad14b332c750794fca80e4f0ca5ed2db636f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/labels.less",
+          "sha256": "b434d897ac8d38e01d8f48b3b2e1d7b1fe4e5831a76ee874d21d3d89ebe1650c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/badges.less",
+          "sha256": "d6031ff921184f84603675aa8805dc49a0e153e86b7518522d74e63f23c74449",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/jumbotron.less",
+          "sha256": "68c2c14192bc46e8af90fcfde6c5d8a4a98c2deb49d8b2a4ac59ed415ee89f6a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/alerts.less",
+          "sha256": "8752cb6b680b0e8fa285e4ae835add72bf1a32f9ec50981fe540dfa29efcbd59",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/alerts.less",
+          "sha256": "71c8c0b6e22a2d4167a6ef5407c0efdf45de3d461fc577db768cd6ec062adad4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/progress-bars.less",
+          "sha256": "81417d06a65ee59b9fabc441cd4f197fe7c7b68a11d5596860f98341a2f3e165",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/gradients.less",
+          "sha256": "d5b157b8b8aab78a06c7c4135ae460ebfa41c5b18910f5201227072ccbe34bc0",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/progress-bar.less",
+          "sha256": "e3e441c81bfe1f3ce319ee5d40c8c93319ad169913a3155cec86e2e6a400bbe4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/media.less",
+          "sha256": "8d70a75870be691446355a67bf6979760ea343d57f8382a907a43dec875ab732",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/list-group.less",
+          "sha256": "c753e483cb591d3f4b3c0f6623534132a06589f452f6bc25303ca00a2870cdc4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/list-group.less",
+          "sha256": "cfe0bc7b28fc78f625121566965cd8c5c9c915644e92139709a2dfa2b8fa39d5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/panels.less",
+          "sha256": "c553cfc9a3906b4af05f1d89187e9c6f2fe0da098b5cfef8fba6fee0cd55a576",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/panels.less",
+          "sha256": "315dc3f8368bd42ea3d2a60d020aff2c3b7b6df9c5d9b4cde0f5e3de52274b4a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/responsive-embed.less",
+          "sha256": "d98e5144917146bf819ee6c6107ca71812fd39e8c35a2b513a221cee4f0c7cb6",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/wells.less",
+          "sha256": "48e8b334504d224e809c60fef66fc28e1f5412bade4b219952b341d0c4b7d7db",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/close.less",
+          "sha256": "2fd6f373ff01b2a9390c0188dfce1b5daf9a9dade3d2dd3bd54c8e162b552162",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/modals.less",
+          "sha256": "3625bcdddc2beb21b5d492058b8f547f7f59c51f885fb0e76691c781104053e3",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/tooltip.less",
+          "sha256": "244f8dc0192197f086b6bc639296914622215dc2d1af6d13352f07cd53134243",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/popovers.less",
+          "sha256": "b358ade752c10001128fdedc8db4b0295ff487d1d82582ac8175e5f879f80398",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/clearfix.less",
+          "sha256": "755e6753a82607893d65e40036ba1ebc69a55bbdcbd3925a826967acf2ed725b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/center-block.less",
+          "sha256": "42a5bfd1e72a04ce62dc2cb9f2f0f5fc2468893cbcbc7eb9cfc07d8be7205213",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/hide-text.less",
+          "sha256": "bb632ae8e91795fd17cf096ebe87995c8e8b57258c11f707a826ed811d6af42c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/responsive-utilities.less",
+          "sha256": "82faef37dbded5a6f428e716e0b8f987979279173b1bf56957807569907b17d7",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/responsive-visibility.less",
+          "sha256": "e9ebf72582537b98de036b6a06ae243b2b01e7d9c2fe64f27bef14283f2c295d",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-switch/src/less/bootstrap3/bootstrap-switch.less",
+          "sha256": "8726fb495836afdea3e66153feac5ad994d691f00c6045248c7df4ec2fce9492",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "grey.less",
+          "sha256": "90b47ba1c90fcae028059ff92cd01bae5feaaa3b362ccdcb3847a496e68db56c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "dark.less",
+          "sha256": "e3673485b851e7f21d8d16e2bffa599ab1c076594dbae3f3e40196ebd9a11d3c",
+          "source_embedded": true
+        }
+      ]
+    },
+    {
+      "path": "static/css/grey.css.map",
+      "sources": [
+        {
+          "license_indicator": false,
+          "path": "grey.css",
+          "sha256": null,
+          "source_embedded": false
+        },
+        {
+          "license_indicator": true,
+          "path": "../../bower_components/bootstrap-less/less/normalize.less",
+          "sha256": "fe74d9ac9cdec66345262b32169128fb1ff7f4d336aeae596243b65f7f438207",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/print.less",
+          "sha256": "e6d86053a9fc241255758f872a0d458b3dba747b0f780d7ef73b665bd34fce48",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "../../bower_components/bootstrap-less/less/glyphicons.less",
+          "sha256": "9eb7afd3a350be6212439cc87c8968e2ec7d633bc1ca420382a241865cf6790a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/scaffolding.less",
+          "sha256": "93a3f9f49c1faf4222535cc7fce282b6ef190dfc0a86b7ab9238ba7aeb46a068",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/vendor-prefixes.less",
+          "sha256": "01ad5a26a0daed71d5e6199508e0486a017d1b504a7bb6bc4fa9efb113bbefac",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "nzbhydra.less",
+          "sha256": "f131f81740bd4e9106443dff3b4722f21fe2e250645db3ce48d885a472712f63",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/tab-focus.less",
+          "sha256": "dee41df40f2fc5fc667099e4bbf45920e7571cd777cf07fe110a7e3c417d8f27",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/carousel.less",
+          "sha256": "cbf1318f043510361804876e82c24c1be215ba9a0740d7aef74a74f595cb7efa",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/thumbnails.less",
+          "sha256": "87e9879c7e6dec7154d80aa42a86c45ed8876b68a868644ccb9cd6b4a6c53e0e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/image.less",
+          "sha256": "5bc36f8b6451ac063d47c2c0b41c6f788407dd2a002aeb58b6271a869838509f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/type.less",
+          "sha256": "e7c5327ecb5ddbbf5639aacdad1bb748230b78d661fbf12aba8a2c9f5381d003",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/text-emphasis.less",
+          "sha256": "a0851f0cb517506264c9b992d04810c0f1f49d2104429af70bb59541ff823f6b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/background-variant.less",
+          "sha256": "3162642add99709b0e31dbf4f9553cd8011136f5ab3cb780a9b51468896061a5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/text-overflow.less",
+          "sha256": "6aade69b4f606ff0099a4408fda4f5e7ac0dbd96c23739b0c201ac7200e8a8fc",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/code.less",
+          "sha256": "c95264fc75f2eb08c79db7b897a9d1276181d9a44c00f0a03e52e01b32f05ee5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/variables.less",
+          "sha256": "4b4a73d3546c0cada2bc85662f56b564a0489800c5019186ee62e706690b0a15",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/grid.less",
+          "sha256": "e600ef88ebc68dda762eeba079b1b935c010fd4070bb6508c9dd7155f8c395a1",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/grid.less",
+          "sha256": "4fb5dc644bc25c99bd6a761f162e09e652aba9782c45aa4b0f3aca6bbad14318",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/grid-framework.less",
+          "sha256": "af38c56d485286efbbe2948b28782b0d5f345297c33e783b30a81f388b110290",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/tables.less",
+          "sha256": "e3f64698fd0aeead734d0963566f8331414f9f257cc9ba89636dad09fdeee764",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/table-row.less",
+          "sha256": "fbc0a73ea2a8e232f66fbc6684f29d9d2f361f9fbfe2191318606209230fc1b8",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/forms.less",
+          "sha256": "0a0447254cb06be606593b5b856061d6e6d8cc79833ea009b5b2424c93711da9",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/forms.less",
+          "sha256": "88ac5cb8c5ba5fc009d9d65ab72decd0d34cf8706eb83327566761ae6aecd192",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/buttons.less",
+          "sha256": "eb1eda217d72709ffd9a40eb8c5f369374f92f67da771eb57a0e0a2fb26a619f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/buttons.less",
+          "sha256": "cb34013e037e8b3acb576a551614ef4887d7ba24af2187ebb41a30fedd32908d",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/opacity.less",
+          "sha256": "7e43cf5bd7958467451c6e1c7420ce457f270fdb1e0ab7f703718f4559a5bf9e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/button-groups.less",
+          "sha256": "4555d7328878db95e7d0e18c739ae53a8c5ad4f3f13f397367dc4987b527c93c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/component-animations.less",
+          "sha256": "e939f4d9361dbda882fe9b55321a7621fd6b9de588256b279da0e31951f5063a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/dropdowns.less",
+          "sha256": "794259db97813f7c4891f997d2455b41e523cb365d2fee4f26cb2e7e18819564",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/nav-divider.less",
+          "sha256": "8043f8d3ab4d8d3cd8635f777d51bd8101b9f0d5017f9920c10da2b7bafd8d4e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/border-radius.less",
+          "sha256": "e69871b5803835bb67df40d9e172a1548e3903488ca31afc6568683e5985c928",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/input-groups.less",
+          "sha256": "f66a363daafa4d9b7a8b99e20248d15dd344979ff9df11dd71e5fe1402687545",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/navs.less",
+          "sha256": "ea99b5e866e74642a3ba1ab55a0a53e0e0711e67a8928e8a2471b84edc3e0456",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/navbar.less",
+          "sha256": "d88586bdad2cd397a1a623ea0aeea7ad019e3a20e8f8fa04bf6e4e3e45f2c2e9",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/nav-vertical-align.less",
+          "sha256": "ab36bdc7fb86b18ba779bb80068d3ae1614e96f6888fe8f06ebfb2038a7ca848",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/utilities.less",
+          "sha256": "f6034c1e380bf94417fdc53f9c93bbc67762c6571689e8e974dbbf3c6c97398a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/breadcrumbs.less",
+          "sha256": "1cc333c9046b9d4e9c77f00f4e55051954fa5f4f7e0e5e313a3f86a1c1105bfc",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/pagination.less",
+          "sha256": "9577f96de5be5a2439ad8ae4547ba95c80b49172b1b66fce186f5a1baa351cb0",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/pagination.less",
+          "sha256": "143135b97fd2c6a9415d3048b3056f5ade2b03da9230bfb51470a843cc4a40ba",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/pager.less",
+          "sha256": "8e7904979425cb356b50cbc9edafae5fb885e5c4310781a81b5bd506f073c09d",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/labels.less",
+          "sha256": "faafe8a60b7492091a64a2abe957ad14b332c750794fca80e4f0ca5ed2db636f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/labels.less",
+          "sha256": "b434d897ac8d38e01d8f48b3b2e1d7b1fe4e5831a76ee874d21d3d89ebe1650c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/badges.less",
+          "sha256": "d6031ff921184f84603675aa8805dc49a0e153e86b7518522d74e63f23c74449",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/jumbotron.less",
+          "sha256": "68c2c14192bc46e8af90fcfde6c5d8a4a98c2deb49d8b2a4ac59ed415ee89f6a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/alerts.less",
+          "sha256": "8752cb6b680b0e8fa285e4ae835add72bf1a32f9ec50981fe540dfa29efcbd59",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/alerts.less",
+          "sha256": "71c8c0b6e22a2d4167a6ef5407c0efdf45de3d461fc577db768cd6ec062adad4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/progress-bars.less",
+          "sha256": "81417d06a65ee59b9fabc441cd4f197fe7c7b68a11d5596860f98341a2f3e165",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/gradients.less",
+          "sha256": "d5b157b8b8aab78a06c7c4135ae460ebfa41c5b18910f5201227072ccbe34bc0",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/progress-bar.less",
+          "sha256": "e3e441c81bfe1f3ce319ee5d40c8c93319ad169913a3155cec86e2e6a400bbe4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/media.less",
+          "sha256": "8d70a75870be691446355a67bf6979760ea343d57f8382a907a43dec875ab732",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/list-group.less",
+          "sha256": "c753e483cb591d3f4b3c0f6623534132a06589f452f6bc25303ca00a2870cdc4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/list-group.less",
+          "sha256": "cfe0bc7b28fc78f625121566965cd8c5c9c915644e92139709a2dfa2b8fa39d5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/panels.less",
+          "sha256": "c553cfc9a3906b4af05f1d89187e9c6f2fe0da098b5cfef8fba6fee0cd55a576",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/panels.less",
+          "sha256": "315dc3f8368bd42ea3d2a60d020aff2c3b7b6df9c5d9b4cde0f5e3de52274b4a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/responsive-embed.less",
+          "sha256": "d98e5144917146bf819ee6c6107ca71812fd39e8c35a2b513a221cee4f0c7cb6",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/wells.less",
+          "sha256": "48e8b334504d224e809c60fef66fc28e1f5412bade4b219952b341d0c4b7d7db",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/close.less",
+          "sha256": "2fd6f373ff01b2a9390c0188dfce1b5daf9a9dade3d2dd3bd54c8e162b552162",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/modals.less",
+          "sha256": "3625bcdddc2beb21b5d492058b8f547f7f59c51f885fb0e76691c781104053e3",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/tooltip.less",
+          "sha256": "244f8dc0192197f086b6bc639296914622215dc2d1af6d13352f07cd53134243",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/popovers.less",
+          "sha256": "b358ade752c10001128fdedc8db4b0295ff487d1d82582ac8175e5f879f80398",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/clearfix.less",
+          "sha256": "755e6753a82607893d65e40036ba1ebc69a55bbdcbd3925a826967acf2ed725b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/center-block.less",
+          "sha256": "42a5bfd1e72a04ce62dc2cb9f2f0f5fc2468893cbcbc7eb9cfc07d8be7205213",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/hide-text.less",
+          "sha256": "bb632ae8e91795fd17cf096ebe87995c8e8b57258c11f707a826ed811d6af42c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/responsive-utilities.less",
+          "sha256": "82faef37dbded5a6f428e716e0b8f987979279173b1bf56957807569907b17d7",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-less/less/mixins/responsive-visibility.less",
+          "sha256": "e9ebf72582537b98de036b6a06ae243b2b01e7d9c2fe64f27bef14283f2c295d",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "../../bower_components/bootstrap-switch/src/less/bootstrap3/bootstrap-switch.less",
+          "sha256": "8726fb495836afdea3e66153feac5ad994d691f00c6045248c7df4ec2fce9492",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "grey.less",
+          "sha256": "90b47ba1c90fcae028059ff92cd01bae5feaaa3b362ccdcb3847a496e68db56c",
+          "source_embedded": true
+        }
+      ]
+    },
+    {
+      "path": "static/js/alllibs.js.map",
+      "sources": [
+        {
+          "license_indicator": true,
+          "path": "bootstrap.js",
+          "sha256": "ef43a4d502ffb688656851d788c42869d47e8840d007b4f4b66f62530171acd4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "jquery.js",
+          "sha256": "b2215cce5830e2350b9d420271d9bd82340f664c3f60f0ea850f7e9c0392704e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular.js",
+          "sha256": "47b04b437a89b47e25a1595f0a58ef1555a4ef3fe595c00ba5a1451fad625fa1",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-animate.js",
+          "sha256": "b59125815d220cce821055f1eb4c5460625d6e8a7f4437c47a947d3123a4a7dc",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-block-ui.js",
+          "sha256": "b918a659a4289e7ac7c4c985c833d24768d34618346a368286f921a6d214b5eb",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "ui-bootstrap-tpls.js",
+          "sha256": "a797fb0a81766b90d6bd9b022ad6d183331a7a0801cedceeb1f82967d3b5e598",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-cookie.js",
+          "sha256": "f9a7302fe61e9f612b0bfc2d01a09f38de07a7d62b058b6206b3cc3c9a67dd46",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "loading-bar.js",
+          "sha256": "9f761cefa4b415b09e0b7729e7ff56ca95b504c02f5a8bdc7d6948401b5bcbc3",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-growl.js",
+          "sha256": "1c0041dc1bbe3957b662273a9b20d659c4686958fddfd6d382cfbe29ee31cd8a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-filter.js",
+          "sha256": "c37579dcbb3f360afa4eeac3e784211eb9a1c8b0ae74ff3ab706606c4273f2d5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-ui-router.js",
+          "sha256": "bf91dfd00b1bcec51af746868c59cec3a808ef25918826d0f615cd4da3da2861",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-route.js",
+          "sha256": "4a2272a8dfd6bdc4cd9501078b1babe3a9b53cb8a723e7b83ba14a2a64eca22c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "tv4.js",
+          "sha256": "2756d369761ae44c4137b4f8a3c7054d043fe78bbde49d2d7f6677df73263724",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-sanitize.js",
+          "sha256": "ad87fd7c907e99f93b5ec4728d653804fbc98e297379ea3238ef1d1425d30562",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "ObjectPath.js",
+          "sha256": "732f9ce0fc2b510679c5b6ad129f68c801044cf67898af3105e9a0036211f82b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "schema-form.js",
+          "sha256": "9d5dbd0ff2ad80715734c433ac1e315768448a24c18edef730ea18e020441804",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "bootstrap-decorator.js",
+          "sha256": "8e903987f853ffcde3bc117f12dca6f512753f6a311078a66297aef43676c846",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "filesize.js",
+          "sha256": "27a26d6ddc2cf2b251157d67cacaf6ab5e7d593247c011a4ba7099b8fa754a80",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "moment.js",
+          "sha256": "2b4b2181df3354ebd90f04ad95742fe254fd437307e34c529b1ea55bf760a759",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "bootstrap-slider.js",
+          "sha256": "e77149155d9a5124c7aa4bb4ecfd3b789c238b5c2544ab73350b847886b23153",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "underscore.js",
+          "sha256": "4b328e42c558197d5b99d7727cfcc60bac9763fad660651230e8baf93f6067ed",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "query.js",
+          "sha256": "18ede8594b3e269406dcee72595b673dcd7fe3b07e37853dbe6a2ea5e65bc4ef",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "URI.js",
+          "sha256": "05ddd2f5c3579c0223737e77a5053e18ba7a1a3177e551179de59c8423fbabe8",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-strap.js",
+          "sha256": "b4269d6242c020a5259b94a2bfeb970177c68f554f0d632d9b3a64ca1df9bfc2",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-strap.tpl.js",
+          "sha256": "fe83e816c0632be31550377cfcaae723f0c40b6fbc9861fc07e69db2aa544185",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "select.js",
+          "sha256": "04cc3d49513feebad6fad6dccdd70400cc268ac58fab1af50b7a0fcc21875eae",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "angular-schema-form-dynamic-select.min.js",
+          "sha256": "819ae4af3a4fc3da1c81441561cf9480f07d5f1c0e9d95b58e17bccc9216dc0c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-vs-repeat.js",
+          "sha256": "3c5dc50d8397b29fc3bc97b3ec7191498ddda8e476fe272d9d82e03904753d32",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "dirPagination.js",
+          "sha256": "69c406bac96db39e930ab5bc381ce64a4f379336f32c14291fcf61f17a976dea",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "d3.js",
+          "sha256": "ededa5d9ea4037f0525be11ae568cae17db3a2b8dfe0c85e19a3bf7d2c5f149f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "nv.d3.js",
+          "sha256": "e15a37688a3d1518d1aeb7cfbb79e4a2b3c7443c166f7c4b508dcdf94e803866",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "angular-nvd3.js",
+          "sha256": "d496497174de56bd1bb6367cbc1f0ac235afa7ea998d0ba6eb660b896f71a944",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "bootstrap-switch.js",
+          "sha256": "85bb318bd3a46e1371db980c7442580e4cb5f7f4f74a7ea154a417f0e898b3a1",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-bootstrap-switch.js",
+          "sha256": "2a2caa4e6d888df618928aba109d434260271f20194a281d28afd5edd13c2300",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "api-check.js",
+          "sha256": "75480de865eac686609a4085d7a67769750fb92fb34f175fd5dd8ee4e65acdd4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "formly.js",
+          "sha256": "708f142fef9b30d658fa1c2d5fdc672638a21539e493a8538f9a332c63afb0ce",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "angular-formly-templates-bootstrap.js",
+          "sha256": "72bbf8d05eb8c1a355c30a4e7adabd133d09c14c7b8ac488719c34e154fa7f38",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "checklist-model.js",
+          "sha256": "6268cd5afcd3544c49907741be2ef806608aa4592371adfce486270ea98489f0",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "angular-busy.js",
+          "sha256": "f6155aba5fce65c055380e58e3e73667e78a46082ac19e2d812b1d148a4e0ecf",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-messages.js",
+          "sha256": "589617c5946949f36e2eb9bce31238cce54c1f2d62c0675395436f11a5146471",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-aria.js",
+          "sha256": "2575a110acfd5e66fc43328ac4d325b7811ef49e17709257004be80eaf0dd096",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-ui-router-title.js",
+          "sha256": "0ee5cd5642a836097603ed9a1f75f0c70e8febf15cd3539a1d9bcb85d80421a3",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "moment-timezone-with-data-2010-2020.js",
+          "sha256": "a2026453b8183572d39d8cb773366a5e804e4a3f4406373d0f735b3627b3d130",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-cookies.js",
+          "sha256": "436e19fedc959110b8050bfa32483ce2dc18e150507dc937037a35232ad21c29",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "http-auth-interceptor.js",
+          "sha256": "a320e222804cc067f5be16523911ba53a8cabef1d3a6d49552506c98c4289832",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": true,
+          "path": "angular-local-storage.js",
+          "sha256": "d674a22e7ce97284f9bdd56f04c590fb14036390c86fd1bf00cc2320aa9c6a2e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "ng-file-upload.js",
+          "sha256": "a7b98633d888b9ceccbb1faf677f854278394e6cf396eca897ad361725f84707",
+          "source_embedded": true
+        }
+      ]
+    },
+    {
+      "path": "static/js/nzbhydra.js.map",
+      "sources": [
+        {
+          "license_indicator": false,
+          "path": "nzbhydra.js",
+          "sha256": "44c2af919070024e631639b9db93656e5f595b53a21e7ced692d8047dff75625",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/updates.js",
+          "sha256": "7d3f7d27edec3d731026f53ad7022e192c38f9ed9219b5b27eedf6cd406789e5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/title-row.js",
+          "sha256": "e1172e5231d74a51d916f889f770778d40e27cb3727bb49e3f10ef0542a96b2b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/title-group.js",
+          "sha256": "4d9632916a092135169d6754b63d7567bc847d05a4fb67ca14893641c5459b67",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/tab-or-chart.js",
+          "sha256": "5761e1167592289723bcfdb84970d052ab6e7441a3050a521d38c95348b37790",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/search-result.js",
+          "sha256": "1d79f0f4f10ff8c869a42aff68cf703de5767a0ee7be12ded34b27c41f4c7e7a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/search-result-non-title-columns.js",
+          "sha256": "978429623fc1b8f6e2dcad12f3ba8fbd48987dd850c10e41bc5e05e8b32f7d08",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/on-finish-render.js",
+          "sha256": "1402198b22f2499bc47aca2b2381e13705dfc56d54bc7c529ab46943044a36d7",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/log.js",
+          "sha256": "3b50bd4f9c604dc083fedff206cf0b93e76ed78218b18ca5c3792ca4ae3cc101",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/keep-focus.js",
+          "sha256": "4df3feaca6499ff77721a3a58884accf63e23685410684d733a0664ec3a4a710",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/indexer-input.js",
+          "sha256": "b731c08757ef7cb0d84b906f1f1b3a924c2fcfde73a82cb01ab10f58a682202f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/focus-on.js",
+          "sha256": "3c5a2fcdfa8e498a3f4b6cfa6802c99aa795c9b4441c039ed26fd59553d42e0b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/duplicate-group.js",
+          "sha256": "e92ac25670c78692f4e7d52bcc6039e849250f17049b592fb94b4e4636655746",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/download-nzbzip-button.js",
+          "sha256": "d1562b2b30cca78c5052886b6cb9aa55dd5963426793c0fc597ebb3a546ae743",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/download-nzbs-button.js",
+          "sha256": "0f3005c264183de2cdc1bdcc1e9529cd9d49ed1d74ae439cf6a5d2f2abf870ac",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/dataTableDirectives.js",
+          "sha256": "51ed04e7dc61b4941d25811476201b8df3998218e4a607e9c2df8fb1825a73be",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/connection-test.js",
+          "sha256": "5588c486723cd6cd5660068f982be935618b23e8c093052daee2f1d0f101bbb7",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/cfg-form-entry.js",
+          "sha256": "cbbee51d7799e5e6ea0b110010043407fbea2df8c0ce5f0694dc2ba94b8e035f",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/backup.js",
+          "sha256": "c208f90bed0c9e11d9d7f4528056c1c99f535ea8cfe0e354a10890382b2bbf45",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/addable-nzbs.js",
+          "sha256": "d2fd92461ae6b68d613e45868f70975abc3f972692ccfb61958154b713a30dd4",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "directives/addable-nzb.js",
+          "sha256": "4e1fcc783efeef105da7a38755e879794601d13e5abe8caf548513b6cfe48560",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "update-service.js",
+          "sha256": "0bbf35c4a65ce51d751728e020ff54ff0caec0e4a5e2cec0a101b85bfc95e509",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "update-footer-controller.js",
+          "sha256": "8bee401bd0a8ff027ea7b09068c6b1c54c58fde868d0aa69ed7f92fb4ca1824c",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "system-controller.js",
+          "sha256": "98644a65a57729562a1748f558d9cd5893dba0e1d739e11b781b5a875039b609",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "stats-service.js",
+          "sha256": "61b2917ac79d564baf1a5a31fc8c282ba4a5eb3787b44c9e9e0729bdca09b3dc",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "stats-controller.js",
+          "sha256": "34121f4aa2364723f55aeaae54dab40b74951c3c53f9bba14f1fb2d64545f118",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "search-service.js",
+          "sha256": "3684f30167278861366fcbbd4a6ba8d502536778c9a131519c24c8efed6aa644",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "search-results-controller.js",
+          "sha256": "9e3f1bdeec30cb454caf6d7ec38cf09cb15fe5de6e1980c65bb1e263942cd412",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "search-history-service.js",
+          "sha256": "ba72ca3cde8d9bdea65da03271a675ba9fa4a873b4373c36098e7e8b4b532c13",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "search-history-controller.js",
+          "sha256": "249ceb87e6e0bbcea644bc403f8d69e1f90baab92622eb618e03653baf144309",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "search-controller.js",
+          "sha256": "a6916b72aacb5df13604185c32a4fcb8f63781c635eac9c8c273ea8735e9a73b",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "restart-service.js",
+          "sha256": "9b7f84dffcfe82a2158abef27cb63fb49a1866503b554f077b2fd7cbf4778d95",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "nzbhydra-control-service.js",
+          "sha256": "120cc663a8bb018b4caf606f831abb13cb9e34372cbe92f7cacf2cf6ec61c543",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "nzb-download-service.js",
+          "sha256": "0744ae1d26b1d5baa0b5d0c86729c6d5c194eec3905996bd6059023e831e91f5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "modal.js",
+          "sha256": "ca16433ae7151dd48aa31fe2241fed2f44d2b304c6c755b364cef24bc062a692",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "modal-service.js",
+          "sha256": "ff23a22861c7af8505c54bf358972c56c9674f0ad024c090daddf80b6cc6c36e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "login-controller.js",
+          "sha256": "12709d7bc744dc70c1b8cd7dc7007d2f7d1d9cf2ce113639f176a4e7028d0268",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "indexer-statuses-controller.js",
+          "sha256": "ea29b2a9008f5bc57d47bd12d82869a39de538086c980446cb55b259213cef48",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "index-controller.js",
+          "sha256": "13ec8b94193bfa98c9f30ce04c6b8ae46e730524e1b33a2d2062de1977e7eb4a",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "hydra-auth-service.js",
+          "sha256": "63c81b228866fd63fcf40c0deb748a0bd3a2d786cbbadb12475aa16a51ed6139",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "header-controller.js",
+          "sha256": "61987e14618b7312dd9ea0ee9736ea92c277c40e224c117ffb669fd3e82763eb",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "generic-error-handler.js",
+          "sha256": "44df458cfd5be9ee549f9a4963a11624c8a49e18f62666323fe59ce9fd9b8c91",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "formly-config.js",
+          "sha256": "f8d0b8e49f0896a1bd562bd48fa031de84227017025d8d3f06ece7853c5c4c04",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "filters.js",
+          "sha256": "b74edffd84cdb17b2b6a51e546a5f04425411f052a770424844428fe15197b4e",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "file-download-service.js",
+          "sha256": "85a4b423f7f29a75afebd4dc70b10ba6bb2e627774008747e5b382a577f55ba0",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "downloader-categories-service.js",
+          "sha256": "b987c4d285f44de081bf9ce93404ac981f18e72ed7dbb37a59e4da1a3770da07",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "download-history-controller.js",
+          "sha256": "6934991b99b395ed264d25d4368c53a94ff9eebde53a61ae383c66851ee1d3e5",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "config-service.js",
+          "sha256": "0e7e676c0244a8b904a19844db6228fbd0c8c3921d51bceac28f946a277cbb92",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "config-fields-service.js",
+          "sha256": "cd933c1b863e4690cb87ea6a58db97aa57a7e3590158cde42cd6a8c638377409",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "config-controller.js",
+          "sha256": "32f10492dc9f33fa9bbc32d318baba0f6ba06ac523049aa5739b5fa2b614d549",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "categories-service.js",
+          "sha256": "23d7ec69a17d6c59c9204a892956c558d854cdac4432dfb19347af556d86d2f8",
+          "source_embedded": true
+        },
+        {
+          "license_indicator": false,
+          "path": "backup-service.js",
+          "sha256": "a571169b62bcf61b0c9711a42850d421bd5c90b12f316292b6b55176b41bd615",
+          "source_embedded": true
+        }
+      ]
+    }
+  ],
+  "method": "Tracked-file inventory; literal header version strings and static import candidates. Absence of a direct reference is not proof of non-use; license indicators are not a license-completeness determination.",
+  "python_components": [
+    {
+      "bytes": 22461,
+      "component": "BaseHTTPServer.py",
+      "declared_version": "0.3",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5744,
+      "component": "Bastion.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 13154,
+      "component": "CGIHTTPServer.py",
+      "declared_version": "0.4",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 27746,
+      "component": "ConfigParser.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 26537,
+      "component": "Cookie.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 10500,
+      "component": "DocXMLRPCServer.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 17136,
+      "component": "HTMLParser.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6482,
+      "component": "MimeWriter.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 154225,
+      "component": "OpenSSL",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 7,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 8577,
+      "component": "Queue.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7974,
+      "component": "SimpleHTTPServer.py",
+      "declared_version": "0.6",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 25811,
+      "component": "SimpleXMLRPCServer.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 24036,
+      "component": "SocketServer.py",
+      "declared_version": "0.4",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 10662,
+      "component": "StringIO.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5811,
+      "component": "UserDict.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 3644,
+      "component": "UserList.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 9687,
+      "component": "UserString.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6552,
+      "component": "_LWPCookieJar.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5797,
+      "component": "_MozillaCookieJar.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4380,
+      "component": "__future__.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "maintenance/tool_launcher.py",
+        "nzbhydra/api.py",
+        "nzbhydra/config.py",
+        "nzbhydra/database.py",
+        "nzbhydra/datestuff.py",
+        "nzbhydra/downloader.py",
+        "nzbhydra/indexers.py",
+        "nzbhydra/infos.py",
+        "nzbhydra/log.py",
+        "nzbhydra/nzb_search_result.py",
+        "nzbhydra/rate_limit.py",
+        "nzbhydra/redaction.py",
+        "nzbhydra/retention.py",
+        "nzbhydra/search.py",
+        "nzbhydra/search_module.py",
+        "nzbhydra/searchmodules/anizb.py",
+        "nzbhydra/searchmodules/binsearch.py",
+        "nzbhydra/searchmodules/jackett.py",
+        "nzbhydra/searchmodules/newznab.py",
+        "nzbhydra/searchmodules/nzbclub.py",
+        "nzbhydra/searchmodules/nzbindex.py",
+        "nzbhydra/stats.py",
+        "nzbhydra/update.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 64,
+      "component": "__phello__.foo.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 18496,
+      "component": "_abcoll.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4531,
+      "component": "_markerlib",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 2,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19093,
+      "component": "_osx_support.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 69322,
+      "component": "_pyio.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 20237,
+      "component": "_strptime.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7456,
+      "component": "_threading_local.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5911,
+      "component": "_weakrefset.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7145,
+      "component": "abc.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 34295,
+      "component": "aifc.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 60,
+      "component": "antigravity.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 2663,
+      "component": "anydbm.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 89124,
+      "component": "argparse.py",
+      "declared_version": "1.1",
+      "direct_application_references": [
+        "maintenance/maintenance.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 127031,
+      "component": "arrow",
+      "declared_version": "0.10.0",
+      "direct_application_references": [
+        "nzbhydra/backup_debug.py",
+        "nzbhydra/config.py",
+        "nzbhydra/database.py",
+        "nzbhydra/infos.py",
+        "nzbhydra/rate_limit.py",
+        "nzbhydra/search.py",
+        "nzbhydra/search_module.py",
+        "nzbhydra/searchmodules/anizb.py",
+        "nzbhydra/searchmodules/binsearch.py",
+        "nzbhydra/searchmodules/jackett.py",
+        "nzbhydra/searchmodules/newznab.py",
+        "nzbhydra/searchmodules/nzbclub.py",
+        "nzbhydra/searchmodules/nzbindex.py",
+        "nzbhydra/stats.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 8,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 11805,
+      "component": "ast.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/ast.py"
+      ]
+    },
+    {
+      "bytes": 11605,
+      "component": "asynchat.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 20847,
+      "component": "asyncore.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 1705,
+      "component": "atexit.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7597,
+      "component": "audiodev.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 11357,
+      "component": "base64.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/downloader.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 21714,
+      "component": "bdb.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 14698,
+      "component": "binhex.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 2595,
+      "component": "bisect.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 196345,
+      "component": "bs4",
+      "declared_version": "4.5.1",
+      "direct_application_references": [
+        "nzbhydra/searchmodules/binsearch.py",
+        "nzbhydra/searchmodules/nzbindex.py"
+      ],
+      "files": 9,
+      "license_declarations": [
+        {
+          "path": "libs/bs4/__init__.py",
+          "text": "MIT"
+        },
+        {
+          "path": "libs/bs4/dammit.py",
+          "text": "MIT"
+        },
+        {
+          "path": "libs/bs4/diagnose.py",
+          "text": "MIT"
+        },
+        {
+          "path": "libs/bs4/element.py",
+          "text": "MIT"
+        },
+        {
+          "path": "libs/bs4/testing.py",
+          "text": "MIT"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/bs4/__init__.py",
+        "libs/bs4/dammit.py",
+        "libs/bs4/diagnose.py",
+        "libs/bs4/element.py",
+        "libs/bs4/testing.py"
+      ]
+    },
+    {
+      "bytes": 493,
+      "component": "builtins",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/api.py",
+        "nzbhydra/config.py",
+        "nzbhydra/database.py",
+        "nzbhydra/datestuff.py",
+        "nzbhydra/downloader.py",
+        "nzbhydra/indexers.py",
+        "nzbhydra/infos.py",
+        "nzbhydra/log.py",
+        "nzbhydra/nzb_search_result.py",
+        "nzbhydra/search.py",
+        "nzbhydra/search_module.py",
+        "nzbhydra/searchmodules/anizb.py",
+        "nzbhydra/searchmodules/jackett.py",
+        "nzbhydra/searchmodules/newznab.py",
+        "nzbhydra/searchmodules/nzbclub.py",
+        "nzbhydra/searchmodules/nzbindex.py",
+        "nzbhydra/stats.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 13203,
+      "component": "bunch",
+      "declared_version": "1.0.1",
+      "direct_application_references": [
+        "nzbhydra/categories.py",
+        "nzbhydra/config.py",
+        "nzbhydra/search.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6515,
+      "component": "cProfile.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4928,
+      "component": "cache",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 2,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 23305,
+      "component": "calendar.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 294125,
+      "component": "cffi",
+      "declared_version": "1.3.0",
+      "direct_application_references": [],
+      "files": 17,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 34826,
+      "component": "cgi.py",
+      "declared_version": "2.6",
+      "direct_application_references": [
+        "nzbhydra/log.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 12180,
+      "component": "cgitb.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 686561,
+      "component": "cherrypy",
+      "declared_version": "3.8.0",
+      "direct_application_references": [],
+      "files": 60,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/cherrypy/lib/httpauth.py"
+      ]
+    },
+    {
+      "bytes": 5418,
+      "component": "chunk.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 15026,
+      "component": "cmd.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 10189,
+      "component": "code.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 35555,
+      "component": "codecs.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/backup_debug.py",
+        "nzbhydra/config.py",
+        "nzbhydra/log.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5999,
+      "component": "codeop.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 27261,
+      "component": "collections.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/api.py",
+        "nzbhydra/config.py",
+        "nzbhydra/search_module.py",
+        "nzbhydra/searchmodules/nzbclub.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 24241,
+      "component": "colorama",
+      "declared_version": "0.3.3",
+      "direct_application_references": [],
+      "files": 6,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 3691,
+      "component": "colorsys.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 2545,
+      "component": "commands.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7763,
+      "component": "compileall.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 41481,
+      "component": "concurrent",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/search.py",
+        "nzbhydra/searchmodules/newznab.py"
+      ],
+      "files": 5,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 41446,
+      "component": "configargparse.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4424,
+      "component": "contextlib.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "nzbhydra/config.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 65004,
+      "component": "cookielib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 47318,
+      "component": "cookies.py",
+      "declared_version": "2.2.1",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/cookies.py"
+      ]
+    },
+    {
+      "bytes": 11519,
+      "component": "copy.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/api.py",
+        "nzbhydra/config.py",
+        "nzbhydra/search.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6800,
+      "component": "copy_reg.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 408419,
+      "component": "cryptography",
+      "declared_version": "1.1",
+      "direct_application_references": [],
+      "files": 66,
+      "license_declarations": [
+        {
+          "path": "libs/cryptography/__about__.py",
+          "text": "BSD or Apache License, Version 2.0"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/cryptography/__about__.py"
+      ]
+    },
+    {
+      "bytes": 16708,
+      "component": "csv.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 312920,
+      "component": "dateutil",
+      "declared_version": "2.4.2",
+      "direct_application_references": [
+        "nzbhydra/database.py",
+        "nzbhydra/stats.py"
+      ],
+      "files": 9,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 498,
+      "component": "dbhash.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 221112,
+      "component": "decimal.py",
+      "declared_version": "1.70",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 15775,
+      "component": "decorator.py",
+      "declared_version": "4.0.9",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/decorator.py"
+      ]
+    },
+    {
+      "bytes": 10255,
+      "component": "dicttoxml.py",
+      "declared_version": "1.6.6",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 82320,
+      "component": "difflib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 1126,
+      "component": "dircache.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6499,
+      "component": "dis.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19946,
+      "component": "docopt.py",
+      "declared_version": "0.6.2",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 105210,
+      "component": "doctest.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 8938,
+      "component": "dumbdbm.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4418,
+      "component": "dummy_thread.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 2804,
+      "component": "dummy_threading.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 126,
+      "component": "easy_install.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 144579,
+      "component": "enum",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/infos.py"
+      ],
+      "files": 6,
+      "license_declarations": [],
+      "license_files": [
+        "libs/enum/LICENSE"
+      ],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 9588,
+      "component": "filecmp.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 14347,
+      "component": "fileinput.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 209989,
+      "component": "flask",
+      "declared_version": "0.10.1",
+      "direct_application_references": [
+        "nzbhydra/api.py",
+        "nzbhydra/search.py",
+        "nzbhydra/search_module.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 20,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/flask/__init__.py",
+        "libs/flask/_compat.py",
+        "libs/flask/app.py",
+        "libs/flask/blueprints.py",
+        "libs/flask/config.py",
+        "libs/flask/ctx.py",
+        "libs/flask/debughelpers.py",
+        "libs/flask/ext/__init__.py",
+        "libs/flask/exthook.py",
+        "libs/flask/globals.py",
+        "libs/flask/helpers.py",
+        "libs/flask/json.py",
+        "libs/flask/logging.py",
+        "libs/flask/module.py",
+        "libs/flask/sessions.py",
+        "libs/flask/signals.py",
+        "libs/flask/templating.py",
+        "libs/flask/testing.py",
+        "libs/flask/views.py",
+        "libs/flask/wrappers.py"
+      ]
+    },
+    {
+      "bytes": 33772,
+      "component": "flask_cache",
+      "declared_version": "0.13.1",
+      "direct_application_references": [
+        "nzbhydra/web.py"
+      ],
+      "files": 4,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/flask_cache/__init__.py",
+        "libs/flask_cache/_compat.py"
+      ]
+    },
+    {
+      "bytes": 24441,
+      "component": "flask_session",
+      "declared_version": "0.2.2",
+      "direct_application_references": [
+        "nzbhydra/web.py"
+      ],
+      "files": 2,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/flask_session/__init__.py",
+        "libs/flask_session/sessions.py"
+      ]
+    },
+    {
+      "bytes": 3315,
+      "component": "fnmatch.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 14911,
+      "component": "formatter.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4699,
+      "component": "fpformat.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 22390,
+      "component": "fractions.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 37753,
+      "component": "ftplib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4478,
+      "component": "functools.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7318,
+      "component": "functools_lru_cache.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 57527,
+      "component": "furl",
+      "declared_version": "0.4.8",
+      "direct_application_references": [
+        "nzbhydra.py",
+        "nzbhydra/api.py",
+        "nzbhydra/config.py",
+        "nzbhydra/downloader.py",
+        "nzbhydra/infos.py",
+        "nzbhydra/searchmodules/anizb.py",
+        "nzbhydra/searchmodules/binsearch.py",
+        "nzbhydra/searchmodules/newznab.py",
+        "nzbhydra/searchmodules/nzbclub.py",
+        "nzbhydra/searchmodules/nzbindex.py",
+        "nzbhydra/update.py",
+        "nzbhydra/web.py",
+        "nzbhydra/webaccess.py"
+      ],
+      "files": 4,
+      "license_declarations": [
+        {
+          "path": "libs/furl/__init__.py",
+          "text": "Unlicense"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/furl/__init__.py"
+      ]
+    },
+    {
+      "bytes": 1192695,
+      "component": "future",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/datestuff.py",
+        "nzbhydra/downloader.py",
+        "nzbhydra/infos.py",
+        "nzbhydra/log.py",
+        "nzbhydra/nzb_search_result.py",
+        "nzbhydra/searchmodules/anizb.py",
+        "nzbhydra/searchmodules/nzbindex.py"
+      ],
+      "files": 123,
+      "license_declarations": [
+        {
+          "path": "libs/future/__init__.py",
+          "text": "MIT"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/future/__init__.py"
+      ]
+    },
+    {
+      "bytes": 3201,
+      "component": "genericpath.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7318,
+      "component": "getopt.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5563,
+      "component": "getpass.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19989,
+      "component": "gettext.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 3114,
+      "component": "glob.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19028,
+      "component": "gzip.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 18296,
+      "component": "heapq.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 474985,
+      "component": "html5lib",
+      "declared_version": "0.999999999",
+      "direct_application_references": [],
+      "files": 34,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 18056,
+      "component": "htmlentitydefs.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 12869,
+      "component": "htmllib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 50915,
+      "component": "httplib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 286784,
+      "component": "idna",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 6,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 18986,
+      "component": "ihooks.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 48419,
+      "component": "imaplib.py",
+      "declared_version": "2.58",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 3541,
+      "component": "imghdr.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 25764,
+      "component": "imputil.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 42513,
+      "component": "inspect.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 3321,
+      "component": "io.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/api.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 31840,
+      "component": "itsdangerous.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/itsdangerous.py"
+      ]
+    },
+    {
+      "bytes": 784901,
+      "component": "jinja2",
+      "declared_version": "2.8",
+      "direct_application_references": [],
+      "files": 23,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/jinja2/__init__.py",
+        "libs/jinja2/_compat.py",
+        "libs/jinja2/_stringdefs.py",
+        "libs/jinja2/bccache.py",
+        "libs/jinja2/compiler.py",
+        "libs/jinja2/constants.py",
+        "libs/jinja2/debug.py",
+        "libs/jinja2/defaults.py",
+        "libs/jinja2/environment.py",
+        "libs/jinja2/exceptions.py",
+        "libs/jinja2/ext.py",
+        "libs/jinja2/filters.py",
+        "libs/jinja2/lexer.py",
+        "libs/jinja2/loaders.py",
+        "libs/jinja2/meta.py",
+        "libs/jinja2/nodes.py",
+        "libs/jinja2/optimizer.py",
+        "libs/jinja2/parser.py",
+        "libs/jinja2/runtime.py",
+        "libs/jinja2/sandbox.py",
+        "libs/jinja2/tests.py",
+        "libs/jinja2/utils.py",
+        "libs/jinja2/visitor.py"
+      ]
+    },
+    {
+      "bytes": 33044,
+      "component": "jwt",
+      "declared_version": "1.4.0",
+      "direct_application_references": [
+        "nzbhydra/web.py"
+      ],
+      "files": 12,
+      "license_declarations": [
+        {
+          "path": "libs/jwt/__init__.py",
+          "text": "MIT"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/jwt/__init__.py"
+      ]
+    },
+    {
+      "bytes": 1996,
+      "component": "keyword.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4027,
+      "component": "linecache.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 99412,
+      "component": "locale.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6289,
+      "component": "macpath.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 2731,
+      "component": "macurl2path.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 81241,
+      "component": "mailbox.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7429,
+      "component": "mailcap.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 211548,
+      "component": "markdown",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/update.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 30,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/markdown/extensions/smarty.py"
+      ]
+    },
+    {
+      "bytes": 14643,
+      "component": "markupbase.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 28931,
+      "component": "markupsafe",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 6,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/markupsafe/__init__.py",
+        "libs/markupsafe/_compat.py",
+        "libs/markupsafe/_constants.py",
+        "libs/markupsafe/_native.py"
+      ]
+    },
+    {
+      "bytes": 137239,
+      "component": "marshmallow",
+      "declared_version": "2.2.0",
+      "direct_application_references": [
+        "nzbhydra/api.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 13,
+      "license_declarations": [
+        {
+          "path": "libs/marshmallow/__init__.py",
+          "text": "MIT"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/marshmallow/__init__.py",
+        "libs/marshmallow/ordereddict.py",
+        "libs/marshmallow/orderedset.py"
+      ]
+    },
+    {
+      "bytes": 358,
+      "component": "md5.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 33434,
+      "component": "mhlib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7168,
+      "component": "mimetools.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 20811,
+      "component": "mimetypes.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 15021,
+      "component": "mimify.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 24351,
+      "component": "modulefinder.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4820,
+      "component": "multifile.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 1877,
+      "component": "mutex.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5865,
+      "component": "netrc.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 610,
+      "component": "new.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 21470,
+      "component": "nntplib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19431,
+      "component": "ntpath.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 2371,
+      "component": "nturl2path.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 10319,
+      "component": "numbers.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/searchmodules/nzbindex.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5474,
+      "component": "opcode.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 61205,
+      "component": "optparse.py",
+      "declared_version": "1.5.3",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/optparse.py"
+      ]
+    },
+    {
+      "bytes": 33653,
+      "component": "orderedmultidict",
+      "declared_version": "0.7.5",
+      "direct_application_references": [],
+      "files": 3,
+      "license_declarations": [
+        {
+          "path": "libs/orderedmultidict/__init__.py",
+          "text": "Unlicense"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/orderedmultidict/__init__.py"
+      ]
+    },
+    {
+      "bytes": 25910,
+      "component": "os.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "maintenance/tool_launcher.py",
+        "nzbhydra.py",
+        "nzbhydra/__init__.py",
+        "nzbhydra/backup_debug.py",
+        "nzbhydra/build_info.py",
+        "nzbhydra/config.py",
+        "nzbhydra/log.py",
+        "nzbhydra/retention.py",
+        "nzbhydra/update.py",
+        "nzbhydra/web.py",
+        "nzbhydra/webaccess.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4637,
+      "component": "os2emxpath.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 754831,
+      "component": "passlib",
+      "declared_version": "1.6.5",
+      "direct_application_references": [],
+      "files": 49,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19963,
+      "component": "pathtools",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 4,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/pathtools/__init__.py",
+        "libs/pathtools/path.py",
+        "libs/pathtools/patterns.py",
+        "libs/pathtools/version.py"
+      ]
+    },
+    {
+      "bytes": 46013,
+      "component": "pdb.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 177640,
+      "component": "peewee.py",
+      "declared_version": "2.8.5",
+      "direct_application_references": [
+        "nzbhydra/indexers.py",
+        "nzbhydra/infos.py",
+        "nzbhydra/search_module.py",
+        "nzbhydra/stats.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 45163,
+      "component": "pickle.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 74541,
+      "component": "pickletools.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 9582,
+      "component": "pipes.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 151902,
+      "component": "pkg_resources",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 8,
+      "license_declarations": [
+        {
+          "path": "libs/pkg_resources/_vendor/packaging/__about__.py",
+          "text": "Apache License, Version 2.0"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/pkg_resources/_vendor/packaging/__about__.py"
+      ]
+    },
+    {
+      "bytes": 20346,
+      "component": "pkgutil.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 53554,
+      "component": "platform.py",
+      "declared_version": "1.0.7",
+      "direct_application_references": [
+        "nzbhydra/log.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 243461,
+      "component": "playhouse",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/database.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 30,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 15185,
+      "component": "plistlib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 8416,
+      "component": "popen2.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 12822,
+      "component": "poplib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 8003,
+      "component": "posixfile.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 13925,
+      "component": "posixpath.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 11777,
+      "component": "pprint.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 22782,
+      "component": "profile.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 26711,
+      "component": "pstats.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5058,
+      "component": "pty.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6874,
+      "component": "pwiz.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5936,
+      "component": "py_compile.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 147115,
+      "component": "pyasn1",
+      "declared_version": "0.1.9",
+      "direct_application_references": [],
+      "files": 28,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 13388,
+      "component": "pyclbr.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 477872,
+      "component": "pycparser",
+      "declared_version": "2.14",
+      "direct_application_references": [],
+      "files": 17,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/pycparser/ply/lex.py",
+        "libs/pycparser/ply/yacc.py"
+      ]
+    },
+    {
+      "bytes": 95400,
+      "component": "pydoc.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 25253,
+      "component": "pytvmaze",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/infos.py"
+      ],
+      "files": 4,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 375,
+      "component": "queue",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6969,
+      "component": "quopri.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 32323,
+      "component": "random.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/config.py",
+        "nzbhydra/search.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 13423,
+      "component": "re.py",
+      "declared_version": "2.2.1",
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "nzbhydra/ipinfo.py",
+        "nzbhydra/log.py",
+        "nzbhydra/rate_limit.py",
+        "nzbhydra/redaction.py",
+        "nzbhydra/search.py",
+        "nzbhydra/search_module.py",
+        "nzbhydra/searchmodules/anizb.py",
+        "nzbhydra/searchmodules/binsearch.py",
+        "nzbhydra/searchmodules/newznab.py",
+        "nzbhydra/searchmodules/nzbclub.py",
+        "nzbhydra/searchmodules/nzbindex.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 4296,
+      "component": "repr.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 349,
+      "component": "reprlib",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 1441814,
+      "component": "requests",
+      "declared_version": "2.12.1",
+      "direct_application_references": [
+        "nzbhydra.py",
+        "nzbhydra/api.py",
+        "nzbhydra/downloader.py",
+        "nzbhydra/infos.py",
+        "nzbhydra/search_module.py",
+        "nzbhydra/searchmodules/newznab.py",
+        "nzbhydra/searchmodules/nzbindex.py",
+        "nzbhydra/update.py",
+        "nzbhydra/webaccess.py"
+      ],
+      "files": 93,
+      "license_declarations": [
+        {
+          "path": "libs/requests/__init__.py",
+          "text": "Apache 2.0"
+        },
+        {
+          "path": "libs/requests/packages/urllib3/__init__.py",
+          "text": "MIT"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/requests/__init__.py",
+        "libs/requests/api.py",
+        "libs/requests/packages/urllib3/__init__.py",
+        "libs/requests/packages/urllib3/packages/six.py"
+      ]
+    },
+    {
+      "bytes": 3129,
+      "component": "requests_futures",
+      "declared_version": "0.9.5",
+      "direct_application_references": [
+        "nzbhydra/search.py"
+      ],
+      "files": 2,
+      "license_declarations": [
+        {
+          "path": "libs/requests_futures/__init__.py",
+          "text": "Apache 2.0"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/requests_futures/__init__.py"
+      ]
+    },
+    {
+      "bytes": 9185,
+      "component": "responses.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5229,
+      "component": "retry",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/search.py",
+        "nzbhydra/search_module.py"
+      ],
+      "files": 3,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 20148,
+      "component": "rexec.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 33543,
+      "component": "rfc822.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 9260,
+      "component": "rison",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 5,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5816,
+      "component": "rlcompleter.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7588,
+      "component": "robotparser.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 10698,
+      "component": "runpy.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5088,
+      "component": "sched.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19050,
+      "component": "sets.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/config.py",
+        "nzbhydra/search.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 17884,
+      "component": "sgmllib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 393,
+      "component": "sha.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 8178,
+      "component": "shelve.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 11137,
+      "component": "shlex.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 18513,
+      "component": "shutil.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "maintenance/tool_launcher.py",
+        "nzbhydra/backup_debug.py",
+        "nzbhydra/update.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19591,
+      "component": "site.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 30098,
+      "component": "six.py",
+      "declared_version": "1.10.0",
+      "direct_application_references": [
+        "nzbhydra/searchmodules/binsearch.py",
+        "nzbhydra/searchmodules/nzbindex.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/six.py"
+      ]
+    },
+    {
+      "bytes": 18543,
+      "component": "smtpd.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 31900,
+      "component": "smtplib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 5973,
+      "component": "sndhdr.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 20616,
+      "component": "socket.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/downloader.py",
+        "nzbhydra/socks_proxy.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 28004,
+      "component": "socks.py",
+      "declared_version": "1.5.6",
+      "direct_application_references": [
+        "nzbhydra/socks_proxy.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/socks.py"
+      ]
+    },
+    {
+      "bytes": 2913,
+      "component": "sockshandler.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 384,
+      "component": "sre.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19817,
+      "component": "sre_compile.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7197,
+      "component": "sre_constants.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 28911,
+      "component": "sre_parse.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 1842,
+      "component": "stat.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 898,
+      "component": "statvfs.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 21548,
+      "component": "string.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/config.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 12449,
+      "component": "stringold.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 13522,
+      "component": "stringprep.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 82,
+      "component": "struct.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 59485,
+      "component": "subprocess.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "maintenance/tool_launcher.py",
+        "nzbhydra.py",
+        "nzbhydra/update.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 17222,
+      "component": "sunau.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 1399,
+      "component": "sunaudio.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 2058,
+      "component": "symbol.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 7437,
+      "component": "symtable.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 22540,
+      "component": "sysconfig.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 11336,
+      "component": "tabnanny.py",
+      "declared_version": "6",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 89966,
+      "component": "tarfile.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "maintenance/tool_launcher.py",
+        "nzbhydra/update.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 27042,
+      "component": "telnetlib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 19497,
+      "component": "tempfile.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "maintenance/tool_launcher.py",
+        "nzbhydra/log.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 96777,
+      "component": "test_cookies.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 17042,
+      "component": "textwrap.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 1002,
+      "component": "this.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 47330,
+      "component": "threading.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/rate_limit.py",
+        "nzbhydra/retention.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 12711,
+      "component": "timeit.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 79404,
+      "component": "tmdbsimple",
+      "declared_version": "1.3.0",
+      "direct_application_references": [
+        "nzbhydra/infos.py"
+      ],
+      "files": 12,
+      "license_declarations": [
+        {
+          "path": "libs/tmdbsimple/__init__.py",
+          "text": "GPLv3"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/tmdbsimple/__init__.py",
+        "libs/tmdbsimple/account.py",
+        "libs/tmdbsimple/base.py",
+        "libs/tmdbsimple/changes.py",
+        "libs/tmdbsimple/configuration.py",
+        "libs/tmdbsimple/discover.py",
+        "libs/tmdbsimple/find.py",
+        "libs/tmdbsimple/genres.py",
+        "libs/tmdbsimple/movies.py",
+        "libs/tmdbsimple/people.py",
+        "libs/tmdbsimple/search.py",
+        "libs/tmdbsimple/tv.py"
+      ]
+    },
+    {
+      "bytes": 3142,
+      "component": "toaiff.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 2922,
+      "component": "token.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 16868,
+      "component": "tokenize.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 29890,
+      "component": "trace.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 11285,
+      "component": "traceback.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra.py",
+        "nzbhydra/config.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 879,
+      "component": "tty.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 2094,
+      "component": "types.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 58686,
+      "component": "urllib.py",
+      "declared_version": "1.17",
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "nzbhydra/downloader.py",
+        "nzbhydra/ipinfo.py",
+        "nzbhydra/redaction.py",
+        "nzbhydra/update.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 52407,
+      "component": "urllib2.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "nzbhydra/socks_proxy.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 189795,
+      "component": "urllib3",
+      "declared_version": "1.12",
+      "direct_application_references": [],
+      "files": 27,
+      "license_declarations": [
+        {
+          "path": "libs/urllib3/__init__.py",
+          "text": "MIT"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/urllib3/__init__.py",
+        "libs/urllib3/packages/six.py"
+      ]
+    },
+    {
+      "bytes": 15164,
+      "component": "urlparse.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "maintenance/maintenance.py",
+        "nzbhydra/searchmodules/binsearch.py",
+        "nzbhydra/searchmodules/nzbclub.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 1627,
+      "component": "user.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6555,
+      "component": "uu.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 23209,
+      "component": "uuid.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 18555,
+      "component": "validators",
+      "declared_version": "0.10",
+      "direct_application_references": [
+        "nzbhydra/config.py"
+      ],
+      "files": 16,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/validators/email.py"
+      ]
+    },
+    {
+      "bytes": 14748,
+      "component": "warnings.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 18581,
+      "component": "wave.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 12961,
+      "component": "weakref.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 49179,
+      "component": "webargs",
+      "declared_version": "1.0.0",
+      "direct_application_references": [
+        "nzbhydra/web.py"
+      ],
+      "files": 12,
+      "license_declarations": [
+        {
+          "path": "libs/webargs/__init__.py",
+          "text": "MIT"
+        }
+      ],
+      "license_files": [],
+      "source_license_indicators": [
+        "libs/webargs/__init__.py"
+      ]
+    },
+    {
+      "bytes": 22724,
+      "component": "webbrowser.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 880921,
+      "component": "werkzeug",
+      "declared_version": "0.10.4",
+      "direct_application_references": [
+        "nzbhydra/web.py"
+      ],
+      "files": 47,
+      "license_declarations": [],
+      "license_files": [
+        "libs/werkzeug/debug/shared/FONT_LICENSE"
+      ],
+      "source_license_indicators": [
+        "libs/werkzeug/__init__.py",
+        "libs/werkzeug/_internal.py",
+        "libs/werkzeug/contrib/__init__.py",
+        "libs/werkzeug/contrib/atom.py",
+        "libs/werkzeug/contrib/cache.py",
+        "libs/werkzeug/contrib/fixers.py",
+        "libs/werkzeug/contrib/iterio.py",
+        "libs/werkzeug/contrib/jsrouting.py",
+        "libs/werkzeug/contrib/limiter.py",
+        "libs/werkzeug/contrib/lint.py",
+        "libs/werkzeug/contrib/profiler.py",
+        "libs/werkzeug/contrib/securecookie.py",
+        "libs/werkzeug/contrib/sessions.py",
+        "libs/werkzeug/contrib/testtools.py",
+        "libs/werkzeug/contrib/wrappers.py",
+        "libs/werkzeug/datastructures.py",
+        "libs/werkzeug/debug/__init__.py",
+        "libs/werkzeug/debug/console.py",
+        "libs/werkzeug/debug/repr.py",
+        "libs/werkzeug/debug/tbtools.py",
+        "libs/werkzeug/exceptions.py",
+        "libs/werkzeug/formparser.py",
+        "libs/werkzeug/http.py",
+        "libs/werkzeug/local.py",
+        "libs/werkzeug/posixemulation.py",
+        "libs/werkzeug/routing.py",
+        "libs/werkzeug/script.py",
+        "libs/werkzeug/security.py",
+        "libs/werkzeug/serving.py",
+        "libs/werkzeug/test.py",
+        "libs/werkzeug/testapp.py",
+        "libs/werkzeug/urls.py",
+        "libs/werkzeug/useragents.py",
+        "libs/werkzeug/utils.py",
+        "libs/werkzeug/wrappers.py",
+        "libs/werkzeug/wsgi.py"
+      ]
+    },
+    {
+      "bytes": 99715,
+      "component": "wheel",
+      "declared_version": "0.26.0",
+      "direct_application_references": [],
+      "files": 19,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 3379,
+      "component": "whichdb.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 6069,
+      "component": "xdrlib.py",
+      "declared_version": null,
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 34865,
+      "component": "xmllib.py",
+      "declared_version": "0.3",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 547,
+      "component": "xmlrpc",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/downloader.py"
+      ],
+      "files": 3,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 51940,
+      "component": "xmlrpclib.py",
+      "declared_version": "1.0.1",
+      "direct_application_references": [],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    },
+    {
+      "bytes": 58748,
+      "component": "zipfile.py",
+      "declared_version": null,
+      "direct_application_references": [
+        "nzbhydra/backup_debug.py",
+        "nzbhydra/web.py"
+      ],
+      "files": 1,
+      "license_declarations": [],
+      "license_files": [],
+      "source_license_indicators": []
+    }
+  ],
+  "schema": 1,
+  "tracked_files_by_root": {
+    ".bowerrc": 1,
+    ".gitattributes": 1,
+    ".github": 2,
+    ".gitignore": 1,
+    "AGENTS.md": 1,
+    "ISSUE_TEMPLATE.md": 1,
+    "LICENSE": 1,
+    "Makefile": 1,
+    "README.md": 1,
+    "README_DEPLOYMENT.md": 1,
+    "bower.json": 1,
+    "changelog.md": 1,
+    "contrib": 3,
+    "docs": 2,
+    "gulpfile.js": 1,
+    "libs": 1078,
+    "maintenance": 4,
+    "nzbhydra": 521,
+    "nzbhydra.py": 1,
+    "onlinehelp": 6,
+    "package.json": 1,
+    "release-fixes.json": 1,
+    "scripts": 3,
+    "static": 82,
+    "templates": 5,
+    "tests": 13,
+    "ui-src": 115,
+    "version.txt": 1
+  },
+  "working_tree_changes": [
+    "libs/cryptography/hazmat/bindings/_constant_time.pyd",
+    "libs/cryptography/hazmat/bindings/_openssl.pyd",
+    "libs/cryptography/hazmat/bindings/_padding.pyd",
+    "nzbhydra/update.py",
+    "scripts/audit_release_content.py",
+    "tests/test_platform_cleanup.py"
+  ]
+}
