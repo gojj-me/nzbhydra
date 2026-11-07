@@ -27,6 +27,8 @@ See [README_DEPLOYMENT.md](README_DEPLOYMENT.md) for the persistent application 
 
 Before creating or restructuring multi-part work, ask the maintainer to choose a checklist in one issue or linked sub-issues, with a concise proposed grouping. Do not select the granularity or split, merge, or convert issues without that decision. Keep the agreed tracking current without repeatedly requesting the same choice. Mark only verified criteria complete, leave partial work open, and report completed/total counts plus remaining work. Percentages describe item counts, not effort; a partially complete issue stays open.
 
+Issue completion includes cleanup: before closure, identify resources created for the work; at closure or immediately afterward, remove only those explicitly confirmed unnecessary. Check for leftovers after failed/interrupted tests too, and verify removal rather than relying on Docker's `--rm`. Preserve regression tests, production resources, required images, recovery material and anything needed by another open issue. Report cleanup or justified retention without publishing private paths. See [deployment cleanup](README_DEPLOYMENT.md#temporary-resource-cleanup) for details.
+
 See the [work-tracking policy](docs/maintenance.md#work-tracking) for the full workflow. Documentation explains policy; it does not duplicate the live backlog.
 
 ## Source history

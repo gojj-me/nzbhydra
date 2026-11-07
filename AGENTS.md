@@ -41,6 +41,14 @@ Run commands from the repository root. Use an isolated Linux container with the 
 - `.github/workflows/release-metadata.yml` checks metadata and Python 3 tooling. Its success alone does not verify Python 2.7 application compatibility. `.github/workflows/release-assets.yml` packages assets for an explicitly published stable legacy release; it does not deploy to a running container.
 - Documentation-only edits need link, command, consistency, and privacy review, not a production restart or an invented behavior test. Report exactly which checks ran and any limits or inconclusive results.
 
+## Temporary-resource cleanup
+
+- Before closing an issue, identify the temporary resources created for its work and verify whether each is still required. At closure, or immediately afterward if already closed, remove issue-owned resources explicitly confirmed unnecessary; issue closure alone is not proof that an artifact is disposable.
+- Check for leftovers after every test run, including failed, interrupted and timed-out runs, and repeat the check at issue closure. Docker's `--rm` is insufficient: a container left in `Created` state may remain. Verify the final inventory rather than assuming cleanup succeeded.
+- Inspect exact container identities, state and mounts before removal. Remove only confirmed disposable test containers and their unneeded anonymous test volumes, plus unneeded issue-owned temporary files, staging directories and test artifacts. Never use broad Docker/container/volume/image pruning as issue cleanup.
+- Preserve production services/data, the required legacy image, persistent maintenance state, selected/previous releases, recovery snapshots/backups, committed regression tests/fixtures and anything needed by another open issue or investigation. A closed issue does not authorize deleting recovery material.
+- Record completed cleanup and any justified retention in the completion handoff. Keep sensitive inventories and paths private; public issue updates contain only generic outcomes. If ownership or continued need is uncertain, retain the resource and clarify before deletion.
+
 ## Behavior, tests, and dependencies
 
 - Keep changes focused and follow the surrounding code style. Runtime and deployed maintenance changes must remain Python 2.7 compatible. Do not perform broad reformatting or dependency upgrades as a side effect of a fix.

@@ -99,6 +99,10 @@ Legacy stabilization and the next release are tracked by the [0.2.300 milestone]
 
 Before creating or restructuring multi-part work, ask the maintainer to choose a checklist in one issue or linked sub-issues, with a concise proposed grouping. Do not select the granularity or split, merge, or convert issues without that decision. Keep the agreed tracking current without repeatedly requesting the same choice. Mark only verified criteria complete, leave partial work open, and report completed/total counts plus remaining work. Percentages describe item counts, not effort; a partially complete issue stays open.
 
+### Cleanup at completion
+
+Before closing an issue, identify its temporary resources and verify whether they remain necessary. At closure, or immediately afterward if already closed, remove only issue-owned resources explicitly confirmed unnecessary, and verify the result. Check after failed, interrupted and timed-out tests too; Docker `--rm` alone is insufficient. Preserve production resources, required images, recovery material, regression tests/fixtures and resources still needed by another open issue. Clarify uncertain ownership or retention before deletion. Report cleanup and justified retention in the completion handoff without publishing private inventories or paths. See [deployment cleanup](../README_DEPLOYMENT.md#temporary-resource-cleanup) for operational boundaries.
+
 ### Issue lifecycle and relationships
 
 1. Before implementation, search for an existing issue. Create a focused issue if needed, describing the desired outcome and acceptance criteria. Use synthetic examples and public-safe evidence.

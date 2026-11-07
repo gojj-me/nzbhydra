@@ -75,6 +75,16 @@ Issue #3 owns the deployment acceptance criteria; [issue #1](https://github.com/
 
 Validate with isolated synthetic data before use: restart, recreation with the same mount, missing-release restoration, offline startup, rejected downloads, concurrent updates, failed health checks, and recovery. Do not exercise production indexers or download clients as part of test setup.
 
+## Temporary-resource cleanup
+
+Before issue closure, inventory the temporary containers, volumes, files, staging directories and test artifacts created for that issue. At closure, or immediately afterward for an already closed issue, remove resources explicitly verified unnecessary. Check after every test run as well, including failures, timeouts and interrupted runs. Docker `--rm` does not guarantee cleanup when a container remains in `Created` state; inspect the final inventory explicitly.
+
+Use exact resource identities and inspect container state and mounts before removal. Remove only disposable test containers and their unneeded anonymous test volumes; do not use broad Docker, volume or image pruning. Verify that the intended resources were removed and that the production application remains healthy.
+
+Preserve the existing application image, production data/configuration, persistent maintenance state, selected and previous releases, required archive caches, recovery snapshots/backups and committed regression tests/fixtures. Retain resources needed by another open issue, investigation or recovery procedure. Closing an issue alone does not establish that these are unnecessary or authorize recovery-data deletion; clarify uncertain ownership or retention before removing anything.
+
+The issue completion handoff must state what cleanup was verified and explain any continued retention. Keep operational inventories, resource identities and paths private; public updates describe generic outcomes. This is a manual completion requirement, not a new automatic deletion or retention policy.
+
 ## Privacy
 
 Publish only generic behavior and synthetic examples. Keep machine identities, credentials, real configuration, raw logs, search histories, operational measurements, and backup records out of public documentation and issues. No private key or API token belongs in release artifacts or Git history, including private repositories.
