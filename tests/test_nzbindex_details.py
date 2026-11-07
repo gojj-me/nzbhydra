@@ -18,6 +18,7 @@ class NzbIndexDetailsTests(unittest.TestCase):
         config.settings=Bunch.fromDict(config.initialConfig)
         global web
         from nzbhydra import web
+        web.app.template_folder=os.path.join(ROOT,"templates")
         cls.indexer=database.Indexer.create(name='synthetic')
 
     @classmethod
@@ -108,8 +109,27 @@ class NzbIndexDetailsTests(unittest.TestCase):
         self.assertEqual(200,response.status_code)
         self.assertIn(b'Synthetic.Refreshed',response.data)
         self.assertIn(b'getnzb',response.data)
+        self.assertIn(b'apikey=invented-api-key',response.data)
+        self.assertIn(b'<category>N/A</category>',response.data)
         self.assertIn(b'<guid isPermaLink="false">hydra-id</guid>',response.data)
         self.assertNotIn(b'https://example.invalid/download/',response.data)
+
+    def test_actual_api_json_details_preserves_identity_and_link(self):
+        self.record()
+        response=web.app.test_client().get('/api?t=details&id=hydra-id&apikey=invented-api-key&o=json')
+        self.assertEqual(200,response.status_code)
+        item=json.loads(response.data)['channel']['item'][0]
+        self.assertEqual('hydra-id',item['guid'])
+        self.assertEqual('N/A',item['category'])
+        self.assertIn('getnzb',item['link'])
+        self.assertIn('searchresultid=hydra-id',item['link'])
+        self.assertIn('apikey=invented-api-key',item['link'])
+
+    def test_details_rejects_unknown_output_format(self):
+        self.record()
+        response=web.app.test_client().get('/api?t=details&id=hydra-id&apikey=invented-api-key&o=unsupported')
+        self.assertEqual(500,response.status_code)
+        self.assertEqual([],self.calls)
 
     def test_actual_api_nfo_returns_error_for_raw_and_html_modes(self):
         self.record()
