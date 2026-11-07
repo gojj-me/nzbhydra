@@ -739,6 +739,8 @@ def api(args):
         xml = render_template("caps.html")
         return Response(xml, mimetype="text/xml")
     elif args["t"] == "details":
+        if args["o"].lower() not in ("xml", "json"):
+            return "Unknown output format", 500
         searchResultId = args["id"]
         searchResult = SearchResult.get(SearchResult.id == searchResultId)
         logger.info("API request from to get detils for %s from %s" % (searchResult.title, searchResult.indexer.name))
@@ -746,8 +748,12 @@ def api(args):
         if item is None:
             logger.error("Unable to find or parse details for %s" % searchResult.title)
             return "Unable to get details", 500
-        item.link = get_nzb_link_and_guid(searchResultId, False)[0]  # We need to make sure the link in the details refers to us
-        return render_search_results_for_api([item], None, None, output=args["o"])
+        item.guid = searchResultId
+        item.searchResultId = searchResultId
+        item.category = item.category.pretty
+        item.link = get_nzb_link_and_guid(searchResultId, True)  # We need to make sure the link in the details refers to us
+        content = render_search_results_for_api([item], None, None, output=args["o"])
+        return jsonify(content) if args["o"].lower() == "json" else content
     elif args["t"] == "getnfo":
         searchResultId = args["id"]
         result = get_nfo(searchResultId)
@@ -758,6 +764,8 @@ def api(args):
                 # TODO Return as json if requested
                 return render_template("nfo.html", nfo=result["nfo"])
         else:
+            if result.get("message"):
+                return Response('<error code="300" description="NFO retrieval unavailable"/>', mimetype="text/xml")
             return Response('<error code="300" description="No such item"/>', mimetype="text/xml")
 
     else:

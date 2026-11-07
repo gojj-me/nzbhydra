@@ -174,7 +174,7 @@ class NzbIndex(SearchModule):
         entry.details_link = self.get_details_link(guid)
         entry.poster = row.get("poster")
         entry.group = ", ".join(groups)
-        entry.has_nfo = NzbSearchResult.HAS_NFO_MAYBE
+        entry.has_nfo = NzbSearchResult.HAS_NFO_NO
         pubdate = arrow.get(posted)
         entry.epoch, entry.pubdate_utc = pubdate.timestamp, str(pubdate)
         entry.age_days = (arrow.utcnow() - pubdate).days
@@ -336,17 +336,9 @@ class NzbIndex(SearchModule):
         return None
 
     def get_nfo(self, guid):
-        f = furl(self.host)
-        f.path.add("nfo")
-        f.path.add(guid)
-        r, papiaccess, _ = self.get_url_with_papi_access(f.tostr(), "nfo", cookies={"agreed": "true"})
-        if r is not None:
-            html = r.text
-            p = re.compile(r'<pre id="nfo0">(?P<nfo>.*)<\/pre>', re.DOTALL)
-            m = p.search(html)
-            if m:
-                return True, m.group("nfo"), None
-        return False, None, None
+        # The verified collection API exposes a file manifest, not file contents.
+        # Do not call the retired HTML route or report an empty successful NFO.
+        return False, None, "NFO retrieval is unavailable through the NZBIndex integration."
 
     def get_nzb_link(self, guid, title):
         f = furl(self.host)
@@ -359,35 +351,36 @@ class NzbIndex(SearchModule):
             raise IndexerAccessException("The search service is temporarily unavailable.", self)  # The server should return code 503 instead of 200...
 
     def get_entry_by_id(self, guid, title):
-        f = furl(self.host)
-        f.path.add("release")
-        f.path.add(guid)
-        f.path.add(title + ".nzb")
-        r, papiaccess, _ = self.get_url_with_papi_access(f.tostr(), "details", cookies={"agreed": "true"})
-        if r is None:
+        if not isinstance(guid, string_types) or not re.match(r"^[A-Za-z0-9_-]+$", guid):
+            self.warn("Invalid NZBIndex collection identifier")
+            return None
+        url = furl(self.host)
+        url.path.add("api/collection")
+        url.path.add(guid)
+        response, access, _ = self.get_url_with_papi_access(url.tostr(), "details", saveToDb=False)
+        if response is None:
+            if not getattr(access, "_rate_limit_skipped", False):
+                self.saveIndexerStatus(access)
             return None
         try:
-            soup = BeautifulSoup(r.content, config.settings.searching.htmlParser)
-            info = soup.find("div", class_="info")
-            if info is None:
-                self.error("Unable to find infos on details page")
-                return None
-            entry = self.create_nzb_search_result()
-            entry.title = title
-            entry.poster = self.parse_poster(info)
-            poster_spans = info.find_all("div", class_="poster")
-            size_span = poster_spans[0]
-            entry.size = self.parse_size(size_span)
-            entry.group = poster_spans[1].text.replace("\n", "").replace("a.b.", "alt.binaries.").strip()
-            self.parse_date(soup.find("tbody").find("tr").find_all("td")[3], entry)
-            entry.link = self.get_nzb_link(guid, title)
-            entry.details_link = f.tostr()
+            payload = json.loads(response.text)
+            if not isinstance(payload, dict) or payload.get("error") is not False:
+                raise ValueError()
+            data = payload["data"]
+            if not isinstance(data, dict) or data.get("id") != guid:
+                raise ValueError()
+            entry = self.parse_json_row(data)
+            self.handle_indexer_success()
             return entry
-        except IndexerResultParsingRowException:
-            self.error("Error while parsing details for %s" % title)
+        except (ValueError, TypeError, KeyError, AttributeError, OverflowError):
+            access.response_successful = False
+            access.error = "NZBIndex collection metadata is unavailable or malformed"
+            self.warn(access.error)
+            self.handle_indexer_failure(reason=access.error)
             return None
-        
-        
+        finally:
+            self.saveIndexerStatus(access)
+
 
 def get_instance(indexer):
     return NzbIndex(indexer)
