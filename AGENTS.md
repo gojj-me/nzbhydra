@@ -29,6 +29,7 @@ Run commands from the repository root. Use an isolated Linux container with the 
 - `NZBHYDRA_SESSION_DIR` selects a writable session directory when source is immutable. Runtime data, configuration, logs, and sessions must not be written into a verified release tree.
 - Release metadata: `python3 scripts/check_release_metadata.py`; during release preparation add `--tag <exact-numeric-tag>`.
 - Maintenance/tooling checks: `python3 tests/test_maintenance.py`, `python3 tests/test_release_tools.py`, and `python3 tests/test_release_packaging.py`. The first two must also pass under Python 2.7 when changing deployed maintenance code; packaging tests require Python 3.
+- Application Binsearch regression: `python2.7 -B tests/test_binsearch.py`, covering synthetic current HTML, local filters, search-cache paging, individual download links, details and explicit NFO unavailability.
 - Application NZBIndex details/NFO regression: `python2.7 -B tests/test_nzbindex_details.py`, including real authenticated XML/JSON API rendering with synthetic responses.
 - Application NZBIndex regression: `python2.7 -B tests/test_nzbindex.py`, using synthetic JSON/HTML and request-contract checks.
 - Application search-lock regression: `python2.7 -B tests/test_search_lock.py`, covering exception exits, waiting requests and fixed-label diagnostics.

@@ -3,71 +3,47 @@ from __future__ import print_function
 from __future__ import division
 from __future__ import absolute_import
 
-import urlparse
-from sets import Set
-
-from builtins import super
-from builtins import str
-from builtins import int
-from builtins import *
-from future import standard_library
-#standard_library.install_aliases()
-import logging
 import re
+import urlparse
 
 import arrow
 from bs4 import BeautifulSoup
 from furl import furl
+from six import string_types
 
 from nzbhydra import config
-from nzbhydra.categories import getUnknownCategory
-from nzbhydra.exceptions import IndexerResultParsingException, IndexerAccessException, IndexerResultParsingRowException
-
+from nzbhydra.exceptions import IndexerResultParsingException, IndexerAccessException
 from nzbhydra.nzb_search_result import NzbSearchResult
-from nzbhydra.search_module import SearchModule, IndexerProcessingResult, QueriesExecutionResult
-
-logger = logging.getLogger('root')
+from nzbhydra.search_module import SearchModule, IndexerProcessingResult
 
 
 class Binsearch(SearchModule):
-    title_pattern = re.compile(r'"(.*)\.(rar|nfo|mkv|par2|001|nzb|url|zip|r[0-9]{2})"')
-    size_pattern = re.compile(r"size: (?P<size>[0-9]+(\.[0-9]+)?).(?P<unit>(GB|MB|KB|B))")
-    poster_pattern = re.compile(r"&p=(.*)&")
-    goup_pattern = re.compile(r"&g=([\w\.]*)&")
-    nfo_pattern = re.compile(r"\d nfo file")
-    
+    # The public frontend uses zero-based pages of 25 collections.
+    uses_page_numbers = True
+    size_pattern = re.compile(r"^([0-9]+(?:\.[0-9]+)?)\s*([KMGT]?)B$", re.I)
+    guid_pattern = re.compile(r"^[A-Za-z0-9_-]+={0,2}\Z")
+
     def __init__(self, settings):
         super(Binsearch, self).__init__(settings)
         self.module = "Binsearch"
-        self.supports_queries = True  # We can only search using queries
+        self.limit = 25
+        self.supports_queries = True
         self.needs_queries = True
         self.category_search = False
-        self.last_results_count = 0
-        self.supportedFilters = ["minsize", "maxsize", "maxage"]
+        # The frontend advertises no remote size/age filters. Shared result
+        # acceptance still applies requested size/age restrictions locally.
+        self.supportedFilters = []
         self.supportsNot = False
 
     def build_base_url(self, offset=0):
         f = furl(self.host)
-        f.path.add("index.php")
-        url = f.add({"max": self.limit,
-                     "adv_col": "on",  # collections only 
-                     "postdate": "date",  # show pubDate, not age
-                     # "adv_nfo": "off", #if enabled only show results with nfo file #todo make configurable. setting it to off doesnt work, its still done
-                     "adv_sort": "date",  # prefer the newest
-                     "min": offset
-                     })
-        return url
+        f.path.add("search")
+        f.args["page"] = int(offset // self.limit)
+        return f
 
     def get_search_urls(self, search_request):
-        f = self.build_base_url(offset=search_request.offset).add({"q": search_request.query})
-        if search_request.minsize:
-            f = f.add({"xminsize": search_request.minsize})
-        if search_request.maxsize:
-            f = f.add({"xmaxsize": search_request.maxsize})
-        if search_request.maxage:
-            f = f.add({"adv_age": search_request.maxage})
-
-        return [f.tostr()]
+        return [self.build_base_url(search_request.offset or 0).add(
+            {"q": search_request.query}).tostr()]
 
     def get_showsearch_urls(self, search_request):
         urls = []
@@ -122,157 +98,182 @@ class Binsearch(SearchModule):
     def get_anime_urls(self, search_request):
         return self.get_search_urls(search_request)
     
+    def valid_guid(self, guid):
+        return isinstance(guid, string_types) and len(guid) <= 128 and bool(self.guid_pattern.match(guid))
+
     def get_details_link(self, guid):
-        logger.info("Details for binsearch not yet implemented")
-        #Unfortunately binsearch uses different GUIDs for downloading and detail links. We store the one for NZBs
-        return None
+        if not self.valid_guid(guid):
+            raise ValueError("Invalid Binsearch identifier")
+        f = furl(self.host)
+        f.path.add("details")
+        f.path.add(guid)
+        return f.tostr()
 
-    def process_query_result(self, html, searchRequest, maxResults=None):
-        self.debug("Started processing results")
-        logger.info("Last results count %d" % self.last_results_count)
-                
-        entries = Set([])
-        countRejected = self.getRejectedCountDict()
-        self.debug("Using HTML parser %s" % config.settings.searching.htmlParser)
-        soup = BeautifulSoup(html, config.settings.searching.htmlParser)
+    def parse_size(self, text):
+        match = self.size_pattern.match(text.strip())
+        if not match:
+            raise ValueError("Missing size")
+        return int(float(match.group(1)) * 1024 ** ("", "K", "M", "G", "T").index(match.group(2).upper()))
 
-        if "No results in most popular groups" in soup.text:
-            logger.info("No results found for query")
-            return IndexerProcessingResult(entries=[], queries=[], total_known=0, has_more=False, total=0, rejected=self.getRejectedCountDict())
-        main_table = soup.find('table', attrs={'id': 'r2'})
+    def parse_age(self, text):
+        text = text.strip().lower()
+        if text in ("just now", "now"):
+            return arrow.utcnow()
+        match = re.match(r"^(?:about )?(\d+) (second|minute|hour|day|week|month|year)s?(?: ago)?$", text)
+        if not match:
+            raise ValueError("Unsupported relative age")
+        count, unit = int(match.group(1)), match.group(2)
+        # Relative month/year labels are approximate; use calendar offsets.
+        return arrow.utcnow().replace(**{unit + "s": -count})
 
-        if not main_table:
-            self.debug(html[:500])
-            raise IndexerResultParsingException("Unable to find main table in binsearch page. This happens sometimes... :-)", self)
-
-        items = main_table.find_all('tr')
-        
-        for row in items:
-            try:
-                entry = self.parseRow(row)
-            except IndexerResultParsingRowException:
-                continue
-            accepted, reason, ri = self.accept_result(entry, searchRequest, self.supportedFilters)
-            if accepted:
-                entries.add(entry)
-            else:
-                countRejected[ri] += 1
-                self.debug("Rejected search result. Reason: %s" % reason)
-            
-        self.debug("Finished processing %d results" % len(entries))
-        
-        page_links = soup.find_all('table', attrs={'class': 'xMenuT'})[1].find_all("a")
-        has_more = len(page_links) > 0 and page_links[-1].text == ">"
-        total_known = False
-        total = 100
-        if len(page_links) == 0:
-            m = re.compile(r".* (\d+)\+? records.*").search(soup.find_all('table', attrs={'class': 'xMenuT'})[1].text)
-            if m:
-                total = int(m.group(1))
-                total_known = True
-        
-        return IndexerProcessingResult(entries=entries, queries=[], total_known=total_known, has_more=has_more, total=total, rejected=countRejected)
-    
-    def parseRow(self, row):
+    def result_metadata(self, guid, title):
+        if not self.valid_guid(guid) or not title.strip():
+            raise ValueError("Missing collection metadata")
         entry = self.create_nzb_search_result()
-        title = row.find('span', attrs={'class': 's'})
-
-        if title is None:
-            self.debug("Ignored entry because it has no title")
-            raise IndexerResultParsingRowException("No title found")
-        title = title.text
-
-        if "password protect" in title.lower() or "passworded" in title.lower():
-            entry.passworded = True
-
-        m = self.title_pattern.search(title)
-        if m:
-            entry.title = m.group(1)
-        else:
-            entry.title = title
-        entry.title = self.cleanUpTitle(entry.title)
-        entry.indexerguid = row.find("input", attrs={"type": "checkbox"})["name"]
-        entry.link = self.get_nzb_link(entry.indexerguid, None)
-        info = row.find("span", attrs={"class": "d"})
-        if info is None:
-            self.debug("Ignored entry because it has no info")
-            raise IndexerResultParsingRowException("No info found")
-
-        collection_link = info.find("a")["href"]  # '/?b=MARVELS.AVENGERS.AGE.OF.ULTRON.3D.TOPBOT.TrueFrench.1080p.X264.A&g=alt.binaries.movies.mkv&p=Ramer%40marmer.com+%28Clown_nez%29&max=250'
-        entry.details_link = "%s%s" % (self.host, collection_link)
-        m = self.goup_pattern.search(collection_link)
-        if m:
-            entry.group = m.group(1).strip()
-
-        m = self.poster_pattern.search(collection_link)
-        if m:
-            poster = m.group(1).strip()
-            try:
-                entry.poster = urlparse.unquote(poster).replace("+", " ")
-            except UnicodeDecodeError:
-                logger.debug("Unable to decode poster from %s" % poster)
-                entry.poster = None
-
-        # Size
-        m = self.size_pattern.search(info.text)
-        if not m:
-            self.debug("Unable to find size information in %s" % info.text)
-        else:
-            size = float(m.group("size"))
-            unit = m.group("unit")
-            if unit == "GB":
-                size = size * 1024 * 1024 * 1024
-            elif unit == "KB":
-                size *= 1024
-            elif unit == "MB":
-                size = size * 1024 * 1024
-
-            entry.size = int(size)
-
-        entry.category = getUnknownCategory()
-
-        if self.nfo_pattern.search(info.text):  # 1 nfo file is missing if there is no NFO
-            entry.has_nfo = NzbSearchResult.HAS_NFO_YES
-        else:
-            entry.has_nfo = NzbSearchResult.HAS_NFO_NO
-
-        # Age
-        try:
-            pubdate = re.compile(r"(\d{1,2}\-\w{3}\-\d{4})").search(row.text).group(1)
-            pubdate = arrow.get(pubdate, "DD-MMM-YYYY")
-            entry.epoch = pubdate.timestamp
-            self.getDates(entry, pubdate, False)
-        except Exception as e:
-            self.error("Unable to find age in %s" % row.find_all("td")[-1:][0].text)
-            raise IndexerResultParsingRowException("Unable to parse age")
+        entry.indexerguid, entry.title = guid, self.cleanUpTitle(title.strip())
+        entry.link, entry.details_link = self.get_nzb_link(guid, title), self.get_details_link(guid)
+        entry.has_nfo = NzbSearchResult.HAS_NFO_NO
+        entry.passworded = "password protect" in title.lower() or "passworded" in title.lower()
         return entry
 
-        
+    def parseRow(self, row):
+        cells = row.find_all("td", recursive=False)
+        if len(cells) != 4:
+            raise ValueError("Unsupported result row")
+        checkbox = cells[1].find("input", type="checkbox")
+        guid = checkbox["name"]
+        link = cells[2].find("a", href="/details/" + guid)
+        entry = self.result_metadata(guid, link.get_text())
+        sizes = [span.get_text().strip() for span in cells[2].find_all("span")
+                 if self.size_pattern.match(span.get_text().strip())]
+        if len(sizes) != 1:
+            raise ValueError("Missing or ambiguous size")
+        entry.size = self.parse_size(sizes[0])
+        groups = []
+        for anchor in cells[2].find_all("a", href=True):
+            parsed = urlparse.urlsplit(anchor["href"])
+            if parsed.path != "/search":
+                continue
+            params = urlparse.parse_qs(parsed.query)
+            if params.get("poster"):
+                entry.poster = params["poster"][0]
+            if params.get("group"):
+                groups.extend(params["group"])
+        entry.group = ", ".join(groups)
+        self.getDates(entry, self.parse_age(cells[3].get_text()), False)
+        entry.age_precise = False
+        return entry
+
+    def collection_form(self, html):
+        if not isinstance(html, string_types) or not html.strip():
+            raise ValueError("Empty response")
+        soup = BeautifulSoup(html, config.settings.searching.htmlParser)
+        if soup.title is None or "binsearch" not in soup.title.get_text().lower():
+            raise ValueError("Unrecognized page")
+        form = soup.find("form", action="/nzb")
+        if form is None or form.get("method", "get").lower() != "get":
+            raise ValueError("Missing collection form")
+        table = form.find("table", class_="result-table")
+        if table is None:
+            raise ValueError("Missing collection table")
+        return soup, form, table
+
+    def process_query_result(self, html, searchRequest, maxResults=None):
+        try:
+            soup, form, table = self.collection_form(html)
+            if form.find("input", attrs={"name": "q"}) is None:
+                raise ValueError("Not a search page")
+            pager = soup.find(attrs={"aria-label": "Pagination"})
+            current = pager.find(attrs={"aria-current": "page"})
+            next_page = pager.find(attrs={"aria-label": "Next page"})
+            if next_page.get("aria-disabled") not in ("true", "false"):
+                raise ValueError("Unknown pagination")
+            page = int(current.get_text().strip()) - 1
+            if page != int((searchRequest.offset or 0) // self.limit):
+                raise ValueError("Provider did not advance to the requested page")
+            rows = [row for row in table.find_all("tr") if row.find_all("td", recursive=False)]
+            if len(rows) > self.limit:
+                raise ValueError("Unsupported page size")
+            entries, rejected, identifiers = [], self.getRejectedCountDict(), set()
+            for row in rows:
+                entry = self.parseRow(row)
+                if entry.indexerguid in identifiers:
+                    raise ValueError("Duplicate collection identifier")
+                identifiers.add(entry.indexerguid)
+                accepted, reason, rejection = self.accept_result(entry, searchRequest, self.supportedFilters)
+                if accepted:
+                    entries.append(entry)
+                else:
+                    rejected[rejection] += 1
+            has_more = bool(rows) and next_page["aria-disabled"] == "false"
+            # Report this page count; the search cache accumulates provider pages.
+            return IndexerProcessingResult(entries=entries, queries=[], total=len(rows),
+                total_known=not has_more, has_more=has_more, rejected=rejected)
+        except (ValueError, TypeError, KeyError, AttributeError, IndexError, OverflowError):
+            # Never log provider HTML, result text, poster details or query values.
+            raise IndexerResultParsingException("Unsupported or malformed Binsearch search response", self)
+
+    def parse_details(self, html, guid):
+        soup, form, table = self.collection_form(html)
+        if form.find("input", attrs={"name": "id"})["value"] != guid:
+            raise ValueError("Mismatched collection")
+        title = form.find("input", attrs={"name": "name"})["value"]
+        entry = self.result_metadata(guid, title)
+        sizes, dates = [], []
+        for row in table.find_all("tr"):
+            cells = row.find_all("td", recursive=False)
+            if not cells:
+                continue
+            if len(cells) != 3:
+                raise ValueError("Unsupported file row")
+            size = [span.get_text().strip() for span in cells[1].find_all("span")
+                    if self.size_pattern.match(span.get_text().strip())]
+            if len(size) != 1:
+                raise ValueError("Missing file size")
+            sizes.append(self.parse_size(size[0]))
+            dates.append(self.parse_age(cells[2].get_text()))
+        if not sizes:
+            raise ValueError("Missing collection files")
+        entry.size = sum(sizes)
+        self.getDates(entry, min(dates), False)
+        entry.age_precise = False
+        return entry
+
+    def get_entry_by_id(self, guid, title):
+        if not self.valid_guid(guid):
+            return None
+        response, access, _ = self.get_url_with_papi_access(self.get_details_link(guid), "details", saveToDb=False)
+        if response is None:
+            if not getattr(access, "_rate_limit_skipped", False):
+                self.saveIndexerStatus(access)
+            return None
+        try:
+            entry = self.parse_details(response.text, guid)
+            self.handle_indexer_success()
+            return entry
+        except (ValueError, TypeError, KeyError, AttributeError, IndexError, OverflowError):
+            access.response_successful = False
+            access.error = "Binsearch collection metadata is unavailable or malformed"
+            self.warn(access.error)
+            self.handle_indexer_failure(reason=access.error)
+            return None
+        finally:
+            self.saveIndexerStatus(access)
 
     def get_nfo(self, guid):
-        f = furl(self.host)
-        f.path.add("viewNFO.php")
-        f.add({"oid": guid})
-        r, papiaccess, _ = self.get_url_with_papi_access(f.tostr(), "nfo")
-        if r is not None:
-            html = r.text
-            p = re.compile(r"<pre>(?P<nfo>.*)<\/pre>", re.DOTALL)
-            m = p.search(html)
-            if m:
-                return True, m.group("nfo"), None
-        return False, None, None
-    
+        return False, None, "NFO retrieval is unavailable through the Binsearch integration."
+
     def get_nzb_link(self, guid, title):
-        f = furl(self.host + "/")
-        f.add({"action": "nzb", guid: "1"})
-        return f.tostr()
-    
+        if not self.valid_guid(guid):
+            raise ValueError("Invalid Binsearch identifier")
+        f = furl(self.host)
+        f.path.add("nzb")
+        return f.add({"id": guid}).tostr()
+
     def check_auth(self, body):
         if "The search service is temporarily unavailable" in body:
             raise IndexerAccessException("The search service is temporarily unavailable.", self)
 
-
-    
 
 def get_instance(settings):
     return Binsearch(settings)
