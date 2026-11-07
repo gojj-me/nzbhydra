@@ -75,6 +75,14 @@ Issue #18 validates the details path against the public collection JSON endpoint
 
 The verified public collection contract supplies metadata and a file manifest, not NFO contents. The integration returns explicit NFO unavailability, with no call to the retired NFO HTML route and no claim that the collection contains no NFO file. This describes the integration's verified contract, not every possible provider service.
 
+## Binsearch search and collection compatibility
+
+Binsearch uses the public frontend's GET `/search` contract with a query and zero-based `page` parameter. Each provider page contains up to 25 collections. Its cursor is stored per indexer within each cached search, independently of the caller's requested result limit; a title fallback resets that cursor. The adapter checks the returned current-page marker and next-page state, and stops on an empty or final page. Missing layouts, malformed rows and non-advancing pages are failures, not successful empty results. No retired `index.php` requests or unsupported historical size/age query parameters are generated.
+
+Size and age restrictions are applied locally through shared result acceptance. Displayed sizes are rounded binary units and posting dates are estimated from relative age labels, including calendar month/year offsets. These estimates cannot provide byte-exact size or second-exact age boundaries. Category information is unavailable and remains unknown. A final-page total describes the enumerated collections, not an independently verified global count.
+
+Details use the selected collection's `/details/<id>` page. Refreshed size sums its displayed file sizes, and age uses its oldest displayed file age; rounding can differ from search summaries. Individual download links use GET `/nzb?id=<id>`, selecting one collection rather than every search result. An NZB may contain multiple files belonging to that collection. The verified frontend has no NFO retrieval contract; the integration reports explicit unavailability without requesting the retired NFO endpoint or asserting that a collection contains no NFO file. Access restrictions and HTTP/provider failures retain normal error handling; no challenge bypass or TLS relaxation is used.
+
 ## Repository cleanup
 
 Removed unsupported Windows distribution build files, retired Travis configuration, and the old Ubuntu Xenial Dockerfile/Compose example. That Dockerfile was not a LinuxServer image recipe and referenced missing certificate/key inputs. A reproducible image recipe must be introduced and tested separately.

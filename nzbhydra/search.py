@@ -358,7 +358,16 @@ def search(search_request):
             search_request.offset = cache_entry["offset"]
 
         logger.debug("Searching indexers with offset %d" % search_request.offset)
-        result = search_and_handle_db(dbsearch, {x: search_request for x in indexers_to_call})
+        requests = {}
+        for indexer in indexers_to_call:
+            request = search_request
+            if getattr(indexer, "uses_page_numbers", False):
+                # Provider pages must advance independently of the API limit.
+                # Keep the cursor in this search's cache, never on the adapter.
+                request = copy.copy(search_request)
+                request.offset = cache_entry["indexer_infos"][indexer].get("next_page", 0) * indexer.limit
+            requests[indexer] = request
+        result = search_and_handle_db(dbsearch, requests)
         logger.debug("All search calls to indexers completed")
         search_results = []
         indexers_to_call = []
@@ -391,6 +400,9 @@ def search(search_request):
                 cache_entry["indexer_infos"][indexer].update(
                     {"did_search": queries_execution_result.didsearch, "indexer": indexer.name, "search_request": search_request, "has_more": queries_execution_result.has_more, "total": queries_execution_result.total, "total_known": queries_execution_result.total_known,
                      "indexer_search": queries_execution_result.indexerSearchEntry, "rejected": queries_execution_result.rejected, "processed_results": queries_execution_result.loaded_results})
+                if getattr(indexer, "uses_page_numbers", False) and queries_execution_result.didsearch:
+                    info = cache_entry["indexer_infos"][indexer]
+                    info["next_page"] = info.get("next_page", 0) + 1
                 if queries_execution_result.has_more:
                     indexers_to_call.append(indexer)
                     logger.debug("%s still has more results so we could use it the next round" % indexer)
@@ -478,6 +490,8 @@ def search(search_request):
                     else:
                         indexers_to_call = [indexer for indexer, _ in cache_entry["indexer_infos"].items()]
 
+                    for indexer in indexers_to_call:
+                        cache_entry["indexer_infos"][indexer].pop("next_page", None)
                     cache_entry["usedFallback"] = True
                 else:
                     logger.info("Unable to find title for ID")
