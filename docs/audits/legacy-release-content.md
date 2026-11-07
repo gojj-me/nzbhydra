@@ -37,7 +37,7 @@ bower.json declares 47 dependencies and package.json declares 30 development dep
 
 The application Apache license is not a substitute for third-party notices. The inventory found only two standalone license files inside libs/: the enum license and Werkzeug's bundled font license. Some other components contain inline notices or license labels; several explicitly refer to absent standalone license files, for example Flask and Requests. Python standard-library copies and distributed frontend/font components also need their applicable notices assessed.
 
-Frontend source maps retain some upstream notices/source content, while minification may remove banners from the executable bundle. Preserve all existing source/header notices, maps, fixtures and standalone licenses. Do not infer license completeness from an SPDX-like label, a version header or the presence of the application's LICENSE. Restoration of missing notices and their inclusion in release/staging manifests needs explicit verification under #4 or its agreed linked work.
+Frontend source maps retain some upstream notices/source content, while minification may remove banners from the executable bundle. Preserve all existing source/header notices, maps, fixtures and standalone licenses. Do not infer license completeness from an SPDX-like label, a version header or the presence of the application's LICENSE. [Issue #22](https://github.com/gojj-me/nzbhydra/issues/22) owns restoration of missing notices and verification that release/staging manifests retain them, linked to the audit in #4.
 
 ## Linux-only removals
 
@@ -50,7 +50,7 @@ Frontend source maps retain some upstream notices/source content, while minifica
 
 A limited tracked-fixture scan found inherited credential-shaped literals and email-like values. A metadata-provider value in recorded fixtures also occurs in runtime metadata-provider code. Validity and ownership were not tested, and values are not reproduced in this report. No claim is made that this scan proves the absence of other private data or credentials.
 
-Replacing a functional embedded provider credential requires a deliberate configuration/failure-behavior migration and synthetic fixtures, rather than silently breaking metadata conversion. Existing recordings must not be rerecorded against real accounts. Sanitizing the current tree cannot retract already published Git history; do not republish values in patches, reports or issue comments. Resolution remains on #4 pending the maintainer's tracking choice.
+Replacing a functional embedded provider credential requires a deliberate configuration/failure-behavior migration and synthetic fixtures, rather than silently breaking metadata conversion. Existing recordings must not be rerecorded against real accounts. Sanitizing the current tree cannot retract already published Git history; do not republish values in patches, reports or issue comments. [Issue #23](https://github.com/gojj-me/nzbhydra/issues/23) owns the runtime credential migration and fixture sanitization, linked to #4. The maintainer selected these two linked follow-ups; neither is silently deferred from 0.2.300.
 
 ## Validation boundary
 
