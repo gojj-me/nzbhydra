@@ -35,9 +35,17 @@ bower.json declares 47 dependencies and package.json declares 30 development dep
 
 ## License evidence
 
-The application Apache license is not a substitute for third-party notices. The inventory found only two standalone license files inside libs/: the enum license and Werkzeug's bundled font license. Some other components contain inline notices or license labels; several explicitly refer to absent standalone license files, for example Flask and Requests. Python standard-library copies and distributed frontend/font components also need their applicable notices assessed.
+The application Apache license is not a substitute for third-party notices. The pre-restoration inventory found only two standalone license files inside libs/: the enum license and Werkzeug's bundled font license. Some other components contain inline notices or license labels; several explicitly refer to absent standalone license files, for example Flask and Requests. Python standard-library copies and distributed frontend/font components also need their applicable notices assessed.
 
 Frontend source maps retain some upstream notices/source content, while minification may remove banners from the executable bundle. Preserve all existing source/header notices, maps, fixtures and standalone licenses. Do not infer license completeness from an SPDX-like label, a version header or the presence of the application's LICENSE. [Issue #22](https://github.com/gojj-me/nzbhydra/issues/22) owns restoration of missing notices and verification that release/staging manifests retain them, linked to the audit in #4.
+
+## Notice restoration evidence
+
+The #22 candidate restores 138 distinct notice files associated with 108 component records under libs/third_party_notices, with hashes and upstream source URLs. The regenerated inventory links each library family to restored notices. Nested Requests dependencies, Python standard-library copies, crypto alternatives, the separate Werkzeug font, vendor JavaScript/CSS, Bootstrap/Font Awesome fonts and embedded Bridget terms remain distinct.
+
+Source versions are not guessed from dependency ranges. ConfigArgParse and PyTVMaze copies have unverified exact revisions; the functools backport has an identified import-directive patch; some frontend builds are labelled but not byte-identical to npm distributions. Historical setuptools metadata says PSF or ZPL without identifying a ZPL version, and some publishers supplied a license declaration instead of a standalone copyright file. The manifest records these limits and labels canonical reference texts; it does not invent owners/years or certify compliance.
+
+Offline checks verify notice hashes, retained original notices, source witnesses, library associations and every vendor JS/CSS source-map input. Packaging checks reject absent/altered notice text and unexpected files, and validate maintenance staging. No notice is fetched at application startup and no new maintenance-tool interface is required.
 
 ## Linux-only removals
 
@@ -56,6 +64,6 @@ Replacing a functional embedded provider credential requires a deliberate config
 
 The initial candidate passed 116 focused application regressions, including five new updater tests and the three existing TLS controls, under the applicable isolated Python 2.7 image without provider networking. Two added updater cases then verified configured/global Git lookup and no probing of retired platform paths, bringing the focused updater suite to seven passing tests.
 
-Packaging the actual candidate tree in a disposable Git repository produced a 1,210-file manifest with no Windows binaries, bytecode, tests or frontend build inputs. Runtime assets and the existing standalone notices remained present; all manifest hashes matched, and maintenance staging/immutable-tree verification passed. Two release-packaging tests and version metadata checks also passed. This validates the specific removals; it does not resolve the notice/fixture findings or certify a release.
+Packaging the actual candidate tree in a disposable Git repository produced a 1,210-file manifest with no Windows binaries, bytecode, designated test directories or frontend build inputs. Runtime assets and the existing standalone notices remained present; all manifest hashes matched, and maintenance staging/immutable-tree verification passed. Two release-packaging tests and version metadata checks also passed. This validates the specific removals; it does not certify a release. The source-root policy still retains the standalone libs/test_cookies.py fixture, which is covered by the cookie notices; any further release-content exclusion belongs to #4 rather than an untracked notice change.
 
 No production image/runtime replacement, database migration, dependency upgrade, native host support claim or 0.3.0 modernization is included.

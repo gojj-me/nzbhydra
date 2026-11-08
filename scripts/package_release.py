@@ -10,6 +10,8 @@ import re
 import subprocess
 import tarfile
 
+from verify_third_party_notices import NOTICE_ROOT, verify_archive_notices
+
 ROOTS = {'libs', 'nzbhydra', 'static', 'templates', 'onlinehelp', 'maintenance'}
 FILES = {'nzbhydra.py', 'version.txt', 'changelog.md', 'LICENSE'}
 
@@ -32,6 +34,7 @@ def build(repo, tag, output):
     name = 'nzbhydra-' + tag + '.tar.gz'
     archive = output / name
     hashes = {}
+    notice_manifest = None
     source = io.BytesIO(git('archive', '--format=tar', commit))
     with archive.open('wb') as raw, gzip.GzipFile(filename='', fileobj=raw, mode='wb', mtime=0) as compressed:
         with tarfile.open(fileobj=compressed, mode='w') as target, tarfile.open(fileobj=source, mode='r:') as bundle:
@@ -42,11 +45,17 @@ def build(repo, tag, output):
                 if member.name.endswith(('.pyc', '.pyo')) or member.isdir(): continue
                 if not member.isfile(): raise ValueError('Non-regular release content')
                 data = bundle.extractfile(member).read()
+                if member.name == NOTICE_ROOT + '/manifest.json':
+                    notice_manifest = json.loads(data)
                 hashes[member.name] = hashlib.sha256(data).hexdigest()
                 info = tarfile.TarInfo('nzbhydra-' + commit + '/' + member.name)
                 info.size = len(data); info.mode = 0o644; info.mtime = 0
                 target.addfile(info, io.BytesIO(data))
     if not FILES.issubset(hashes): raise ValueError('Required application files are missing')
+    if tuple(int(x) for x in version.split('.')) >= (0, 2, 300) and notice_manifest is None:
+        raise ValueError('Legacy maintenance releases require third-party notices')
+    if notice_manifest is not None:
+        verify_archive_notices(hashes, notice_manifest)
     descriptor = {'source_commit': commit, 'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
                   'application_version': tag, 'target_release': tag, 'channel': 'stable',
                   'included_fixes': fixes, 'archive_asset': name}

@@ -1,0 +1,3 @@
+    author='Aaron Forsander',
+    license='MIT',
+        'License :: OSI Approved :: MIT License',
