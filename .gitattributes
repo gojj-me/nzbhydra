@@ -1,1 +1,4 @@
 * text=auto eol=lf
+
+# Preserve upstream notice bytes, including original line endings.
+libs/third_party_notices/** -text

@@ -91,6 +91,12 @@ Size and age restrictions are applied locally through shared result acceptance. 
 
 Details use the selected collection's `/details/<id>` page. Refreshed size sums its displayed file sizes, and age uses its oldest displayed file age; rounding can differ from search summaries. Individual download links use GET `/nzb?id=<id>`, selecting one collection rather than every search result. An NZB may contain multiple files belonging to that collection. The verified frontend has no NFO retrieval contract; the integration reports explicit unavailability without requesting the retired NFO endpoint or asserting that a collection contains no NFO file. Access restrictions and HTTP/provider failures retain normal error handling; no challenge bypass or TLS relaxation is used.
 
+## Third-party notice preservation
+
+The restored [notice bundle](../libs/third_party_notices/README.md) and its manifest record publisher/release evidence, complete notice texts, source/hash associations and explicit revision uncertainties. Original inline and standalone notices remain intact; the application license does not replace per-file, nested or multiple-license terms. Canonical references are identified without inventing copyright holders or years.
+
+Numeric legacy releases from 0.2.300 require the notice manifest. Packaging rejects missing, altered or unlisted notice-directory content. The bundle remains under the existing libs/ source root, and maintenance staging preserves it through the ordinary immutable-tree manifest. This does not introduce runtime downloads, change the image or update the deployed maintenance interface.
+
 ## Repository cleanup
 
 Removed unsupported Windows distribution build files, retired Travis configuration, and the old Ubuntu Xenial Dockerfile/Compose example. That Dockerfile was not a LinuxServer image recipe and referenced missing certificate/key inputs. A reproducible image recipe must be introduced and tested separately.

@@ -14,6 +14,8 @@ jobs:
           python-version: '3.13'
       - name: Check version and changelog
         run: python scripts/check_release_metadata.py
+      - name: Verify third-party notice evidence
+        run: python scripts/verify_third_party_notices.py
       - name: Test maintenance, release policy, and packaging
         run: |
           python tests/test_maintenance.py

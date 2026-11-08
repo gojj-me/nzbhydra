@@ -1,5 +1,5 @@
 {
-  "base_revision": "a225f2144fa6abdcc1b07fc7b7c3103debb7ef7d",
+  "base_revision": "2db392a30db4df6e9fc567be7da4cfa491d61b55",
   "frontend_build_dependencies": {
     "bower": "^1.6.3",
     "grunt": "^0.4.5",
@@ -2016,6 +2016,68 @@
     }
   ],
   "method": "Tracked-file inventory; literal header version strings and static import candidates. Absence of a direct reference is not proof of non-use; license indicators are not a license-completeness determination.",
+  "notice_uncertainties": [
+    {
+      "component": "python-idna-2.0-nested-requests",
+      "detail": "Nested IDNA source is an unversioned copy; shared source witnesses establish the project family but not an exact release. Preserve its BSD notice without asserting a complete 2.0 source match."
+    },
+    {
+      "component": "python-setuptools-18.5",
+      "detail": "The exact pkg_resources module matches 18.5. Its distribution declares PSF or ZPL without a ZPL version; canonical texts are provided without choosing a version or inventing a copyright statement."
+    },
+    {
+      "component": "python-configargparse-0.11.0",
+      "detail": "Modified/unversioned local source: the precise upstream revision is not established. The related 0.11.0 source family and MIT notice are recorded, not an exact-release claim."
+    },
+    {
+      "component": "python-pytvmaze-1.4.9",
+      "detail": "Local core source differs from published releases; exact version is unverified. Other files match 1.4.9 and its core source is closely related. Publisher MIT notice restored without claiming an unmodified release."
+    },
+    {
+      "component": "python-backports.functools_lru_cache-1.2.1",
+      "detail": "Local file differs from 1.2.1 only by commenting the absolute_import directive. Upstream setup declares MIT and README identifies the Python 3.3 recipe origin; preserve both that evidence and PSF text. No missing upstream copyright statement is invented."
+    },
+    {
+      "component": "frontend-ui-select-0.14.1",
+      "detail": "Embedded source header identifies this version, but its bytes differ from the npm copy. Publisher license restored; no exact source-revision identity is asserted."
+    },
+    {
+      "component": "frontend-angular-vs-repeat-1.0.0-rc8",
+      "detail": "Embedded source header identifies this version, but its bytes differ from the npm copy. Publisher license restored; no exact source-revision identity is asserted."
+    },
+    {
+      "component": "frontend-angular-local-storage-0.2.6",
+      "detail": "Embedded source header identifies this version, but its bytes differ from the npm copy. Publisher license restored; no exact source-revision identity is asserted."
+    },
+    {
+      "component": "frontend-query-js-0.0.2",
+      "detail": "Use the retained embedded header/source evidence; exact source revision is not established unless separately witnessed. Canonical license text does not manufacture a missing copyright statement."
+    },
+    {
+      "component": "frontend-angular-growl",
+      "detail": "Use the retained embedded header/source evidence; exact source revision is not established unless separately witnessed. Canonical license text does not manufacture a missing copyright statement."
+    },
+    {
+      "component": "frontend-bootstrap-slider",
+      "detail": "Use the retained embedded header/source evidence; exact source revision is not established unless separately witnessed. Canonical license text does not manufacture a missing copyright statement."
+    },
+    {
+      "component": "frontend-dirpagination",
+      "detail": "Use the retained embedded header/source evidence; exact source revision is not established unless separately witnessed. Canonical license text does not manufacture a missing copyright statement."
+    },
+    {
+      "component": "python-rison",
+      "detail": "Upstream source matches are recorded. The repository declares MIT in setup.py but provides no standalone license/copyright file; canonical MIT text supplements that declaration without inventing a copyright statement."
+    },
+    {
+      "component": "frontend-typicons.font-2.0.7",
+      "detail": "The exact CSS source revision is unverified. Publisher historical policy distinguishes CC-BY-SA artwork and SIL OFL fonts; no Typicons font files are present in static/fonts. Do not label the retained CSS simply MIT."
+    },
+    {
+      "component": "frontend-bootstrap-3.3.5",
+      "detail": "Compiled Bootstrap and font witnesses are recorded. Theme LESS paths identify the publisher but their precise bootstrap-less release is not inferred from dependency ranges."
+    }
+  ],
   "python_components": [
     {
       "bytes": 22461,
@@ -2025,6 +2087,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2035,6 +2102,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2045,6 +2117,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2055,6 +2131,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2065,6 +2146,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2075,6 +2160,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2085,6 +2175,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2095,6 +2190,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2105,6 +2205,9 @@
       "files": 7,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-pyopenssl-0.15.1/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2115,6 +2218,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2125,6 +2233,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2135,6 +2247,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2145,6 +2262,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2155,6 +2277,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2165,6 +2292,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2175,6 +2306,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2185,6 +2321,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2195,6 +2336,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2205,6 +2350,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2222,6 +2372,7 @@
         "nzbhydra/indexers.py",
         "nzbhydra/infos.py",
         "nzbhydra/log.py",
+        "nzbhydra/metadata_credentials.py",
         "nzbhydra/nzb_search_result.py",
         "nzbhydra/rate_limit.py",
         "nzbhydra/redaction.py",
@@ -2241,6 +2392,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2251,6 +2407,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2261,6 +2422,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2271,6 +2435,11 @@
       "files": 2,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-setuptools-18.5/PSF-2.0.txt",
+        "libs/third_party_notices/python-setuptools-18.5/ZPL-2.0.txt",
+        "libs/third_party_notices/python-setuptools-18.5/ZPL-2.1.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2281,6 +2450,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2291,6 +2465,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2301,6 +2478,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2311,6 +2492,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2321,6 +2507,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2331,6 +2522,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2341,6 +2537,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2351,6 +2551,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2361,6 +2566,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2373,6 +2583,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2399,6 +2614,9 @@
       "files": 8,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-arrow-0.10.0/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2409,6 +2627,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/ast.py"
       ]
@@ -2421,6 +2644,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2431,6 +2659,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2443,6 +2676,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2453,6 +2691,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2465,6 +2708,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2475,6 +2722,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2485,6 +2737,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2495,6 +2751,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2529,6 +2790,10 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-beautifulsoup4-4.5.1/AUTHORS.txt",
+        "libs/third_party_notices/python-beautifulsoup4-4.5.1/COPYING.txt"
+      ],
       "source_license_indicators": [
         "libs/bs4/__init__.py",
         "libs/bs4/dammit.py",
@@ -2564,6 +2829,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-future-0.15.2/LICENSE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2579,6 +2847,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-bunch-1.0.1/LICENSE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2589,6 +2860,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2599,6 +2875,9 @@
       "files": 2,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-cache-1.0.3/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2609,6 +2888,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2619,6 +2903,10 @@
       "files": 17,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-cffi-1.3.0/AUTHORS",
+        "libs/third_party_notices/python-cffi-1.3.0/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2631,6 +2919,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2641,6 +2934,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2651,6 +2949,9 @@
       "files": 60,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-cherrypy-3.8.0/cherrypy__LICENSE.txt"
+      ],
       "source_license_indicators": [
         "libs/cherrypy/lib/httpauth.py"
       ]
@@ -2663,6 +2964,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2673,6 +2978,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2683,6 +2993,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2697,6 +3012,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2707,6 +3025,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2722,6 +3045,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2732,6 +3059,9 @@
       "files": 6,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-colorama-0.3.3/LICENSE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2742,6 +3072,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2752,6 +3087,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2762,6 +3102,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2775,6 +3120,9 @@
       "files": 5,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-futures-3.0.3/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2787,6 +3135,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-configargparse-0.11.0/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2800,6 +3151,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2810,6 +3166,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2820,6 +3179,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-cookies-2.2.1/LICENSE-from-source.txt"
+      ],
       "source_license_indicators": [
         "libs/cookies.py"
       ]
@@ -2836,6 +3198,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2846,6 +3213,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2861,6 +3233,12 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-cryptography-1.1/AUTHORS.rst",
+        "libs/third_party_notices/python-cryptography-1.1/LICENSE",
+        "libs/third_party_notices/python-cryptography-1.1/LICENSE.APACHE",
+        "libs/third_party_notices/python-cryptography-1.1/LICENSE.BSD"
+      ],
       "source_license_indicators": [
         "libs/cryptography/__about__.py"
       ]
@@ -2873,6 +3251,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2886,6 +3269,9 @@
       "files": 9,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-python-dateutil-2.4.2/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2896,6 +3282,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2906,6 +3297,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2916,6 +3312,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-decorator-4.0.9/LICENSE.txt"
+      ],
       "source_license_indicators": [
         "libs/decorator.py"
       ]
@@ -2928,6 +3327,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-dicttoxml-1.6.6/LICENCE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2938,6 +3340,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2948,6 +3355,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2958,6 +3370,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2968,6 +3385,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-docopt-0.6.2/LICENSE-MIT"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2978,6 +3398,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2988,6 +3413,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -2998,6 +3427,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3008,6 +3442,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3018,6 +3457,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-setuptools-18.5/PSF-2.0.txt",
+        "libs/third_party_notices/python-setuptools-18.5/ZPL-2.0.txt",
+        "libs/third_party_notices/python-setuptools-18.5/ZPL-2.1.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3032,6 +3476,9 @@
       "license_files": [
         "libs/enum/LICENSE"
       ],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-enum34-1.0.4/enum__LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3042,6 +3489,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3052,6 +3504,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3067,6 +3523,11 @@
       "files": 20,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-flask-0.10.1/AUTHORS",
+        "libs/third_party_notices/python-flask-0.10.1/LICENSE",
+        "libs/third_party_notices/python-flask-0.10.1/artwork__LICENSE"
+      ],
       "source_license_indicators": [
         "libs/flask/__init__.py",
         "libs/flask/_compat.py",
@@ -3100,6 +3561,9 @@
       "files": 4,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-flask-cache-0.13.1/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/flask_cache/__init__.py",
         "libs/flask_cache/_compat.py"
@@ -3115,6 +3579,9 @@
       "files": 2,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-flask-session-0.2.2/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/flask_session/__init__.py",
         "libs/flask_session/sessions.py"
@@ -3128,6 +3595,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3138,6 +3609,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3148,6 +3624,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3158,6 +3639,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3168,6 +3654,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3180,6 +3670,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3190,6 +3685,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-backports.functools_lru_cache-1.2.1/MIT.txt",
+        "libs/third_party_notices/python-backports.functools_lru_cache-1.2.1/PSF-2.0.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3219,6 +3718,9 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-furl-0.4.8/Unlicense.txt"
+      ],
       "source_license_indicators": [
         "libs/furl/__init__.py"
       ]
@@ -3244,6 +3746,12 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE",
+        "libs/third_party_notices/python-future-0.15.2/LICENSE.txt"
+      ],
       "source_license_indicators": [
         "libs/future/__init__.py"
       ]
@@ -3256,6 +3764,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3266,6 +3778,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3276,6 +3793,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3286,6 +3808,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3298,6 +3824,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3308,6 +3839,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3318,6 +3853,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3328,6 +3868,13 @@
       "files": 34,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE",
+        "libs/third_party_notices/python-html5lib-0.999999999/AUTHORS.rst",
+        "libs/third_party_notices/python-html5lib-0.999999999/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3338,6 +3885,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3348,6 +3899,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3358,6 +3914,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3368,6 +3927,9 @@
       "files": 6,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-idna-2.0/LICENSE.rst"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3378,6 +3940,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3388,6 +3955,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3398,6 +3969,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3408,6 +3984,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3418,6 +3999,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3431,6 +4016,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3441,6 +4031,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-itsdangerous-0.24/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/itsdangerous.py"
       ]
@@ -3453,6 +4046,10 @@
       "files": 23,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-jinja2-2.8/AUTHORS",
+        "libs/third_party_notices/python-jinja2-2.8/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/jinja2/__init__.py",
         "libs/jinja2/_compat.py",
@@ -3494,6 +4091,13 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE",
+        "libs/third_party_notices/python-pyjwt-1.4.0/AUTHORS",
+        "libs/third_party_notices/python-pyjwt-1.4.0/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/jwt/__init__.py"
       ]
@@ -3506,6 +4110,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3516,6 +4125,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3526,6 +4139,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3536,6 +4154,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3546,6 +4168,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3556,6 +4183,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3566,6 +4197,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3579,6 +4215,9 @@
       "files": 30,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-markdown-2.6.5/LICENSE.md"
+      ],
       "source_license_indicators": [
         "libs/markdown/extensions/smarty.py"
       ]
@@ -3591,6 +4230,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3601,6 +4245,10 @@
       "files": 6,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-markupsafe-0.23/AUTHORS",
+        "libs/third_party_notices/python-markupsafe-0.23/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/markupsafe/__init__.py",
         "libs/markupsafe/_compat.py",
@@ -3624,6 +4272,11 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-marshmallow-2.2.0/AUTHORS.rst",
+        "libs/third_party_notices/python-marshmallow-2.2.0/LICENSE",
+        "libs/third_party_notices/python-marshmallow-2.2.0/NOTICE"
+      ],
       "source_license_indicators": [
         "libs/marshmallow/__init__.py",
         "libs/marshmallow/ordereddict.py",
@@ -3638,6 +4291,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3648,6 +4306,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3658,6 +4320,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3668,6 +4335,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3678,6 +4349,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3688,6 +4364,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3698,6 +4378,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3708,6 +4393,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3718,6 +4408,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3728,6 +4423,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3738,6 +4438,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3748,6 +4453,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3758,6 +4467,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3770,6 +4483,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3780,6 +4498,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3790,6 +4513,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/optparse.py"
       ]
@@ -3807,6 +4535,9 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-orderedmultidict-0.7.5/Unlicense.txt"
+      ],
       "source_license_indicators": [
         "libs/orderedmultidict/__init__.py"
       ]
@@ -3824,6 +4555,7 @@
         "nzbhydra/build_info.py",
         "nzbhydra/config.py",
         "nzbhydra/log.py",
+        "nzbhydra/metadata_credentials.py",
         "nzbhydra/retention.py",
         "nzbhydra/update.py",
         "nzbhydra/web.py",
@@ -3832,6 +4564,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3842,6 +4578,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3852,6 +4592,9 @@
       "files": 49,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-passlib-1.6.5/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3862,6 +4605,10 @@
       "files": 4,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-pathtools-0.1.2/AUTHORS",
+        "libs/third_party_notices/python-pathtools-0.1.2/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/pathtools/__init__.py",
         "libs/pathtools/path.py",
@@ -3877,6 +4624,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3893,6 +4644,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-peewee-2.8.5/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3903,6 +4657,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3913,6 +4671,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3923,6 +4686,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3938,6 +4706,15 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE",
+        "libs/third_party_notices/python-packaging-15.3/LICENSE",
+        "libs/third_party_notices/python-setuptools-18.5/PSF-2.0.txt",
+        "libs/third_party_notices/python-setuptools-18.5/ZPL-2.0.txt",
+        "libs/third_party_notices/python-setuptools-18.5/ZPL-2.1.txt"
+      ],
       "source_license_indicators": [
         "libs/pkg_resources/_vendor/packaging/__about__.py"
       ]
@@ -3950,6 +4727,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3962,6 +4744,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3975,6 +4761,12 @@
       "files": 30,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE",
+        "libs/third_party_notices/python-peewee-2.8.5/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3985,6 +4777,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -3995,6 +4792,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4005,6 +4807,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4015,6 +4822,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4025,6 +4837,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4035,6 +4851,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4045,6 +4866,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4055,6 +4881,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4065,6 +4896,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4075,6 +4911,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-peewee-2.8.5/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4085,6 +4924,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4095,6 +4938,9 @@
       "files": 28,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-pyasn1-0.1.9/LICENSE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4105,6 +4951,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4115,6 +4966,9 @@
       "files": 17,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-pycparser-2.14/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/pycparser/ply/lex.py",
         "libs/pycparser/ply/yacc.py"
@@ -4128,6 +4982,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4140,6 +4997,9 @@
       "files": 4,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-pytvmaze-1.4.9/LICENSE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4150,6 +5010,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-future-0.15.2/LICENSE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4160,6 +5023,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4174,6 +5042,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4182,6 +5055,7 @@
       "declared_version": "2.2.1",
       "direct_application_references": [
         "maintenance/maintenance.py",
+        "nzbhydra/infos.py",
         "nzbhydra/ipinfo.py",
         "nzbhydra/log.py",
         "nzbhydra/rate_limit.py",
@@ -4197,6 +5071,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4207,6 +5086,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4217,6 +5101,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-future-0.15.2/LICENSE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4246,6 +5133,16 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE",
+        "libs/third_party_notices/python-chardet-2.3.0/LICENSE",
+        "libs/third_party_notices/python-idna-2.0/LICENSE.rst",
+        "libs/third_party_notices/python-requests-2.12.1/LICENSE",
+        "libs/third_party_notices/python-requests-2.12.1/NOTICE",
+        "libs/third_party_notices/python-urllib3-1.19.1/LICENSE.txt"
+      ],
       "source_license_indicators": [
         "libs/requests/__init__.py",
         "libs/requests/api.py",
@@ -4268,6 +5165,9 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-requests-futures-0.9.5/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/requests_futures/__init__.py"
       ]
@@ -4280,6 +5180,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-responses-0.5.0/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4293,6 +5196,10 @@
       "files": 3,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-retry-0.9.1/AUTHORS",
+        "libs/third_party_notices/python-retry-0.9.1/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4303,6 +5210,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4313,6 +5225,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4323,6 +5239,10 @@
       "files": 5,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-rison/CANONICAL-MIT.txt",
+        "libs/third_party_notices/python-rison/UPSTREAM-LICENSE-DECLARATION.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4333,6 +5253,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4343,6 +5267,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4353,6 +5282,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4363,6 +5297,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4376,6 +5315,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4386,6 +5330,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4396,6 +5345,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4406,6 +5360,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4416,6 +5374,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4431,6 +5394,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4441,6 +5407,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4448,12 +5418,16 @@
       "component": "six.py",
       "declared_version": "1.10.0",
       "direct_application_references": [
+        "nzbhydra/infos.py",
         "nzbhydra/searchmodules/binsearch.py",
         "nzbhydra/searchmodules/nzbindex.py"
       ],
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-six-1.10.0/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/six.py"
       ]
@@ -4466,6 +5440,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4476,6 +5455,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4486,6 +5469,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4499,6 +5487,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4511,6 +5503,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-pysocks-1.5.6/LICENSE-from-source.txt"
+      ],
       "source_license_indicators": [
         "libs/socks.py"
       ]
@@ -4523,6 +5518,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-pysocks-1.5.6/LICENSE-from-source.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4533,6 +5531,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4543,6 +5546,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4553,6 +5561,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4563,16 +5576,27 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
       "bytes": 1842,
       "component": "stat.py",
       "declared_version": null,
-      "direct_application_references": [],
+      "direct_application_references": [
+        "nzbhydra/metadata_credentials.py"
+      ],
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4583,6 +5607,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4595,6 +5624,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4605,6 +5638,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4615,6 +5653,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4625,6 +5668,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4640,6 +5688,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4650,6 +5703,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4660,6 +5718,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4670,6 +5733,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4680,6 +5748,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4690,6 +5763,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4700,6 +5778,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4714,6 +5797,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4724,6 +5810,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4739,6 +5829,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4749,6 +5842,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-cookies-2.2.1/LICENSE-from-source.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4759,6 +5855,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4769,6 +5868,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4783,6 +5887,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4793,15 +5901,16 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
       "bytes": 79404,
       "component": "tmdbsimple",
       "declared_version": "1.3.0",
-      "direct_application_references": [
-        "nzbhydra/infos.py"
-      ],
+      "direct_application_references": [],
       "files": 12,
       "license_declarations": [
         {
@@ -4810,6 +5919,9 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-tmdbsimple-1.3.0/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/tmdbsimple/__init__.py",
         "libs/tmdbsimple/account.py",
@@ -4833,6 +5945,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4843,6 +5960,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4853,6 +5975,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4863,6 +5989,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4876,6 +6007,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4886,6 +6022,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4896,6 +6037,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4913,6 +6058,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4926,6 +6075,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4941,6 +6095,12 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE",
+        "libs/third_party_notices/python-urllib3-1.12/LICENSE.txt"
+      ],
       "source_license_indicators": [
         "libs/urllib3/__init__.py",
         "libs/urllib3/packages/six.py"
@@ -4959,6 +6119,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4969,6 +6134,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4979,6 +6149,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -4989,6 +6164,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5001,6 +6180,9 @@
       "files": 16,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-validators-0.10/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/validators/email.py"
       ]
@@ -5013,6 +6195,9 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5023,6 +6208,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5033,6 +6222,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5050,6 +6243,10 @@
         }
       ],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-webargs-1.0.0/AUTHORS.rst",
+        "libs/third_party_notices/python-webargs-1.0.0/LICENSE"
+      ],
       "source_license_indicators": [
         "libs/webargs/__init__.py"
       ]
@@ -5064,6 +6261,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5077,6 +6279,11 @@
       "license_declarations": [],
       "license_files": [
         "libs/werkzeug/debug/shared/FONT_LICENSE"
+      ],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-werkzeug-0.10.4/AUTHORS",
+        "libs/third_party_notices/python-werkzeug-0.10.4/FONT_LICENSE",
+        "libs/third_party_notices/python-werkzeug-0.10.4/LICENSE"
       ],
       "source_license_indicators": [
         "libs/werkzeug/__init__.py",
@@ -5125,6 +6332,9 @@
       "files": 19,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-wheel-0.26.0/LICENSE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5135,6 +6345,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5145,6 +6360,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5155,6 +6375,11 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5167,6 +6392,9 @@
       "files": 3,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/python-future-0.15.2/LICENSE.txt"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5177,6 +6405,10 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.11/LICENSE"
+      ],
       "source_license_indicators": []
     },
     {
@@ -5190,9 +6422,15 @@
       "files": 1,
       "license_declarations": [],
       "license_files": [],
+      "restored_notice_files": [
+        "libs/third_party_notices/cpython-v2.7.10/LICENSE",
+        "libs/third_party_notices/cpython-v2.7.9/LICENSE"
+      ],
       "source_license_indicators": []
     }
   ],
+  "restored_notice_manifest": "libs/third_party_notices/manifest.json",
+  "restored_notice_manifest_sha256": "00a7a56bdaa0963bd27018f70c458f0b551669f1b227e7d0a66a3b76cc0315b3",
   "schema": 1,
   "tracked_files_by_root": {
     ".bowerrc": 1,
@@ -5208,28 +6446,25 @@
     "bower.json": 1,
     "changelog.md": 1,
     "contrib": 3,
-    "docs": 2,
+    "docs": 4,
     "gulpfile.js": 1,
-    "libs": 1078,
+    "libs": 1219,
     "maintenance": 4,
-    "nzbhydra": 521,
+    "nzbhydra": 520,
     "nzbhydra.py": 1,
     "onlinehelp": 6,
     "package.json": 1,
     "release-fixes.json": 1,
-    "scripts": 3,
+    "scripts": 4,
     "static": 82,
     "templates": 5,
-    "tests": 13,
+    "tests": 14,
     "ui-src": 115,
     "version.txt": 1
   },
   "working_tree_changes": [
-    "libs/cryptography/hazmat/bindings/_constant_time.pyd",
-    "libs/cryptography/hazmat/bindings/_openssl.pyd",
-    "libs/cryptography/hazmat/bindings/_padding.pyd",
-    "nzbhydra/update.py",
-    "scripts/audit_release_content.py",
-    "tests/test_platform_cleanup.py"
+    "docs/audits/legacy-release-content.md",
+    "libs/third_party_notices/frontend-dirpagination/CANONICAL-MIT.txt",
+    "libs/third_party_notices/manifest.json"
   ]
 }

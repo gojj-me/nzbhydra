@@ -11,7 +11,7 @@ os.chdir(root)
 tracked = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\x00')
 tracked = [p for p in tracked if p and Path(p).is_file()]
 byroot = collections.Counter((p.split('/')[0] for p in tracked))
-libraries = sorted({p.split('/')[1] for p in tracked if p.startswith('libs/') and len(p.split('/')) > 1 and (p != 'libs/__init__.py')})
+libraries = sorted({p.split('/')[1] for p in tracked if p.startswith('libs/') and len(p.split('/')) > 1 and (p != 'libs/__init__.py') and not p.startswith('libs/third_party_notices/')})
 references = collections.defaultdict(set)
 for name in tracked:
     if not name.endswith('.py') or (not name.startswith(('nzbhydra/', 'maintenance/')) and name != 'nzbhydra.py'):
@@ -53,5 +53,19 @@ for name in tracked:
             sources.append({'path': source, 'source_embedded': content is not None, 'license_indicator': bool(content and re.search('(?i)license|copyright|permission is hereby granted', content)), 'sha256': hashlib.sha256(content.encode()).hexdigest() if content is not None else None})
         maps.append({'path': name, 'sources': sources})
 report = {'schema': 1, 'base_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode().strip(), 'method': 'Tracked-file inventory; literal header version strings and static import candidates. Absence of a direct reference is not proof of non-use; license indicators are not a license-completeness determination.', 'working_tree_changes': sorted(set(subprocess.check_output(['git', 'diff', '--name-only', 'HEAD']).decode().splitlines())), 'tracked_files_by_root': dict(sorted(byroot.items())), 'python_components': components, 'frontend_source_maps': maps, 'frontend_declared_dependencies': json.loads(Path('bower.json').read_text())['dependencies'], 'frontend_build_dependencies': json.loads(Path('package.json').read_text())['devDependencies']}
+notice_path = root / 'libs/third_party_notices/manifest.json'
+if notice_path.is_file():
+    notice_manifest = json.loads(notice_path.read_text())
+    report['restored_notice_manifest'] = str(notice_path.relative_to(root))
+    report['restored_notice_manifest_sha256'] = hashlib.sha256(notice_path.read_bytes()).hexdigest()
+    report['notice_uncertainties'] = notice_manifest.get('uncertainties', [])
+    for component in report['python_components']:
+        path = 'libs/' + component['component']
+        component['restored_notice_files'] = sorted({
+            'libs/third_party_notices/' + notice['file']
+            for item in notice_manifest['components']
+            if any(scope == path or scope.startswith(path + '/') or path.startswith(scope.rstrip('/') + '/')
+                   for scope in item.get('scopes', []))
+            for notice in item['notices']})
 args.output.write_text(json.dumps(report, indent=2, sort_keys=True) + '\n')
 print('Inventoried %d Python components, %d frontend declarations and %d source maps' % (len(components), len(report['frontend_declared_dependencies']), len(maps)))

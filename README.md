@@ -41,4 +41,6 @@ Based on [theotherp/nzbhydra](https://github.com/theotherp/nzbhydra), version **
 
 ## License and attribution
 
+Bundled components retain their own terms; see [third-party notices](libs/third_party_notices/README.md) and the source/hash evidence in its manifest.
+
 Original NZBHydra by The other P and its contributors. Distributed under the Apache License, Version 2.0; see [LICENSE](LICENSE). Original copyright and third-party notices remain in their respective files.
