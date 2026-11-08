@@ -43,6 +43,10 @@ A failed unfinished batch is rolled back; earlier committed batches remain commi
 
 Before activating schema changes, follow the deployment snapshot and recovery requirements. Returning to older code alone does not restore the earlier database state.
 
+## Provider recovery and search outcomes
+
+[README_TROUBLESHOOTING.md](../README_TROUBLESHOOTING.md) explains private endpoint/credential/entitlement validation, the explicit status reset, internal/API selection and partial or empty results. Keep user-facing recovery steps there; the implementation policies below describe the maintained behavior.
+
 ## Provider rate limits
 
 HTTP 429 and recognized Newznab request/download-limit error envelopes establish a persisted per-indexer cooldown. `Retry-After` accepts nonnegative delay-seconds or an HTTP date, following [HTTP semantics](https://www.rfc-editor.org/rfc/rfc9110.html#section-10.2.3). Zero delay gets a minimum one-second cooldown; missing, malformed, or past values use a fixed 15-minute fallback. This fallback does not claim to know a provider's quota or reset schedule. A later existing disable time is never shortened.

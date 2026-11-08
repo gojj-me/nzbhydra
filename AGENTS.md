@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Instructions for AI coding agents maintaining NZBHydra v1. Read `README.md` for the project overview, `docs/maintenance.md` for scope and release policy, and `README_DEPLOYMENT.md` before deployment work. Keep detailed deployment instructions in that document and live task status in GitHub issues.
+Instructions for AI coding agents maintaining NZBHydra v1. Read `README.md` for the project overview, `docs/maintenance.md` for scope and release policy, and `README_DEPLOYMENT.md` before deployment work. Keep detailed deployment instructions in that document and live task status in GitHub issues. `README_TROUBLESHOOTING.md` owns user-facing provider recovery and partial-result guidance; align it when changing selection, disablement or cooldown behavior.
 
 ## This repository is public
 

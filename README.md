@@ -27,6 +27,10 @@ See [README_DEPLOYMENT.md](README_DEPLOYMENT.md) for the persistent application 
 
 Uncached movie autocomplete and TMDB/IMDb conversion require an operator-supplied TMDB key. See [metadata credential setup](README_DEPLOYMENT.md#tmdb-metadata-credential); no provider credential is distributed in the source.
 
+## Troubleshooting
+
+See [provider recovery and search outcomes](README_TROUBLESHOOTING.md) for private credential validation, explicit re-enablement, cooldowns and partial/empty results.
+
 ## Roadmap and tasks
 
 [GitHub issues](https://github.com/gojj-me/nzbhydra/issues) and [release milestones](https://github.com/gojj-me/nzbhydra/milestones) are the project's roadmap and authoritative record of all tasks and their status. Keep progress and blockers on the relevant issue, link related issues and implementation work, and close issues when completion has been verified. Record why cancelled, superseded, or duplicate work is closed and link its replacement where applicable. Release status is recorded separately from implementation completion. Each substantive task handoff includes a refreshed recommendation for the remaining release work, the next action, and blockers or decisions. The current recommended sequence belongs in the release milestone; remaining gaps must reference issues.
