@@ -11,6 +11,8 @@ git clone https://github.com/gojj-me/nzbhydra.git
 cd nzbhydra
 ```
 
+See the [release-content audit](docs/audits/legacy-release-content.md) for dependency, asset and notice evidence and its validation limits.
+
 Read [AGENTS.md](AGENTS.md) for contribution instructions and the [maintenance policy](docs/maintenance.md) for versioning, release requirements, cleanup scope, and milestone-based planning.
 
 The next release is [0.2.300](https://github.com/gojj-me/nzbhydra/milestone/1), followed by further 0.2.x fixes for Python 2.7 within the current Docker image. [0.3.0](https://github.com/gojj-me/nzbhydra/milestone/2) will deliver both a modernized application—Rust or the latest stable Python release available when selected—and a new Docker image. That series will continue as 0.3.x until 0.4.0 is explicitly selected.
