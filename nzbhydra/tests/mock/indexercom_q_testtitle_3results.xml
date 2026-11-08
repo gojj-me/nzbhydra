@@ -6,7 +6,7 @@
         <description>indexer(dot)com Feed</description>
         <link>https://indexer.com/</link>
         <language>en-gb</language>
-        <webMaster>admin@indexer.com (indexer(dot)com)</webMaster>
+        <webMaster>synthetic.poster@example.invalid (indexer(dot)com)</webMaster>
         <category></category>
         <image>
             <url>https://indexer.com//templates/default/images/banner.jpg</url>
@@ -30,7 +30,7 @@
             <newznab:attr name="category" value="7010"/>
             <newznab:attr name="size" value="2893890900"/>
             <newznab:attr name="guid" value="eff551fbdb69d6777d5030c209ee5d4b"/>
-            <newznab:attr name="poster" value="chuck@norris.com" />
+            <newznab:attr name="poster" value="synthetic.poster@example.invalid" />
             <newznab:attr name="group" value="alt.binaries.mom" />
 
         </item>
@@ -79,7 +79,7 @@
             <newznab:attr name="category" value="2010"/>
             <newznab:attr name="size" value="5161012720"/>
             <newznab:attr name="guid" value="41905ed0cdaad65266098558fc158471"/>
-            <newznab:attr name="poster" value="Ramer@marmer.com (Clown_nez)" />
+            <newznab:attr name="poster" value="synthetic.poster@example.invalid (Clown_nez)" />
             <newznab:attr name="group" value="not available"/>
 
         </item>

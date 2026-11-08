@@ -41,3 +41,6 @@ nzbhydra.pid
 /secrets.json
 /secrets.yaml
 /secrets.yml
+
+# Operator metadata credential file must remain outside Git
+**/tmdb-api-key

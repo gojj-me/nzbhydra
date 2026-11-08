@@ -54,7 +54,7 @@ class NewznabTests(UrlTestCase):
         self.assertEqual(entries[0].age_days, 1)
         self.assertEqual(entries[0].epoch, 1444584857)
         self.assertEqual(entries[0].pubdate_utc, "2015-10-11T17:34:17+00:00")
-        self.assertEqual(entries[0].poster, "chuck@norris.com")
+        self.assertEqual(entries[0].poster, "synthetic.poster@example.invalid")
         self.assertEqual(entries[0].group, "alt.binaries.mom")
         self.assertEqual(entries[0].details_link, "https://indexer.com/details/eff551fbdb69d6777d5030c209ee5d4b")
 
@@ -80,11 +80,11 @@ class NewznabTests(UrlTestCase):
     #
     #     self.assertEqual(entries[0].title, "testtitle1")
     #     assert entries[0].size == 3960401206
-    #     assert entries[0].indexerguid == "ESOSxziB5WAYyalVgTP8M@spot.net"
+    #     assert entries[0].indexerguid == "synthetic.poster@example.invalid"
     #     self.assertEqual(entries[0].age_days, 5)
     #     self.assertEqual(entries[0].epoch, 1453663845)
     #     self.assertEqual(entries[0].pubdate_utc, "2016-01-24T19:30:45+00:00")
-    #     self.assertEqual(entries[0].poster, "SluweSjakie@spot.net")
+    #     self.assertEqual(entries[0].poster, "synthetic.poster@example.invalid")
     #     self.assertIsNone(entries[0].group)
     #
     # @freeze_time("2016-01-11 18:00:00", tz_offset=0)
