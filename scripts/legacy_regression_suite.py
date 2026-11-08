@@ -29,7 +29,8 @@ def run(command):
             child.wait()
             raise RuntimeError('Suite exceeded 90-second limit')
         output.seek(0)
-        sys.stdout.write(output.read())
+        text = output.read()
+        sys.stdout.write(text if child.returncode else "\n".join(text.splitlines()[-4:]) + "\n")
         sys.stdout.flush()
         if child.returncode:
             raise RuntimeError('Suite failed')

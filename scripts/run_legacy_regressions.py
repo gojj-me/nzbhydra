@@ -41,13 +41,19 @@ def main():
             found = subprocess.run(['docker', 'inspect', name], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
             if found.returncode == 0:
                 info = json.loads(found.stdout)[0]
-                if info['Config']['Labels'].get('nzbhydra.test') != 'legacy-regression':
+                if (info['Config'].get('Labels') or {}).get('nzbhydra.test') != 'legacy-regression':
                     raise RuntimeError('Unexpected container identity; refusing cleanup')
                 subprocess.run(['docker', 'rm', '-f', '-v', name], check=True, stdout=subprocess.DEVNULL)
-            remaining = subprocess.run(['docker', 'inspect', name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            if remaining.returncode == 0:
+            remaining = subprocess.run(['docker', 'ps', '-aq', '--filter', 'name=^/' + name + '$'],
+                                       check=True, stdout=subprocess.PIPE)
+            if remaining.stdout.strip():
                 raise RuntimeError('Disposable container cleanup failed')
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except subprocess.TimeoutExpired:
+        raise SystemExit('Legacy regression run exceeded its time limit; cleanup attempted')
+    except subprocess.CalledProcessError:
+        raise SystemExit('Legacy regression command failed; inspect the preceding diagnostics')
