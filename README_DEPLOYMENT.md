@@ -75,6 +75,25 @@ Issue #3 owns the deployment acceptance criteria; [issue #1](https://github.com/
 
 Validate with isolated synthetic data before use: restart, recreation with the same mount, missing-release restoration, offline startup, rejected downloads, concurrent updates, failed health checks, and recovery. Do not exercise production indexers or download clients as part of test setup.
 
+## TMDB metadata credential
+
+The application no longer ships a TMDB credential. To enable uncached TMDB/IMDb conversion and movie autocomplete, supply your own [TMDB v3 API key](https://developer.themoviedb.org/docs/authentication-application). This interface uses the v3 `api_key` credential, not a bearer-token value.
+
+The default file is `/config/nzbhydra-maintenance/secrets/tmdb-api-key`. Store only the key and an optional trailing newline in that regular file, outside the checkout. Restrict its directory to the service owner (typically mode 0700) and the file to that owner (typically mode 0600), while allowing the application process to read it. Populate it through your secret manager or a local editor with appropriate access controls; never put the value in Git, a shell command argument, an issue, a chat or a debug bundle.
+
+Precedence is:
+1. `NZBHYDRA_TMDB_API_KEY`, if present in the application environment.
+2. The regular file named by `NZBHYDRA_TMDB_API_KEY_FILE`, if that variable is present.
+3. The default persistent file above.
+
+An explicitly empty environment value/path does not fall back to another credential. Empty, unreadable, non-regular, oversized or invalid key material is unavailable and sends no TMDB request. Values are limited to 4096 printable ASCII characters after surrounding whitespace is stripped; key files are limited to 4098 bytes including a possible CRLF ending. Environment overrides must be restored by the container's own configuration after recreation; the default file survives when the same persistent `/config` storage is mounted.
+
+Credentials are read for each provider request without a global library key. Replacing the file permits the next uncached lookup to use the new value without an application restart. Successful metadata autocomplete results may still be served from the ordinary cache; failed lookups are not cached as empty successes. Cached ID conversions and searches using a query or supplied IMDb ID remain available without a TMDB key. TMDB-dependent autocomplete/conversion requests report controlled HTTP 503 when unavailable, and optional conversion/fallback helpers return no conversion instead of aborting unrelated searches.
+
+No credential is written into saved application settings, configuration exports or debug archives. Secret-file recovery is a separate operator responsibility: do not assume an application settings/data snapshot contains it. Restoring code/data does not rotate or roll back this separately managed credential. Keep any credential recovery material outside Git and diagnostic exports.
+
+Removing inherited values from the current tree does not retract previously published history or revoke another party's credential. Do not reuse the removed value, probe its validity, rerecord real-provider responses or assume that source cleanup performs revocation. The metadata client uses bounded requests with TLS verification preserved and redirects disabled; provider errors do not expose their bodies, URLs or credentials in the returned diagnostic.
+
 ## Temporary-resource cleanup
 
 Before issue closure, inventory the temporary containers, volumes, files, staging directories and test artifacts created for that issue. At closure, or immediately afterward for an already closed issue, remove resources explicitly verified unnecessary. Check after every test run as well, including failures, timeouts and interrupted runs. Docker `--rm` does not guarantee cleanup when a container remains in `Created` state; inspect the final inventory explicitly.

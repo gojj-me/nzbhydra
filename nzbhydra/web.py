@@ -939,7 +939,7 @@ def internalapi_moviesearch(args):
         logger.debug("Need to get IMDB id from TMDB id %s" % args["tmdbid"])
         imdbid = infos.convertId("tmdb", "imdb", args["tmdbid"])
         if imdbid is None:
-            raise AttributeError("Unable to convert TMDB id %s" % args["tmdbid"])
+            return jsonify({"message": "TMDB ID conversion unavailable; check metadata credentials or use an IMDb ID/query."}), 503
         search_request.identifier_key = "imdbid"
         search_request.identifier_value = imdbid
 
@@ -1708,23 +1708,34 @@ internalapi_autocomplete_args = {
 }
 
 
+@flask_cache.memoize()
+def metadata_autocomplete(kind, query):
+    # Cache successes only. Credential/provider failures raise before storing.
+    if kind == "movie":
+        return infos.find_movie_ids(query)
+    return infos.find_series_ids(query)
+
+
 @app.route('/internalapi/autocomplete')
 @requires_auth("main")
 @use_args(internalapi_autocomplete_args, locations=['querystring'])
-@flask_cache.memoize()
 def internalapi_autocomplete(args):
     logger.debug("Autocomplete request with args %s" % args)
     if args["type"] == "movie":
-        results = infos.find_movie_ids(args["input"])
+        try:
+            results = metadata_autocomplete("movie", args["input"])
+        except infos.TmdbUnavailable as error:
+            response = jsonify({"message": error.message})
+            response.status_code = 503
+            return response
         return jsonify({"results": results})
     elif args["type"] == "tv":
-        results = infos.find_series_ids(args["input"])
+        results = metadata_autocomplete("tv", args["input"])
         return jsonify({"results": results})
     else:
         return "No results", 500
 
 
-internalapi_autocomplete.make_cache_key = make_request_cache_key
 
 
 @app.route('/internalapi/getnfo')

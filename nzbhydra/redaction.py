@@ -10,13 +10,13 @@ try:
 except NameError:
     text_type = str
 
-_KEYS = ('apikey', 'api', 'api_key', 'api-key', 'key', 'user', 'username',
+_KEYS = ('NZBHYDRA_TMDB_API_KEY', 'NZBHYDRA_TMDB_API_KEY_FILE', 'tmdb_api_key', 'tmdbApiKey', 'apikey', 'api', 'api_key', 'api-key', 'key', 'user', 'username',
          'password', 'passwd', 'pwd', 'token', 'access_token', 'refresh_token',
          'secret', 'client_secret', 'authorization', 'proxy-authorization',
          'cookie', 'set-cookie', 'sessionid', 'signature', 'sig',
          'x-amz-signature', 'x-amz-credential', 'x-amz-security-token',
          'x-goog-signature', 'x-goog-credential')
-_NORMAL_KEYS = set(re.sub(r'[^a-z0-9]', '', key) for key in _KEYS)
+_NORMAL_KEYS = set(re.sub(r'[^a-z0-9]', '', key.lower()) for key in _KEYS)
 _KEY_PATTERN = '|'.join(re.escape(key) for key in sorted(_KEYS, key=len, reverse=True))
 # Quoted values include escaped quotes/backslashes; bare values extend through
 # punctuation and percent escapes, ending only at an actual text/query boundary.
