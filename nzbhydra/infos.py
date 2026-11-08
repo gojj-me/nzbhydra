@@ -11,22 +11,44 @@ from requests import RequestException
 #standard_library.install_aliases()
 from builtins import *
 import logging
+import re
+from six import string_types
 import requests
-import tmdbsimple
 import pytvmaze
 from furl import furl
 from enum import Enum
 from requests.exceptions import ReadTimeout
 from requests.packages.urllib3.exceptions import HTTPError, ConnectionError
 
-from nzbhydra import webaccess
+from nzbhydra import webaccess, config
+from nzbhydra.metadata_credentials import tmdb_api_key, MetadataCredentialUnavailable
 from nzbhydra.exceptions import ExternalApiInfoException
 from nzbhydra.database import TvIdCache, MovieIdCache
 
 logger = logging.getLogger('root')
 
-tmdbsimple.API_KEY = '4df99d58875c2d01fc04936759fea56f'
-tmdb_img_config = None
+class TmdbUnavailable(ExternalApiInfoException):
+    pass
+
+
+def _tmdb_json(path, params=None):
+    try:
+        key = tmdb_api_key()
+    except MetadataCredentialUnavailable:
+        raise TmdbUnavailable("TMDB metadata is unavailable; configure an operator-supplied API key.")
+    url = furl("https://api.themoviedb.org/3/" + path)
+    url.add(dict(params or {}, api_key=key))
+    try:
+        response = webaccess.get(url.tostr(), timeout=config.settings.searching.timeout, allow_redirects=False)
+        if response.status_code != 200:
+            raise ValueError()
+        payload = response.json()
+        if not isinstance(payload, dict) or payload.get("success") is False:
+            raise ValueError()
+        return payload
+    except (RequestException, ValueError, TypeError):
+        # No provider body, URL, exception text or credential enters this error.
+        raise TmdbUnavailable("TMDB metadata is unavailable; check provider access and credentials.")
 
 
 class TvMaze:
@@ -65,51 +87,59 @@ class TvMaze:
 
 
 def find_movie_ids(input):
-    global tmdb_img_config
-    if tmdb_img_config is None:
-        tmdb_img_config = tmdbsimple.Configuration().info()["images"]
-    base_url = tmdb_img_config["secure_base_url"]
-    poster_size = "w92" if "w92" in tmdb_img_config["poster_sizes"] else tmdb_img_config["poster_sizes"][0]
-
-    search = tmdbsimple.Search()
-    results = search.movie(query=input)["results"]
-    infos = []
-    for s in results:
-        title = s["title"]
-        if "release_date" in s.keys() and s["release_date"] != "":
-            title = "%s (%s)" % (title, arrow.get(s["release_date"]).year)
-        result = {"label": title, "value": s["id"], "title": s["title"]}
-        if "poster_path" in s and s["poster_path"]:
-            result["poster"] = base_url + poster_size + s["poster_path"]
-            infos.append(result)
-    return infos
+    try:
+        images = _tmdb_json("configuration")["images"]
+        base_url = images["secure_base_url"]
+        sizes = images["poster_sizes"]
+        poster_size = "w92" if "w92" in sizes else sizes[0]
+        if not isinstance(base_url, string_types) or not base_url.startswith("https://"):
+            raise ValueError()
+        results = _tmdb_json("search/movie", {"query": input})["results"]
+        infos = []
+        for item in results:
+            title = item["title"]
+            if item.get("release_date"):
+                title = "%s (%s)" % (title, arrow.get(item["release_date"]).year)
+            result = {"label": title, "value": item["id"], "title": item["title"]}
+            if item.get("poster_path"):
+                result["poster"] = base_url + poster_size + item["poster_path"]
+                infos.append(result)
+        return infos
+    except (ValueError, TypeError, KeyError, IndexError):
+        raise TmdbUnavailable("TMDB metadata response is unavailable or malformed.")
 
 
 def tmdbid_to_imdbid(tmdbid):
-    logger.info("Querying TMDB for IMDB id %s" % tmdbid)
-    movie = tmdbsimple.Movies(tmdbid)
-    response = movie.info()
-    imdbid = response["imdb_id"][2:]
-    title = response["title"]
-    logger.info("Found TMDB id %s for IMDB id %s" % (tmdbid, imdbid))
-    return imdbid, title
+    try:
+        identifier = str(tmdbid)
+        if not identifier.isdigit():
+            return None, None
+        response = _tmdb_json("movie/" + identifier)
+        imdbid, title = response["imdb_id"], response["title"]
+        if not isinstance(imdbid, string_types) or not re.match(r"^tt[0-9]+\Z", imdbid):
+            return None, None
+        return imdbid[2:], title
+    except (TmdbUnavailable, ValueError, TypeError, KeyError):
+        logger.warning("TMDB ID conversion unavailable")
+        return None, None
 
 
 def imdbid_to_tmdbid(imdbid):
-    logger.info("Querying TMDB for TMDB id %s" % imdbid)
-    movie = tmdbsimple.Find("tt" + imdbid)
-    response = movie.info(external_source="imdb_id")
-    movie_results_ = response["movie_results"]
-    if len(movie_results_) == 0:
-        logger.error("Found no movie with IMDB id %s" % imdbid)
+    try:
+        identifier = str(imdbid)
+        if identifier.startswith("tt"):
+            identifier = identifier[2:]
+        if not identifier.isdigit():
+            return None, None
+        response = _tmdb_json("find/tt" + identifier, {"external_source": "imdb_id"})
+        results = response["movie_results"]
+        if len(results) != 1:
+            return None, None
+        result = results[0]
+        return str(result["id"]), result["title"]
+    except (TmdbUnavailable, ValueError, TypeError, KeyError):
+        logger.warning("TMDB ID conversion unavailable")
         return None, None
-    if len(movie_results_) != 1:
-        logger.error("Expected 1 result but got %d" % len(movie_results_))
-    tmdbid = movie_results_[0]["id"]
-    title = movie_results_[0]["title"]
-    logger.info("Found IMDB id %s for TMDB id %s" % (imdbid, tmdbid))
-    return str(tmdbid), title
-
 
 
 def find_series_ids(input):

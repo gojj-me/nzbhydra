@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 			<caps>
 			  <!-- server information -->
-			  <server appversion="0.2.3p" version="0.1" title="DOGnzb" email="noreply@dognzb.cr" url="http://dognzb.cr/" />
+			  <server appversion="0.2.3p" version="0.1" title="DOGnzb" email="synthetic.poster@example.invalid" url="http://dognzb.cr/" />
 			  <limits max="100" default="100" />
 			  <retention days="3178" />
 			  <searching>

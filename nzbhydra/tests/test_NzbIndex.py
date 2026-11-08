@@ -64,7 +64,7 @@ class NzbIndexTests(UrlTestCase):
             self.assertEqual('114143855', entries[0].indexerguid)
             self.assertEqual('testtitle1', entries[0].title)
             self.assertFalse(entries[0].has_nfo)
-            self.assertEqual('bowibow@gmail.com (senior)', entries[0].poster)
+            self.assertEqual('synthetic.poster@example.invalid (senior)', entries[0].poster)
             self.assertEqual('alt.binaries.mom', entries[0].group)
             self.assertEqual("https://nzbindex.com/download/114143855/testtitle1-testtitle1.nzb", entries[0].link)
             self.assertEqual(169103851, entries[0].size)
