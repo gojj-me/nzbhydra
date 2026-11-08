@@ -29,6 +29,8 @@ All releases before 0.3.0 fix the existing Python 2.7 application within the cur
 
 [README_DEPLOYMENT.md](../README_DEPLOYMENT.md) defines the persistent application deployment design, startup/recreation behavior, update channels, activation, recovery, and validation boundaries. Keep that design in one place rather than duplicating it here. [Issue #3](https://github.com/gojj-me/nzbhydra/issues/3) tracks implementation, alongside the first fix in #9; subsequent fixes use the tested deployment path.
 
+[README_TESTING.md](../README_TESTING.md) defines the repeatable isolated legacy regression command, coverage and limits. Record the tested revision and verified results on the owning GitHub issue.
+
 A release requires reviewed public-safe artifacts, matching version/changelog/tag/package metadata, behavioral validation in the applicable runtime, and verified update/recovery behavior. The metadata CI job alone does not establish application compatibility. Managed builds disable the original in-application source-overwrite updater. Use the persistent maintenance commands instead; installation is explicit and is not performed merely by reading documentation.
 
 ## Database retention
