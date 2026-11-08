@@ -3547,7 +3547,7 @@
           "method": "existing vendored nested-font notice preserved",
           "sha256": "2f0015108d68627bd788d313f529c21ff4da2c2c42a5e1f3883acc83480f9002",
           "source_sha256": "2f0015108d68627bd788d313f529c21ff4da2c2c42a5e1f3883acc83480f9002",
-          "source_url": "https://pypi.org/project/Werkzeug/0.10.4/#files"
+          "source_url": "https://files.pythonhosted.org/packages/ec/17/a7e847bcfd7dcdc86c830ff2f0ab4e1a97b7efd8f8c8ebf26859091d3812/Werkzeug-0.10.4.tar.gz#Werkzeug-0.10.4/werkzeug/debug/shared/FONT_LICENSE"
         }
       ],
       "project": "Werkzeug",
@@ -5720,7 +5720,7 @@
           "method": "verbatim",
           "sha256": "d91f40699fc0b35b7febc9a59c9257b0845fbe0df77d8668df3e9e33f22ad6b0",
           "source_sha256": "d91f40699fc0b35b7febc9a59c9257b0845fbe0df77d8668df3e9e33f22ad6b0",
-          "source_url": "https://raw.githubusercontent.com/srob650/pytvmaze/master/LICENSE.txt"
+          "source_url": "https://raw.githubusercontent.com/srob650/pytvmaze/16ed096d464adcd3d12a610e413996918715930e/LICENSE.txt"
         }
       ],
       "project": "pytvmaze",
@@ -11835,7 +11835,14 @@
           "method": "verbatim upstream licensing evidence",
           "sha256": "95946e1c1b9d9108a8968ef1e9d80053644439e86e69040dc22be0c15dc9fa6b",
           "source_sha256": "95946e1c1b9d9108a8968ef1e9d80053644439e86e69040dc22be0c15dc9fa6b",
-          "source_url": "https://raw.githubusercontent.com/michaelbromley/angularUtils/master/src/directives/pagination/README.md"
+          "source_url": "https://raw.githubusercontent.com/michaelbromley/angularUtils/e531bfa4f138ca9f2878f1aa5175d396a9926114/src/directives/pagination/README.md"
+        },
+        {
+          "file": "frontend-dirpagination/CANONICAL-MIT.txt",
+          "method": "canonical license reference; original embedded copyright retained",
+          "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+          "source_sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+          "source_url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/MIT.txt"
         }
       ],
       "project": "angularUtils pagination",
@@ -11880,7 +11887,7 @@
           "file": "python-rison/UPSTREAM-LICENSE-DECLARATION.txt",
           "method": "unmodified upstream license/author declaration lines",
           "sha256": "ecc18d52a33f42b999dbaa8c827c50300ab26f9d64598f4c562cfd4335c5c648",
-          "source_sha256": "ecc18d52a33f42b999dbaa8c827c50300ab26f9d64598f4c562cfd4335c5c648",
+          "source_sha256": "316cd0c7edc05e84f482427cfb4bb2a951680d08a9a414aa07db171e2af45ed2",
           "source_url": "https://raw.githubusercontent.com/pifantastic/python-rison/2d2c153cd12078af0ee00e9c3a66f9533524a081/setup.py"
         },
         {

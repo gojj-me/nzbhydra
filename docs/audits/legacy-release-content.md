@@ -41,7 +41,7 @@ Frontend source maps retain some upstream notices/source content, while minifica
 
 ## Notice restoration evidence
 
-The #22 candidate restores 138 distinct notice files associated with 108 component records under libs/third_party_notices, with hashes and upstream source URLs. The regenerated inventory links each library family to restored notices. Nested Requests dependencies, Python standard-library copies, crypto alternatives, the separate Werkzeug font, vendor JavaScript/CSS, Bootstrap/Font Awesome fonts and embedded Bridget terms remain distinct.
+The #22 candidate restores 139 distinct notice files associated with 108 component records under libs/third_party_notices, with hashes and upstream source URLs. The regenerated inventory links each library family to restored notices. Nested Requests dependencies, Python standard-library copies, crypto alternatives, the separate Werkzeug font, vendor JavaScript/CSS, Bootstrap/Font Awesome fonts and embedded Bridget terms remain distinct.
 
 Source versions are not guessed from dependency ranges. ConfigArgParse and PyTVMaze copies have unverified exact revisions; the functools backport has an identified import-directive patch; some frontend builds are labelled but not byte-identical to npm distributions. Historical setuptools metadata says PSF or ZPL without identifying a ZPL version, and some publishers supplied a license declaration instead of a standalone copyright file. The manifest records these limits and labels canonical reference texts; it does not invent owners/years or certify compliance.
 
