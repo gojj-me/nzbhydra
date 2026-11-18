@@ -1,4 +1,6 @@
 import logging
+import sys
+import time
 import weakref
 from threading import Event
 from threading import Thread
@@ -21,13 +23,40 @@ from playhouse.sqlite_ext import SqliteExtDatabase
 logger = logging.getLogger('peewee.sqliteq')
 
 
+clock = getattr(time, 'monotonic', time.time)
+SLOW_SECONDS = 0.5
+APPLICATION_OPERATIONS = {
+    'search': 'search',
+    'saveSearch': 'save-search',
+    'tryGetOrCreateSearchResultDbEntry': 'persist-result',
+    'getStats': 'stats',
+    'get_search_requests': 'search-history',
+    'get_nzb_downloads': 'download-history',
+    'get_indexer_statuses': 'indexer-status',
+    '_cacheTvMazeIds': 'tv-metadata-cache',
+}
+
+
+def application_operation():
+    frame = sys._getframe(1)
+    while frame is not None:
+        module = frame.f_globals.get('__name__', '')
+        if module.startswith('nzbhydra.'):
+            label = APPLICATION_OPERATIONS.get(frame.f_code.co_name)
+            if label:
+                return label
+        frame = frame.f_back
+    return 'other'
+
+
 class ResultTimeout(Exception):
     pass
 
 
 class AsyncCursor(object):
     __slots__ = ('sql', 'params', 'commit', 'timeout',
-                 '_event', '_cursor', '_exc', '_idx', '_rows')
+                 '_event', '_cursor', '_exc', '_idx', '_rows',
+                 'operation', 'phase', 'queued_at')
 
     def __init__(self, event, sql, params, commit, timeout):
         self._event = event
@@ -35,6 +64,9 @@ class AsyncCursor(object):
         self.params = params
         self.commit = commit
         self.timeout = timeout
+        self.operation = application_operation()
+        self.phase = 'queued'
+        self.queued_at = clock()
         self._cursor = self._exc = self._idx = self._rows = None
 
     def set_result(self, cursor, exc=None):
@@ -48,7 +80,9 @@ class AsyncCursor(object):
     def _wait(self, timeout=None):
         timeout = timeout if timeout is not None else self.timeout
         if not self._event.wait(timeout=timeout) and timeout:
-            raise ResultTimeout('results not ready, timed out.')
+            error = ResultTimeout('results not ready, timed out.')
+            error.worker_state = (self.operation, 'writer' if self.commit else 'reader', self.phase)
+            raise error
         if self._exc is not None:
             raise self._exc
 
@@ -174,18 +208,35 @@ class SqliteQueueDatabase(SqliteExtDatabase):
                 logger.info('worker shutting down.')
                 return
 
-            logger.debug('received query %s', async_cursor.sql)
             self._process_execution(async_cursor)
 
     def _process_execution(self, async_cursor):
+        started = clock()
+        async_cursor.phase = 'execute'
         try:
             cursor = self.__execute_sql(async_cursor.sql, async_cursor.params,
                                         async_cursor.commit)
         except Exception as exc:
             cursor = None
+            error = exc
         else:
-            exc = None
-        return async_cursor.set_result(cursor, exc)
+            error = None
+        executed = clock()
+        async_cursor.phase = 'fetch'
+        try:
+            async_cursor.set_result(cursor, error)
+        except Exception as exc:
+            # A failed fetch must still wake the caller and leave the worker alive.
+            async_cursor.set_result(None, exc)
+        finally:
+            async_cursor.phase = 'done'
+            finished = clock()
+            if finished - started >= SLOW_SECONDS:
+                logger.warning('Slow SQLite operation: role=%s operation=%s queue_ms=%d execute_ms=%d fetch_ms=%d',
+                               'writer' if async_cursor.commit else 'reader',
+                               async_cursor.operation, int((started - async_cursor.queued_at) * 1000),
+                               int((executed - started) * 1000), int((finished - executed) * 1000))
+        return async_cursor
 
     def queue_size(self):
         return (self._write_queue.qsize(), self._read_queue.qsize())
