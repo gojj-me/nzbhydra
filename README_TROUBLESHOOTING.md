@@ -12,7 +12,7 @@ This guide describes NZBHydra v1's maintained Python 2.7 behavior for the 0.2.30
 | Parsing failure | Response did not match the supported adapter contract | Investigate provider response/adapter compatibility; a reachable homepage is insufficient evidence of a working search/download contract |
 | Successful search with no matches | That request returned no accepted matches from the successfully searched provider | Check query/category/filters and coverage; do not treat this alone as a broken indexer |
 | Provider not selected | Configuration, selection, capability, limit or disablement rules excluded it | Check the selection rules below; exclusion alone is not a provider failure |
-| Database unavailable / controlled HTTP 503 | Application persistence could not complete within its limits | Treat the request as failed/unavailable, not a successful empty search; investigate application/database state separately |
+| Database unavailable / controlled HTTP 503 | Application persistence timed out or SQLite reported a database lock | Treat the request as failed/unavailable, not a successful empty search; investigate application/database state separately |
 
 A provider message is evidence of its response, not a complete diagnosis. For example, the adapter maps recognized Newznab error 100 to “The API key seems to be incorrect,” 101 to account suspension and 102 to API access not allowed. The first message does not prove a typing mistake: the endpoint, account or API entitlement may also be wrong. A working website login does not establish API access. HTTP 200 alone does not establish authenticated search success because a provider can return an error inside the body.
 
