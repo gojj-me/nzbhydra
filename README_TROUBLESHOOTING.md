@@ -53,6 +53,10 @@ The combined output may contain zero results, but only Alpha supplied a healthy 
 
 API clients may display only returned items or report “no results” without exposing every failed/skipped provider. A successful response or empty item list therefore does not certify complete coverage. Check Hydra's per-provider status privately when diagnosing missing results. No new API completeness flag or client behavior is introduced by this documentation.
 
+## Series autocomplete
+
+Series autocomplete returns HTTP 400 for a trimmed query longer than 256 UTF-8 bytes. This is a local input limit. If TVMaze fails or returns malformed data, Hydra returns HTTP 503. A successful empty result means the autocomplete request completed without usable suggestions. You can still enter a title manually.
+
 ## Share only a minimal synthetic report
 
 If an application defect remains, use the [GitHub issue workflow](https://github.com/gojj-me/nzbhydra/issues). Describe the selected public source revision, affected operation, expected/actual behavior and a minimal invented response or reproduction. Distinguish a confirmed defect from an unverified provider diagnosis. Keep task status on the issue rather than maintaining a separate troubleshooting backlog.

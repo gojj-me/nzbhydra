@@ -1729,7 +1729,6 @@ def metadata_autocomplete(kind, query):
 @requires_auth("main")
 @use_args(internalapi_autocomplete_args, locations=['querystring'])
 def internalapi_autocomplete(args):
-    logger.debug("Autocomplete request with args %s" % args)
     if args["type"] == "movie":
         try:
             results = metadata_autocomplete("movie", args["input"])
@@ -1739,7 +1738,13 @@ def internalapi_autocomplete(args):
             return response
         return jsonify({"results": results})
     elif args["type"] == "tv":
-        results = metadata_autocomplete("tv", args["input"])
+        try:
+            results = metadata_autocomplete("tv", args["input"])
+        except infos.TvmazeQueryTooLong as error:
+            return jsonify({"message": error.message}), 400
+        except infos.TvmazeUnavailable as error:
+            logger.warning("TVMaze series autocomplete unavailable")
+            return jsonify({"message": error.message}), 503
         return jsonify({"results": results})
     else:
         return "No results", 500
