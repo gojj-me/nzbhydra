@@ -199,6 +199,35 @@ class MetadataTests(unittest.TestCase):
         self.assertEqual(200,response.status_code);self.assertIn(b'Synthetic TV',response.data)
         self.assertEqual('api.tvmaze.com',furl(self.calls[0][0]).host)
 
+    def test_tv_autocomplete_rejects_oversized_utf8_and_skips_blank(self):
+        client = web.app.test_client()
+        response = client.get('/internalapi/autocomplete?type=tv&input=' + '%C3%A9' * 129)
+        self.assertEqual(400, response.status_code)
+        response = client.get('/internalapi/autocomplete?type=tv&input=%20')
+        self.assertEqual(200, response.status_code)
+        self.assertEqual([], json.loads(response.data)['results'])
+        self.assertEqual([], self.calls)
+
+    def test_tv_autocomplete_handles_414_and_recovers_for_same_query(self):
+        client = web.app.test_client()
+        url = '/internalapi/autocomplete?type=tv&input=Invented%20%26%20%23'
+        self.status = 414
+        response = client.get(url)
+        self.assertEqual(503, response.status_code)
+        self.assertNotIn('Invented', response.data)
+        target, options = self.calls[0]
+        self.assertEqual('https://api.tvmaze.com/search/shows', target)
+        self.assertEqual({'q': 'Invented & #'}, options['params'])
+        self.assertGreater(options['timeout'], 0)
+        self.status = 200
+        response = client.get(url)
+        self.assertEqual(503, response.status_code)  # Malformed payload.
+        self.payloads['/search/shows'] = []
+        response = client.get(url)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual([], json.loads(response.data)['results'])
+        self.assertEqual(3, len(self.calls))
+
     def test_new_secret_labels_are_masked_in_diagnostics(self):
         for key in ['NZBHYDRA_TMDB_API_KEY','tmdb_api_key','tmdbApiKey']:
             self.assertTrue(redaction.is_sensitive_key(key))

@@ -142,23 +142,49 @@ def imdbid_to_tmdbid(imdbid):
         return None, None
 
 
-def find_series_ids(input):
-    info = webaccess.get("https://api.tvmaze.com/search/shows?q=%s" % input)
-    info.raise_for_status()
-    results = []
-    for result in info.json():
-        result = result["show"]
-        if result["externals"]["thetvdb"] is None:
-            logger.info("Did not find TVDB ID for %s. Will skip this result." % result["name"])
-            continue
-        info = {"label": result["name"], "value": str(result["externals"]["thetvdb"]), "title": result["name"]}
-        try:
-            info["poster"] = result["image"]["medium"]
-        except:
-            logger.debug("No poster found for %s" % result["name"])
-            pass
-        results.append(info)
-    return results
+TVMAZE_QUERY_MAX_BYTES = 256
+
+
+class TvmazeUnavailable(ExternalApiInfoException):
+    pass
+
+
+class TvmazeQueryTooLong(ExternalApiInfoException):
+    pass
+
+
+def find_series_ids(query):
+    query = (query or "").strip()
+    if not query:
+        return []
+    if len(query.encode("utf-8")) > TVMAZE_QUERY_MAX_BYTES:
+        raise TvmazeQueryTooLong("Series autocomplete input exceeds 256 UTF-8 bytes.")
+    try:
+        response = webaccess.get("https://api.tvmaze.com/search/shows",
+                                 params={"q": query}, timeout=config.settings.searching.timeout,
+                                 allow_redirects=False)
+        if response.status_code != 200:
+            raise ValueError()
+        payload = response.json()
+        if not isinstance(payload, list):
+            raise ValueError()
+        results = []
+        for item in payload:
+            show = item["show"]
+            tvdb_id = show["externals"]["thetvdb"]
+            if tvdb_id is None:
+                continue
+            title = show["name"]
+            if not isinstance(title, string_types):
+                raise ValueError()
+            result = {"label": title, "value": str(tvdb_id), "title": title}
+            image = show.get("image")
+            if isinstance(image, dict) and image.get("medium"):
+                result["poster"] = image["medium"]
+            results.append(result)
+        return results
+    except (RequestException, ValueError, TypeError, KeyError, AttributeError):
+        raise TvmazeUnavailable("Series autocomplete is temporarily unavailable.")
 
 
 def title_from_id(identifier_key, identifier_value):
