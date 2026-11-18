@@ -366,6 +366,14 @@ def extendQueryWithFilter(columnNameToEntityMap, filterModel, query):
     return query
 
 
+def count_search_history(query):
+    return query.count()
+
+
+def fetch_search_history_page(query, page, limit):
+    return list(query.paginate(page, limit).dicts())
+
+
 def get_search_requests(page=0, limit=100, sortModel=None, filterModel=None, distinct=False, onlyUser=None):
     columnNameToEntityMap = {
         "time": Search.time,
@@ -391,8 +399,8 @@ def get_search_requests(page=0, limit=100, sortModel=None, filterModel=None, dis
         query = query.where(Search.username == onlyUser)
     if distinct:
         query = query.group_by(Search.internal, Search.query, Search.identifier_key, Search.identifier_value, Search.category, Search.season, Search.episode, Search.type, Search.username, Search.title, Search.author)
-    total_requests = query.count()
-    requests = list(query.paginate(page, limit).dicts())
+    total_requests = count_search_history(query)
+    requests = fetch_search_history_page(query, page, limit)
 
     search_requests = {"totalRequests": total_requests, "searchRequests": requests}
     return search_requests

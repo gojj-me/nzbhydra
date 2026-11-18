@@ -176,8 +176,9 @@ def disable_caching(response):
 @app.errorhandler(ResultTimeout)
 def database_timeout_handler(exception):
     # No SQL, parameters, paths, or exception text in this diagnostic/response.
-    logger.error("Database result timed out; operation=%s; %s",
-                 timeout_context(sys.exc_info()[2]), queue_diagnostics(database.db))
+    worker = getattr(exception, 'worker_state', ('unknown', 'unknown', 'unknown'))
+    logger.error("Database result timed out; operation=%s; %s; worker_operation=%s role=%s phase=%s",
+                 timeout_context(sys.exc_info()[2]), queue_diagnostics(database.db), *worker)
     return "Database temporarily unavailable; please retry later.", 503, {"Retry-After": "60"}
 
 

@@ -20,7 +20,7 @@ logger = logging.getLogger('root')
 
 db = SqliteQueueDatabase(None, autostart=False, results_timeout=20.0, autocommit=False)
 
-DATABASE_VERSION = 22
+DATABASE_VERSION = 23
 
 
 class JSONField(TextField):
@@ -229,6 +229,8 @@ def init_db(dbfile):
             t.create_table()
         except OperationalError:
             logger.exception("Error while creating table %s" % t)
+
+    ensure_history_lookup_indexes()
 
     logger.info("Created new version info entry with database version %d" % DATABASE_VERSION)
     VersionInfo(version=DATABASE_VERSION).create()
@@ -659,6 +661,20 @@ def update_db(dbfile):
         vi.version = 22
         vi.save()
         logger.info("Database retention index migration completed")
+
+
+    if vi.version == 22:
+        logger.info("Adding search history metadata lookup indexes")
+        ensure_history_lookup_indexes()
+        vi.version = 23
+        vi.save()
+
+
+def ensure_history_lookup_indexes():
+    for table, column in (('tvidcache', 'tvdb'), ('tvidcache', 'tvrage'),
+                          ('movieidcache', 'imdb'), ('movieidcache', 'tmdb')):
+        db.execute_sql('CREATE INDEX IF NOT EXISTS "{0}_{1}_lookup" '
+                       'ON "{0}" ("{1}")'.format(table, column), timeout=180).rowcount
 
 
 def ensure_retention_index():
