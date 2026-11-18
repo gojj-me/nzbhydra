@@ -120,8 +120,10 @@ class RetentionTests(unittest.TestCase):
         for name in names:
             database.db.execute_sql('DROP INDEX "' + name + '"').rowcount
         database.VersionInfo.update(version=22).execute()
-        requests = [{}, {'onlyUser': 'synthetic-user'}, {'distinct': True},
-                    {'distinct': True, 'onlyUser': 'synthetic-user'}]
+        filtered = {'query': {'filtertype': 'freetext', 'filter': 'synthetic'}}
+        requests = [{'filterModel': {}}, {'filterModel': filtered},
+                    {'filterModel': {}, 'distinct': True},
+                    {'filterModel': filtered, 'distinct': True, 'onlyUser': 'synthetic-user'}]
         expected = [get_search_requests(page=1, limit=2, **args) for args in requests]
         self.assertEqual(3, expected[0]['totalRequests'])
         self.assertEqual(2, expected[2]['totalRequests'])

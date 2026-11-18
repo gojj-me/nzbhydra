@@ -43,6 +43,10 @@ A failed unfinished batch is rolled back; earlier committed batches remain commi
 
 Before activating schema changes, follow the deployment snapshot and recovery requirements. Returning to older code alone does not restore the earlier database state.
 
+## Search history lookup indexes
+
+Schema version 23 adds four non-unique lookup indexes for the TVDB, TVRage, IMDb and TMDB identifiers used by the search history joins. New databases create them during initialization. Existing databases add them before advancing the schema version. A retry can safely reuse indexes created during an interrupted migration. The count, filtering, grouping and pagination queries keep their existing result semantics. Follow the deployment snapshot and recovery procedure before activating the migration.
+
 ## Provider recovery and search outcomes
 
 [README_TROUBLESHOOTING.md](../README_TROUBLESHOOTING.md) explains private endpoint/credential/entitlement validation, the explicit status reset, internal/API selection and partial or empty results. Keep user-facing recovery steps there; the implementation policies below describe the maintained behavior.
