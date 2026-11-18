@@ -31,6 +31,8 @@ APPLICATION_OPERATIONS = {
     'tryGetOrCreateSearchResultDbEntry': 'persist-result',
     'getStats': 'stats',
     'get_search_requests': 'search-history',
+    'count_search_history': 'search-history-count',
+    'fetch_search_history_page': 'search-history-page',
     'get_nzb_downloads': 'download-history',
     'get_indexer_statuses': 'indexer-status',
     '_cacheTvMazeIds': 'tv-metadata-cache',
