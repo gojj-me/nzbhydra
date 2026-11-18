@@ -1,6 +1,6 @@
 """Synthetic search lock recovery and fixed-label timeout diagnostics, Python 2.7."""
 from __future__ import print_function
-import os, sys, tempfile, shutil, threading, unittest
+import os, sys, tempfile, shutil, sqlite3, threading, unittest
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path[:0]=[ROOT, ROOT+'/libs']
 from bunch import Bunch
@@ -47,6 +47,32 @@ class SearchLockTests(unittest.TestCase):
         self.result.results=[Bunch(title='synthetic',link='https://example.invalid/nzb',indexerguid='synthetic-guid')]
         def fail(*args): raise exception
         search.tryGetOrCreateSearchResultDbEntry=fail
+
+    def test_sqlite_write_lock_returns_503_and_search_recovers(self):
+        from nzbhydra import web
+        config.settings.main.apikey = 'invented-key'
+        client = web.app.test_client()
+        urls = ['/api?t=search&q=synthetic&apikey=invented-key&o=json',
+                '/internalapi/search?query=synthetic&category=all']
+        holder = sqlite3.connect(self.folder + '/synthetic.db')
+        # Bypass only the retry delay for this test. The original write still
+        # runs through the real queue against a separate SQLite transaction.
+        original = search.saveSearch
+        search.saveSearch = original.__wrapped__
+        try:
+            holder.execute('BEGIN IMMEDIATE')
+            for url in urls:
+                response = client.get(url)
+                self.assertEqual(503, response.status_code, response.data)
+                self.assertEqual('60', response.headers['Retry-After'])
+                self.assertNotIn('database is locked', response.data)
+            holder.rollback()
+            for url in urls:
+                response = client.get(url)
+                self.assertEqual(200, response.status_code, response.data)
+        finally:
+            holder.close()
+            search.saveSearch = original
 
     def test_timeout_releases_lock_and_next_search_completes(self):
         self.fail_result(ResultTimeout('invented-sensitive-detail'))

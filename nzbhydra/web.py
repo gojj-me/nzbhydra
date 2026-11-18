@@ -45,7 +45,7 @@ import urllib
 from builtins import *
 from playhouse.sqliteq import ResultTimeout
 from nzbhydra.retention import queue_diagnostics, timeout_context
-from peewee import fn
+from peewee import fn, OperationalError
 from jwt import DecodeError, ExpiredSignature
 from nzbhydra.exceptions import DownloaderException, DownloaderNotFoundException, NzbDownloadException
 
@@ -178,6 +178,15 @@ def database_timeout_handler(exception):
     # No SQL, parameters, paths, or exception text in this diagnostic/response.
     logger.error("Database result timed out; operation=%s; %s",
                  timeout_context(sys.exc_info()[2]), queue_diagnostics(database.db))
+    return "Database temporarily unavailable; please retry later.", 503, {"Retry-After": "60"}
+
+
+@app.errorhandler(OperationalError)
+def database_operational_error_handler(exception):
+    if exception.args not in (("database is locked",), ("database table is locked",)):
+        return all_exception_handler(exception)
+    logger.warning("Database write contention; operation=%s; %s",
+                   timeout_context(sys.exc_info()[2]), queue_diagnostics(database.db))
     return "Database temporarily unavailable; please retry later.", 503, {"Retry-After": "60"}
 
 

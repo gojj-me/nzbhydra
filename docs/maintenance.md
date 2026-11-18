@@ -73,6 +73,8 @@ Redaction is not a general privacy guarantee: logs and debug bundles can still c
 
 ## Search-result lock recovery and timeout diagnostics
 
+The web handler returns HTTP 503 with a 60-second Retry-After when SQLite reports a recognized database lock. Other operational errors retain their existing handling. A separate synthetic transaction verifies that GUI and API searches recover after lock release. Production lock ownership remains under investigation in [#28](https://github.com/gojj-me/nzbhydra/issues/28).
+
 Search-result processing owns the shared database lock through a context manager, which releases it on successful processing and exception exits, including queued-result timeouts. Related application lock owners use context managers as well. The change preserves the controlled database-unavailable response and does not cancel or retry uncertain database work.
 
 Database timeout logs include a fixed operation chain for recognized application call sites, such as search, save-search, persist-result, or provider-status updates. Unrecognized paths are labelled unclassified. Diagnostics never inspect source lines, request contents, SQL/parameters, exception text or frame-local values. Queue depth and worker liveness remain supplemental observations; empty queues and live threads do not prove progress. This exception-safety fix does not establish the original cause of a database timeout or resolve every potential CPU/hang path.
