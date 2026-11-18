@@ -75,7 +75,7 @@ class RetentionTests(unittest.TestCase):
         database.update_db(self.path)
         database.ensure_retention_index()
         database.update_db(self.path)
-        self.assertEqual(22, database.VersionInfo.get().version)
+        self.assertEqual(database.DATABASE_VERSION, database.VersionInfo.get().version)
         with sqlite3.connect(self.path) as conn:
             plan = str(list(conn.execute("EXPLAIN QUERY PLAN SELECT COUNT(*) FROM searchresult WHERE firstFound < '2001-01-01'")))
         self.assertIn('SEARCH', plan.upper())
@@ -95,7 +95,42 @@ class RetentionTests(unittest.TestCase):
         finally:
             database.ensure_retention_index = original
         database.update_db(self.path)
-        self.assertEqual(22, database.VersionInfo.get().version)
+        self.assertEqual(database.DATABASE_VERSION, database.VersionInfo.get().version)
+
+    def test_history_lookup_migration_preserves_actual_history_queries(self):
+        from nzbhydra.stats import get_search_requests
+
+        config.settings = Bunch.fromDict(config.initialConfig)
+        database.TvIdCache.create(tvdb='123', title='Synthetic TV')
+        database.MovieIdCache.create(imdb='tt123', tmdb='456', title='Synthetic Movie')
+        for key, value in [('tvdbid', '123'), ('imdbid', 'tt123'), ('tvdbid', '123')]:
+            database.Search.create(identifier_key=key, identifier_value=value,
+                                   type='general', query='synthetic', internal=True,
+                                   username='synthetic-user')
+
+        names = ('tvidcache_tvdb_lookup', 'tvidcache_tvrage_lookup',
+                 'movieidcache_imdb_lookup', 'movieidcache_tmdb_lookup')
+
+        def indexes():
+            with sqlite3.connect(self.path) as conn:
+                return set(row[0] for row in conn.execute(
+                    "SELECT name FROM sqlite_master WHERE type='index'"))
+
+        self.assertTrue(set(names).issubset(indexes()))
+        for name in names:
+            database.db.execute_sql('DROP INDEX "' + name + '"').rowcount
+        database.VersionInfo.update(version=22).execute()
+        requests = [{}, {'onlyUser': 'synthetic-user'}, {'distinct': True},
+                    {'distinct': True, 'onlyUser': 'synthetic-user'}]
+        expected = [get_search_requests(page=1, limit=2, **args) for args in requests]
+        self.assertEqual(3, expected[0]['totalRequests'])
+        self.assertEqual(2, expected[2]['totalRequests'])
+        database.update_db(self.path)
+        database.update_db(self.path)
+        self.assertEqual(23, database.VersionInfo.get().version)
+        self.assertTrue(set(names).issubset(indexes()))
+        self.assertEqual(expected, [get_search_requests(page=1, limit=2, **args)
+                                    for args in requests])
 
     def test_bounded_batches_and_retention_boundary(self):
         self.populate(old=80, fresh=20)
