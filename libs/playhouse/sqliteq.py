@@ -224,6 +224,14 @@ class SqliteQueueDatabase(SqliteExtDatabase):
         else:
             error = None
         executed = clock()
+        if error is None and async_cursor.sql in (
+                'BEGIN DEFERRED', 'BEGIN IMMEDIATE', 'BEGIN EXCLUSIVE', 'BEGIN'):
+            logger.info('SQLite transaction event=begin operation=%s',
+                        async_cursor.operation)
+        elif getattr(error, 'args', ()) in (('database is locked',), ('database table is locked',)):
+            logger.warning('SQLite execution locked: role=%s operation=%s execute_ms=%d',
+                           'writer' if async_cursor.commit else 'reader', async_cursor.operation,
+                           int((executed - started) * 1000))
         async_cursor.phase = 'fetch'
         try:
             async_cursor.set_result(cursor, error)
@@ -239,6 +247,14 @@ class SqliteQueueDatabase(SqliteExtDatabase):
                                async_cursor.operation, int((started - async_cursor.queued_at) * 1000),
                                int((executed - started) * 1000), int((finished - executed) * 1000))
         return async_cursor
+
+    def commit(self):
+        super(SqliteQueueDatabase, self).commit()
+        logger.info('SQLite transaction event=commit operation=%s', application_operation())
+
+    def rollback(self):
+        super(SqliteQueueDatabase, self).rollback()
+        logger.info('SQLite transaction event=rollback operation=%s', application_operation())
 
     def queue_size(self):
         return (self._write_queue.qsize(), self._read_queue.qsize())

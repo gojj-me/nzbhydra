@@ -99,11 +99,15 @@ class RetentionCleaner(object):
             for unused in range(self.max_batches):
                 if clock() - started >= self.budget:
                     break
+                batch_started = clock()
                 cursor = connection.execute(
                     'DELETE FROM searchresult WHERE id IN '
                     '(SELECT id FROM searchresult WHERE firstFound < ? '
                     'ORDER BY firstFound LIMIT ?)', (str(cutoff), self.batch_size))
                 connection.commit()
+                if cursor.rowcount > 0:
+                    logger.info("SQLite retention event=commit rows=%d elapsed_ms=%d",
+                                cursor.rowcount, int((clock() - batch_started) * 1000))
                 deleted += cursor.rowcount
                 if cursor.rowcount < self.batch_size:
                     break
