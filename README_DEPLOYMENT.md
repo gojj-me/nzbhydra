@@ -90,6 +90,12 @@ An explicitly empty environment value/path does not fall back to another credent
 
 Credentials are read for each provider request without a global library key. Replacing the file permits the next uncached lookup to use the new value without an application restart. Successful metadata autocomplete results may still be served from the ordinary cache; failed lookups are not cached as empty successes. Cached ID conversions and searches using a query or supplied IMDb ID remain available without a TMDB key. TMDB-dependent autocomplete/conversion requests report controlled HTTP 503 when unavailable, and optional conversion/fallback helpers return no conversion instead of aborting unrelated searches.
 
+### Credential ownership check
+
+Before and after applying, restoring or recreating a deployment, verify that any configured TMDB credential is accessible to the actual NZBHydra service UID. For the default file, confirm that the directory and file belong to the service account, retain modes 0700 and 0600 respectively, and pass a nonempty/readable check as that account. A root read or a homepage HTTP 200 does not verify metadata access.
+
+Never recursively change ownership under the persistent maintenance directory. When restoring a credential, preserve its service ownership and restrictive modes. If ownership needs repair, operate only on the credential directory and file after confirming that neither is a symlink. Verify the configured credential source, including any environment override, without displaying its value. Where TMDB is enabled, confirm movie autocomplete with a harmless query before declaring deployment validation complete.
+
 No credential is written into saved application settings, configuration exports or debug archives. Secret-file recovery is a separate operator responsibility: do not assume an application settings/data snapshot contains it. Restoring code/data does not rotate or roll back this separately managed credential. Keep any credential recovery material outside Git and diagnostic exports.
 
 Removing inherited values from the current tree does not retract previously published history or revoke another party's credential. Do not reuse the removed value, probe its validity, rerecord real-provider responses or assume that source cleanup performs revocation. The metadata client uses bounded requests with TLS verification preserved and redirects disabled; provider errors do not expose their bodies, URLs or credentials in the returned diagnostic.
