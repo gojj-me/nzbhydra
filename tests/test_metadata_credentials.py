@@ -194,6 +194,7 @@ class MetadataTests(unittest.TestCase):
         self.assertEqual([],self.calls)
 
     def test_movie_search_uses_converted_id_when_cache_write_is_locked(self):
+        self.key()
         from peewee import OperationalError
         from playhouse.sqliteq import ResultTimeout
         original = database.MovieIdCache.save
