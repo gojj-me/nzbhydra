@@ -5,7 +5,8 @@ from __future__ import unicode_literals
 
 import arrow
 from future import standard_library
-from peewee import IntegrityError
+from peewee import IntegrityError, OperationalError
+from playhouse.sqliteq import ResultTimeout
 from requests import RequestException
 
 #standard_library.install_aliases()
@@ -269,6 +270,17 @@ def _cacheTvMazeIds(tvMaze):
         pass
 
 
+def _save_movie_id_cache(entry):
+    try:
+        entry.save()
+    except ResultTimeout:
+        logger.warning("Movie ID cache write timed out")
+    except OperationalError as error:
+        if error.args not in (("database is locked",), ("database table is locked",)):
+            raise
+        logger.warning("Movie ID cache write blocked by SQLite contention")
+
+
 def convertId(fromType, toType, id):
     logger.info("Converting from %s value %s to %s " % (fromType, id, toType))
     #Clean up names
@@ -289,15 +301,15 @@ def convertId(fromType, toType, id):
         convertedId, title = imdbid_to_tmdbid(id)
         if convertedId is None:
             return None
-        result = MovieIdCache(tmdb=convertedId, imdb=id, title=title) 
-        result.save()
+        result = MovieIdCache(tmdb=convertedId, imdb=id, title=title)
+        _save_movie_id_cache(result)
         
     elif fromType == "tmdb":
         convertedId, title = tmdbid_to_imdbid(id)
         if convertedId is None:
             return None
         result = MovieIdCache(imdb=convertedId, tmdb=id, title=title)
-        result.save()
+        _save_movie_id_cache(result)
     
     elif fromType in ("tvrage", "tvdb", "tvmaze"):
         fromType = fromType.replace("tvdb", "thetvdb") #TVMaze uses "thetvdb"...

@@ -193,6 +193,37 @@ class MetadataTests(unittest.TestCase):
         self.assertEqual(503,response.status_code)
         self.assertEqual([],self.calls)
 
+    def test_movie_search_uses_converted_id_when_cache_write_is_locked(self):
+        self.key()
+        from peewee import OperationalError
+        from playhouse.sqliteq import ResultTimeout
+        original = database.MovieIdCache.save
+
+        def fail_cache_save(entry):
+            raise failure
+
+        self.payloads['/3/movie/123'] = {'imdb_id': 'tt12345', 'title': 'Synthetic'}
+        requests = []
+
+        def start(request):
+            requests.append(request.identifier_value)
+            return 'synthetic search started'
+
+        web.startSearch = start
+        database.MovieIdCache.save = fail_cache_save
+        try:
+            client = web.app.test_client()
+            for failure in (OperationalError('database is locked'), ResultTimeout('synthetic')):
+                response = client.get('/internalapi/moviesearch?tmdbid=123')
+                self.assertEqual(200, response.status_code)
+            self.assertEqual(['12345', '12345'], requests)
+            failure = OperationalError('no such table')
+            response = client.get('/internalapi/moviesearch?tmdbid=123')
+            self.assertEqual(500, response.status_code)
+            self.assertEqual(['12345', '12345'], requests)
+        finally:
+            database.MovieIdCache.save = original
+
     def test_unrelated_tv_autocomplete_is_preserved(self):
         self.payloads['/search/shows']=[{'show':{'externals':{'thetvdb':123},'name':'Synthetic TV','image':None}}]
         response=web.app.test_client().get('/internalapi/autocomplete?type=tv&input=synthetic')
