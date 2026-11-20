@@ -39,6 +39,27 @@ class MaintenanceTests(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.root)
 
+    def test_setup_preserves_service_owned_secret_tree(self):
+        secrets = os.path.join(self.root, 'secrets')
+        os.mkdir(secrets, 0o700)
+        key = os.path.join(secrets, 'tmdb-api-key')
+        with open(key, 'w') as stream:
+            stream.write('synthetic')
+        os.chmod(key, 0o600)
+        touched = []
+        chown, geteuid = os.chown, os.geteuid
+        try:
+            os.chown = lambda path, uid, gid: touched.append(path)
+            os.geteuid = lambda: 0
+            m.setup(self.root)
+        finally:
+            os.chown, os.geteuid = chown, geteuid
+        self.assertIn(os.path.join(self.root, 'state'), touched)
+        self.assertNotIn(secrets, touched)
+        self.assertNotIn(key, touched)
+        self.assertEqual(0o700, os.stat(secrets).st_mode & 0o777)
+        self.assertEqual(0o600, os.stat(key).st_mode & 0o777)
+
     def fixture(self, commit='a' * 40, extra=None):
         path = os.path.join(self.root, 'cache', commit + '.tar.gz')
         with tarfile.open(path, 'w:gz') as tar:

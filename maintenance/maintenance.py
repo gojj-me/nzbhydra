@@ -292,6 +292,8 @@ def setup(root):
             os.makedirs(path)
     os.chmod(root, 0o755)
     for directory, dirs, files in os.walk(root):
+        if directory == root and "secrets" in dirs:
+            dirs.remove("secrets")
         if hasattr(os, 'geteuid') and os.geteuid() == 0:
             os.chown(directory, 0, 0)
             for filename in files:
