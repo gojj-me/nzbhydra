@@ -111,3 +111,5 @@ Run commands from the repository root. Use an isolated Linux container with the 
 ## Keeping these instructions current
 
 Update this file alongside changes to commands, entry points, compatibility constraints, and conventions. Keep `README.md` user-focused and link to the detailed policy and deployment documents. Do not copy a live backlog or private operational notes into this file.
+
+- Preserve persistent credential ownership across deployment and recovery. Follow the service-account credential check in README_DEPLOYMENT.md before declaring deployment validation complete.
